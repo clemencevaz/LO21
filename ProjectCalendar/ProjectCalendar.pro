@@ -6,9 +6,11 @@ SOURCES += \
     main.cpp \
     tache.cpp \
     projet.cpp \
-    activite.cpp
+    activite.cpp \
+    programmation.cpp
 HEADERS += \
     ProjC.h \
     tache.h \
     projet.h \
-    activite.h
+    activite.h \
+    programmation.h
