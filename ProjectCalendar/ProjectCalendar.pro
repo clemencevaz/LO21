@@ -5,3 +5,4 @@ QT += xml
 SOURCES += \
     main.cpp
 HEADERS += \
+    ProjC.h \
