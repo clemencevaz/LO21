@@ -4,7 +4,9 @@ QT += xml
 
 SOURCES += \
     main.cpp \
-    tache.cpp
+    tache.cpp \
+    projet.cpp
 HEADERS += \
     ProjC.h \
-    tache.h
+    tache.h \
+    projet.h
