@@ -4,3 +4,4 @@ QT += xml
 
 SOURCES += \
     main.cpp
+HEADERS += \
