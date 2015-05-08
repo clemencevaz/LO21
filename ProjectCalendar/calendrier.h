@@ -1,6 +1,6 @@
 #ifndef PROGRAMMATION
 #define PROGRAMMATION
-
+#include <vector>
 class programmation{
     const Tache* tache;
     Date date;
@@ -13,7 +13,7 @@ public:
 };
 
 class agenda{
-
+    vector<programmation*> progs;
 };
 
 #endif // PROGRAMMATION
