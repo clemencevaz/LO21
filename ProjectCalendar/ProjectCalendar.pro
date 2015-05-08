@@ -3,6 +3,8 @@ QT += widgets
 QT += xml
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    tache.cpp
 HEADERS += \
     ProjC.h \
+    tache.h
