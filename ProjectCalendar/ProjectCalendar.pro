@@ -5,8 +5,12 @@ QT += xml
 SOURCES += \
     main.cpp \
     tache.cpp \
-    projet.cpp
+    projet.cpp \
+    activite.cpp \
+    calendrier.cpp
 HEADERS += \
     ProjC.h \
     tache.h \
-    projet.h
+    projet.h \
+    activite.h \
+    calendrier.h
