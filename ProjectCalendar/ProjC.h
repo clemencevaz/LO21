@@ -1,5 +1,6 @@
 #ifndef PROJC_H
 #define PROJC_H
+#include "timing.h"
 
 
 //et tout ce qui manque
