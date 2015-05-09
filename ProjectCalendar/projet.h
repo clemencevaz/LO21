@@ -28,9 +28,9 @@ public:
 	/**********
 	/ Setters
 	**********/
-	const bool addTache(const tache& tache){ taches.push_back(tache); }
+	void addTache(const tache& tache){ taches.push_back(tache); }
 
-	const bool addTaches(const vector<tache> addingTaches){
+	void addTaches(const vector<tache*> addingTaches){
 		for (int i = 0; i < addingTaches.size(); i++){
 			taches.push_back(addTaches[i]);
 		}
