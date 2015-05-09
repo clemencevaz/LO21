@@ -58,6 +58,10 @@ Thumbs.db
 *.vcxproj
 *vcxproj.*
 
+#Qt folders
+build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Debug
+build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Debug
+
 # MinGW generated files
 *.Debug
 *.Release
