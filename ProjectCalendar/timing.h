@@ -1,8 +1,8 @@
 #if !defined(CTIME)
 #define CTIME
 
-#include<iostream>
-#include<iomanip>
+
+#include "ProjC.h"
 
 namespace TIME {
 	/*! \class TimeException
