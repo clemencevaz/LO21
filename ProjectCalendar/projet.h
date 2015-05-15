@@ -7,7 +7,7 @@ using namespace std;
 class Projet{
 	friend class Iterator;
 private:
-	qstring nom;
+	QString nom;
 	vector<tache*> taches; 
 public:
 	Projet(const qstring& n): nom(n){
