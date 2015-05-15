@@ -1,13 +1,9 @@
 #ifndef PROGRAMMATION
 #define PROGRAMMATION
-#include <QWidget>
 
-#include "timing.h"
-#include <vector>
-#include <QLabel>
-#include <QHBoxLayout>
-/*
-class programmation{
+#include "ProjC.h"
+
+/*class programmation{
     const Tache* tache;
     Date date;
     Horaire horaire;

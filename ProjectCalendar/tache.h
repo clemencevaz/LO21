@@ -1,7 +1,7 @@
 #ifndef TACHE
 #define TACHE
 using namespace std;
-#include "timing.h"
+#include "ProjC.h"
 class Tache;
 
 class Tache{

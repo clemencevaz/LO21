@@ -2,13 +2,18 @@
 #define PROJET
 #include "ProjC.h"
 
-using namespace std;
+#include "ProjC.h"
 
 class Projet{
 	friend class Iterator;
 private:
+<<<<<<< Updated upstream
 	qstring nom;
 	vector<tache*> taches; 
+=======
+    QString nom;
+    vector<tache*> taches;
+>>>>>>> Stashed changes
 public:
 	Projet(const qstring& n): nom(n){
 		taches.reserve(10);
