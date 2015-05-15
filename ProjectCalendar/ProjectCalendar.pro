@@ -7,10 +7,12 @@ SOURCES += \
     tache.cpp \
     projet.cpp \
     activite.cpp \
-    calendrier.cpp
+    calendrier.cpp \
+    timing.cpp
 HEADERS += \
     ProjC.h \
     tache.h \
     projet.h \
     activite.h \
-    calendrier.h
+    calendrier.h \
+    timing.h
