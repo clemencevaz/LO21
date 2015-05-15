@@ -53,13 +53,16 @@ SOURCES       = ../ProjectCalendar/main.cpp \
 		../ProjectCalendar/projet.cpp \
 		../ProjectCalendar/activite.cpp \
 		../ProjectCalendar/calendrier.cpp \
-		../ProjectCalendar/timing.cpp 
+		../ProjectCalendar/timing.cpp \
+		../ProjectCalendar/tacheediteur.cpp moc_tacheediteur.cpp
 OBJECTS       = main.o \
 		tache.o \
 		projet.o \
 		activite.o \
 		calendrier.o \
-		timing.o
+		timing.o \
+		tacheediteur.o \
+		moc_tacheediteur.o
 DIST          = /Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -193,12 +196,14 @@ DIST          = /Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/spec_
 		../ProjectCalendar/projet.h \
 		../ProjectCalendar/activite.h \
 		../ProjectCalendar/calendrier.h \
-		../ProjectCalendar/timing.h ../ProjectCalendar/main.cpp \
+		../ProjectCalendar/timing.h \
+		../ProjectCalendar/tacheediteur.h ../ProjectCalendar/main.cpp \
 		../ProjectCalendar/tache.cpp \
 		../ProjectCalendar/projet.cpp \
 		../ProjectCalendar/activite.cpp \
 		../ProjectCalendar/calendrier.cpp \
-		../ProjectCalendar/timing.cpp
+		../ProjectCalendar/timing.cpp \
+		../ProjectCalendar/tacheediteur.cpp
 QMAKE_TARGET  = ProjectCalendar
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ProjectCalendar.app/Contents/MacOS/ProjectCalendar
@@ -536,8 +541,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../ProjectCalendar/ProjC.h ../ProjectCalendar/tache.h ../ProjectCalendar/projet.h ../ProjectCalendar/activite.h ../ProjectCalendar/calendrier.h ../ProjectCalendar/timing.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../ProjectCalendar/main.cpp ../ProjectCalendar/tache.cpp ../ProjectCalendar/projet.cpp ../ProjectCalendar/activite.cpp ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/timing.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../ProjectCalendar/ProjC.h ../ProjectCalendar/tache.h ../ProjectCalendar/projet.h ../ProjectCalendar/activite.h ../ProjectCalendar/calendrier.h ../ProjectCalendar/timing.h ../ProjectCalendar/tacheediteur.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../ProjectCalendar/main.cpp ../ProjectCalendar/tache.cpp ../ProjectCalendar/projet.cpp ../ProjectCalendar/activite.cpp ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/timing.cpp ../ProjectCalendar/tacheediteur.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -563,8 +568,37 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_tacheediteur.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_tacheediteur.cpp
+moc_tacheediteur.cpp: /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcheckbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
+		../ProjectCalendar/tacheediteur.h
+	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/tacheediteur.h -o moc_tacheediteur.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -577,7 +611,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: 
+compiler_clean: compiler_moc_header_clean 
 
 ####### Compile
 
@@ -601,6 +635,46 @@ calendrier.o: ../ProjectCalendar/calendrier.cpp
 
 timing.o: ../ProjectCalendar/timing.cpp ../ProjectCalendar/timing.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timing.o ../ProjectCalendar/timing.cpp
+
+tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheediteur.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcheckbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextCodec \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtextcodec.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/QtXml \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/qtxmlglobal.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/qdom.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/qxml.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/qtxmlversion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tacheediteur.o ../ProjectCalendar/tacheediteur.cpp
+
+moc_tacheediteur.o: moc_tacheediteur.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tacheediteur.o moc_tacheediteur.cpp
 
 ####### Install
 

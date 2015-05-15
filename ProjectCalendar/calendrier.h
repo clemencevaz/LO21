@@ -1,6 +1,8 @@
 #ifndef PROGRAMMATION
 #define PROGRAMMATION
-#include <vector>
+
+#include "ProjC.h"
+
 class programmation{
     const Tache* tache;
     Date date;
