@@ -1,18 +1,11 @@
 #ifndef PROJC_H
 #define PROJC_H
-#include "timing.h"
+//#include "timing.h"
+#include "calendrier.h"
 
 
 //et tout ce qui manque
 
-namespace ProjectCalendar{
-	class Projet{
-	public:
-		Projet();
-		~Projet();
-		
-	};
 
-}
 
 #endif
