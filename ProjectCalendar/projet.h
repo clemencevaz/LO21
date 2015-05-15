@@ -1,19 +1,20 @@
 #ifndef PROJET
 #define PROJET
+#include "ProjC.h"
 
 using namespace std;
 
-class projet{
+class Projet{
 	friend class Iterator;
 private:
 	qstring nom;
-	vector<tache> taches; 
+	vector<tache*> taches; 
 public:
-	projet(const qstring& n): nom(n){
+	Projet(const qstring& n): nom(n){
 		taches.reserve(10);
 	}
 
-	~projet(){
+	~Projet(){
 		for (int i = 0; i < taches.size(); i++){
 			delete taches[i];
 		}
@@ -22,7 +23,7 @@ public:
 	/**********
 	/ Accessors
 	**********/
-	const vector<tache> getTaches() const{ return taches; }
+	const vector<tache*> getTaches() const{ return taches; }
 
 
 	/**********
@@ -76,7 +77,7 @@ public:
 			}
 		}
 
-		Iterator getIterator(){ return new Iterator(); }
+		static Iterator getIterator(){ return new Iterator(); }
 	};
 
 };
