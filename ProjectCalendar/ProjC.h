@@ -20,6 +20,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QDateEdit>
+#include <QVector>
 //#include "timing.h"
 //#include "activite.h"
 //#include "projet.h"

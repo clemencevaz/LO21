@@ -13,16 +13,31 @@ public:
     Date getDate() const { return date; }
     Horaire getHoraire() const { return horaire; }
 };*/
+class programmation;
 
 class agenda: public QWidget{
-    //Q_OBJECT
-    //vector<programmation*> progs;
+    Q_OBJECT
+
+    std::vector<programmation*> progs;
     QLabel* titreLabel;
     QHBoxLayout* coucheh1;
+    agenda();
+    ~agenda();
+    agenda(const agenda& ag);
+    agenda& operator=(const agenda& ag);
 
+    struct AgendaHandler{
+        agenda* instance;
+        AgendaHandler():instance(0){}
+        ~AgendaHandler(){agenda::libererInstance();}
+    };
+    static AgendaHandler agendahandler;
 
 public:
-    agenda();
+
+    static agenda& getInstance();
+    static void libererInstance();
+
 };
 
 #endif // PROGRAMMATION
