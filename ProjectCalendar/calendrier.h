@@ -3,16 +3,8 @@
 
 #include "ProjC.h"
 
-/*class programmation{
-    const Tache* tache;
-    Date date;
-    Horaire horaire;
-public:
-    Programmation(const Tache& t, const Date& d, const Horaire& h):tache(&t), date(d), horaire(h){}
-    const Tache& getTache() const { return *tache; }
-    Date getDate() const { return date; }
-    Horaire getHoraire() const { return horaire; }
-};*/
+
+
 class programmation;
 
 class agenda: public QWidget{
@@ -34,11 +26,31 @@ class agenda: public QWidget{
     static AgendaHandler agendahandler;
 
 public:
-
     static agenda& getInstance();
     static void libererInstance();
+    programmation& ajouterProgrammation(const Tache& t, const TIME::Horaire& h, const Date& d);
+};
+
+class programmation{
+    TIME::Date date;
+    TIME::Horaire horaire;
+    programmation (const TIME::Date& d, const TIME::Horaire& h):date(d), horaire(h){}
+    friend class agenda;
+public:
+    const TIME::Date getDate() const { return date; }
+    const TIME::Horaire getHoraire() const { return horaire; }
+};
+
+
+
+class programmationActivite: public programmation{
+    const Activite& activite;
+public:
+    programmationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
+    const Activite& getActivite() const { return *activite; }
 
 };
+
 
 #endif // PROGRAMMATION
 

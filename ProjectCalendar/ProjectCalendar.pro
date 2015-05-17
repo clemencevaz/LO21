@@ -8,13 +8,13 @@ SOURCES += \
     projet.cpp \
     activite.cpp \
     calendrier.cpp \
-    timing.cpp \
-    tacheediteur.cpp
+    tacheediteur.cpp \
+    timing.cpp
 HEADERS += \
     ProjC.h \
     tache.h \
     projet.h \
     activite.h \
     calendrier.h \
-    timing.h \
-    tacheediteur.h
+    tacheediteur.h \
+    timing.h

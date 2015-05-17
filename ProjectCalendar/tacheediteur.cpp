@@ -4,7 +4,7 @@
 #include <QTextCodec>
 #include <QtXml>
 #include <QMessageBox>
-
+/*
 TacheEditeur::TacheEditeur(Tache& tacheToEdit, QWidget *parent) :
         QWidget(parent),tache(tacheToEdit){
     this->setWindowTitle(QString("Edition de la tâche ")+tacheToEdit.getId());
@@ -97,6 +97,6 @@ void TacheEditeur::coherenceDates(const QDate & date){
     if (date==disponibilite->date() && echeance->date()<disponibilite->date()) echeance->setDate(disponibilite->date());
     if (date==echeance->date() && echeance->date()<disponibilite->date()) disponibilite->setDate(echeance->date());
 }
-
+*/
 
 

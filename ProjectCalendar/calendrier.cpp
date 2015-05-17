@@ -19,3 +19,8 @@ agenda::agenda(){
     setLayout(coucheh1);
 
 }
+programmation& agenda::ajouterProgrammation(const Tache& t, const Horaire& h, const Date& d){
+    programmation* newprog=new programmation(t,h,d);
+    progs.push_back(&newprog);
+    return *newprog;
+}

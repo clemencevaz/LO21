@@ -3,7 +3,7 @@
 
 
 #include "ProjC.h"
-
+class Tache;
 class TacheEditeur : public QWidget{
     Q_OBJECT
     Tache& tache;
@@ -27,14 +27,14 @@ class TacheEditeur : public QWidget{
     QHBoxLayout* coucheH3;
     QHBoxLayout* coucheH4;
 public:
-    explicit TacheEditeur(Tache& tacheToEdit, QWidget *parent = 0);
+    //explicit TacheEditeur(Tache& tacheToEdit, QWidget *parent = 0);
 signals:
 
 public slots:
-    void sauverTache();
+    //void sauverTache();
 private slots:
-    void activerSauver(QString str="");
-    void coherenceDates(const QDate & date);
+    //void activerSauver(QString str="");
+    //void coherenceDates(const QDate & date);
 };
 
 #endif // TACHEEDITEUR_H

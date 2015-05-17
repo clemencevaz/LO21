@@ -2,7 +2,7 @@
 #define TACHE
 using namespace std;
 #include "ProjC.h"
-class Tache;
+
 
 class Tache{
 	Projet projet_pere;
@@ -33,7 +33,7 @@ class TacheUnitaire : public tache{
 	bool preeemptive;
 	public:
 		tache_unitaire(const string& t, const Date& d_disp, const Date& ech, const Tache& precedentes, float ach, const projet& pere, duree d, bool pre):
-		tache(t, d_disp, ech, precedentes, pere, duree), duree(d), preemptive(pre){};
+        tache(t, d_disp, ech, precedentes, pere, duree), duree(d), preemptive(pre){}
 		~tache_unitaire();
 };
 

@@ -2,17 +2,16 @@
 #define PROJET
 #include "ProjC.h"
 
-#include "ProjC.h"
 
 class Projet{
 	friend class Iterator;
 private:
 
 	QString nom;
-	vector<tache*> taches; 
+    std::vector<Tache*> taches;
 
 public:
-	Projet(const qstring& n): nom(n){
+    Projet(const QString& n): nom(n){
 		taches.reserve(10);
 	}
 
@@ -25,24 +24,24 @@ public:
 	/**********
 	/ Accessors
 	**********/
-	const vector<tache*> getTaches() const{ return taches; }
+    const std::vector<Tache*> getTaches() const{ return taches; }
 
 
 	/**********
 	/ Setters
 	**********/
-	void addTache(const tache& tache){ taches.push_back(tache); }
+    void addTache(const Tache& tache){ taches.push_back(tache); }
 
-	void addTaches(const vector<tache*> addingTaches){
+    /*void addTaches(const vector<tache*> addingTaches){
 		for (int i = 0; i < addingTaches.size(); i++){
 			taches.push_back(addTaches[i]);
 		}
 	}
-
+    */
 
 	//TODO:
 		// Creer iterateur
-	void deleteTache(const tache& tache){
+    void deleteTache(const Tache& tache){
 		for (int i = 0; i < taches.size(); i++){
 			if (&taches[i] === tache){
 				taches.erase(taches.begin()+i);
@@ -59,7 +58,7 @@ public:
 			i = 0;
 		}
 	public:
-		tache& current(){
+        Tache& current(){
 			return project::taches[i];
 		}
 
@@ -83,6 +82,7 @@ public:
 	};
 
 };
+
 
 #endif // PROJET
 
