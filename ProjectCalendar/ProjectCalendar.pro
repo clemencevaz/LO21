@@ -6,10 +6,10 @@ SOURCES += \
     main.cpp \
     tache.cpp \
     projet.cpp \
-    activite.cpp \
     calendrier.cpp \
     tacheediteur.cpp \
-    timing.cpp
+    timing.cpp \
+    activite.cpp
 HEADERS += \
     ProjC.h \
     tache.h \
