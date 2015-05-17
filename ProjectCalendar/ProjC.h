@@ -23,7 +23,7 @@
 #include <QDateEdit>
 #include <QVector>
 #include "timing.h"
-//#include "activite.h"
+#include "activite.h"
 //#include "projet.h"
 //#include "tache.h"
 #include "calendrier.h"
