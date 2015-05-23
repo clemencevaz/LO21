@@ -17,7 +17,7 @@ agenda::agenda(){
     coucheh1 = new QHBoxLayout;
     coucheh1->addWidget(titreLabel);
     setLayout(coucheh1);
-
+    
 }
 programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h){
     programmation* newprog=new programmationTache(d,h);

@@ -29,10 +29,10 @@ class TacheEditeur : public QWidget{
 public:
     //explicit TacheEditeur(Tache& tacheToEdit, QWidget *parent = 0);
 signals:
-
-public slots:
+    
+    public slots:
     //void sauverTache();
-private slots:
+    private slots:
     //void activerSauver(QString str="");
     //void coherenceDates(const QDate & date);
 };

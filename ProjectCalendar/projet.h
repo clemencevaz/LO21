@@ -4,85 +4,84 @@
 
 
 class Projet{
-	friend class Iterator;
+    friend class Iterator;
 private:
-
-	QString nom;
+    
+    QString nom;
     std::vector<Tache*> taches;
-
+    
 public:
     Projet(const QString& n): nom(n){
-		taches.reserve(10);
-	}
-
-	~Projet(){
-		for (int i = 0; i < taches.size(); i++){
-			delete taches[i];
-		}
-	}
-
-	/**********
-	/ Accessors
-	**********/
+        taches.reserve(10);
+    }
+    
+    ~Projet(){
+        for (int i = 0; i < taches.size(); i++){
+            delete taches[i];
+        }
+    }
+    
+    /**********
+     / Accessors
+     **********/
     const std::vector<Tache*> getTaches() const{ return taches; }
-
-
-	/**********
-	/ Setters
-	**********/
+    
+    
+    /**********
+     / Setters
+     **********/
     void addTache(const Tache& tache){ taches.push_back(tache); }
-
+    
     /*void addTaches(const vector<tache*> addingTaches){
-		for (int i = 0; i < addingTaches.size(); i++){
-			taches.push_back(addTaches[i]);
-		}
-	}
-    */
-
-	//TODO:
-		// Creer iterateur
+     for (int i = 0; i < addingTaches.size(); i++){
+     taches.push_back(addTaches[i]);
+     }
+     }
+     */
+    
+    //TODO:
+    // Creer iterateur
     void deleteTache(const Tache& tache){
-		for (int i = 0; i < taches.size(); i++){
-			if (&taches[i] === tache){
-				taches.erase(taches.begin()+i);
-			}
-		}
-	}
-
-	class Iterator;
-
-	class Iterator{
-	private:
-		int i; //index
-		Iterator(){
-			i = 0;
-		}
-	public:
+        for (int i = 0; i < taches.size(); i++){
+            if (&taches[i] === tache){
+                taches.erase(taches.begin()+i);
+            }
+        }
+    }
+    
+    class Iterator;
+    
+    class Iterator{
+    private:
+        int i; //index
+        Iterator(){
+            i = 0;
+        }
+    public:
         Tache& current(){
-			return project::taches[i];
-		}
-
-		void next(){ 
-			if (i>project::taches.max_size()){
-				end();
-			}else{
-				i++;
-			}
-		}
-
-		bool end(){
-			if (i >= project::taches.max_size()){
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		static Iterator getIterator(){ return new Iterator(); }
-	};
-
+            return project::taches[i];
+        }
+        
+        void next(){
+            if (i>project::taches.max_size()){
+                end();
+            }else{
+                i++;
+            }
+        }
+        
+        bool end(){
+            if (i >= project::taches.max_size()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+        static Iterator getIterator(){ return new Iterator(); }
+    };
+    
 };
 
 
 #endif // PROJET
-

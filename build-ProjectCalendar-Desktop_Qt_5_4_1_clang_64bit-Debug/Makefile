@@ -51,17 +51,17 @@ OBJECTS_DIR   = ./
 SOURCES       = ../ProjectCalendar/main.cpp \
 		../ProjectCalendar/tache.cpp \
 		../ProjectCalendar/projet.cpp \
-		../ProjectCalendar/activite.cpp \
 		../ProjectCalendar/calendrier.cpp \
+		../ProjectCalendar/tacheediteur.cpp \
 		../ProjectCalendar/timing.cpp \
-		../ProjectCalendar/tacheediteur.cpp moc_tacheediteur.cpp
+		../ProjectCalendar/activite.cpp moc_tacheediteur.cpp
 OBJECTS       = main.o \
 		tache.o \
 		projet.o \
-		activite.o \
 		calendrier.o \
-		timing.o \
 		tacheediteur.o \
+		timing.o \
+		activite.o \
 		moc_tacheediteur.o
 DIST          = /Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/qdevice.pri \
@@ -196,14 +196,14 @@ DIST          = /Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/spec_
 		../ProjectCalendar/projet.h \
 		../ProjectCalendar/activite.h \
 		../ProjectCalendar/calendrier.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/tacheediteur.h ../ProjectCalendar/main.cpp \
+		../ProjectCalendar/tacheediteur.h \
+		../ProjectCalendar/timing.h ../ProjectCalendar/main.cpp \
 		../ProjectCalendar/tache.cpp \
 		../ProjectCalendar/projet.cpp \
-		../ProjectCalendar/activite.cpp \
 		../ProjectCalendar/calendrier.cpp \
+		../ProjectCalendar/tacheediteur.cpp \
 		../ProjectCalendar/timing.cpp \
-		../ProjectCalendar/tacheediteur.cpp
+		../ProjectCalendar/activite.cpp
 QMAKE_TARGET  = ProjectCalendar
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ProjectCalendar.app/Contents/MacOS/ProjectCalendar
@@ -541,8 +541,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../ProjectCalendar/ProjC.h ../ProjectCalendar/tache.h ../ProjectCalendar/projet.h ../ProjectCalendar/activite.h ../ProjectCalendar/calendrier.h ../ProjectCalendar/timing.h ../ProjectCalendar/tacheediteur.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../ProjectCalendar/main.cpp ../ProjectCalendar/tache.cpp ../ProjectCalendar/projet.cpp ../ProjectCalendar/activite.cpp ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/timing.cpp ../ProjectCalendar/tacheediteur.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../ProjectCalendar/ProjC.h ../ProjectCalendar/tache.h ../ProjectCalendar/projet.h ../ProjectCalendar/activite.h ../ProjectCalendar/calendrier.h ../ProjectCalendar/tacheediteur.h ../ProjectCalendar/timing.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../ProjectCalendar/main.cpp ../ProjectCalendar/tache.cpp ../ProjectCalendar/projet.cpp ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/timing.cpp ../ProjectCalendar/activite.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -571,7 +571,10 @@ compiler_rcc_clean:
 compiler_moc_header_make_all: moc_tacheediteur.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_tacheediteur.cpp
-moc_tacheediteur.cpp: /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+moc_tacheediteur.cpp: ../ProjectCalendar/ProjC.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcheckbox.h \
@@ -582,8 +585,6 @@ moc_tacheediteur.cpp: /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.fr
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
@@ -596,6 +597,15 @@ moc_tacheediteur.cpp: /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.fr
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../ProjectCalendar/timing.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/calendrier.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextStream \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtextstream.h \
 		../ProjectCalendar/tacheediteur.h
 	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/tacheediteur.h -o moc_tacheediteur.cpp
 
@@ -617,26 +627,11 @@ compiler_clean: compiler_moc_header_clean
 
 main.o: ../ProjectCalendar/main.cpp /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QWindow \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindow.h \
 		../ProjectCalendar/ProjC.h \
-		../ProjectCalendar/timing.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ProjectCalendar/main.cpp
-
-tache.o: ../ProjectCalendar/tache.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tache.o ../ProjectCalendar/tache.cpp
-
-projet.o: ../ProjectCalendar/projet.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o projet.o ../ProjectCalendar/projet.cpp
-
-activite.o: ../ProjectCalendar/activite.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o activite.o ../ProjectCalendar/activite.cpp
-
-calendrier.o: ../ProjectCalendar/calendrier.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calendrier.o ../ProjectCalendar/calendrier.cpp
-
-timing.o: ../ProjectCalendar/timing.cpp ../ProjectCalendar/timing.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timing.o ../ProjectCalendar/timing.cpp
-
-tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheediteur.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -648,8 +643,6 @@ tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheedit
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
@@ -662,6 +655,68 @@ tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheedit
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../ProjectCalendar/timing.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/calendrier.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextStream \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtextstream.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ProjectCalendar/main.cpp
+
+tache.o: ../ProjectCalendar/tache.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tache.o ../ProjectCalendar/tache.cpp
+
+projet.o: ../ProjectCalendar/projet.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o projet.o ../ProjectCalendar/projet.cpp
+
+calendrier.o: ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/calendrier.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextStream \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtextstream.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calendrier.o ../ProjectCalendar/calendrier.cpp
+
+tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheediteur.h \
+		../ProjectCalendar/ProjC.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcheckbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../ProjectCalendar/timing.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/calendrier.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextStream \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtextstream.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextCodec \
@@ -672,6 +727,12 @@ tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheedit
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/qxml.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/qtxmlversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tacheediteur.o ../ProjectCalendar/tacheediteur.cpp
+
+timing.o: ../ProjectCalendar/timing.cpp ../ProjectCalendar/timing.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timing.o ../ProjectCalendar/timing.cpp
+
+activite.o: ../ProjectCalendar/activite.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o activite.o ../ProjectCalendar/activite.cpp
 
 moc_tacheediteur.o: moc_tacheediteur.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tacheediteur.o moc_tacheediteur.cpp
