@@ -29,7 +29,7 @@ class TacheEditeur : public QWidget{
 public:
     //explicit TacheEditeur(Tache& tacheToEdit, QWidget *parent = 0);
 signals:
-    
+
     public slots:
     //void sauverTache();
     private slots:

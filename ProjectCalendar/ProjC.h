@@ -28,7 +28,7 @@
 //#include "tache.h"
 #include "calendrier.h"
 //#include "tacheediteur.h"
-using namespace std;
+//using namespace std;
 
 
 

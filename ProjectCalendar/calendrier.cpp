@@ -1,12 +1,12 @@
 #include "calendrier.h"
 agenda::AgendaHandler agenda::agendahandler=agenda::AgendaHandler();
 
-agenda& agenda::getInstance(){
+static agenda& agenda::getInstance(){
     if(agendahandler.instance==0) agendahandler.instance = new agenda;
     return* agendahandler.instance;
 }
 
-void agenda::libererInstance(){
+static void agenda::libererInstance(){
     delete agendahandler.instance;
     agendahandler.instance=0;
 }
