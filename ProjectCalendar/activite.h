@@ -13,6 +13,26 @@ public:
     const QString& getNom(){return nom;}
     const QString& getDescription(){return description;}
     const TIME::Duree& getDuree(){return duree;}
+
+};
+
+class FenetreCreerActivite: public QWidget{
+    Q_OBJECT
+    QLabel* titreLabel;
+    QLabel* nom;
+    QLabel* description;
+    QLabel* duree;
+    QLineEdit* ActNom;
+    QTextEdit* ActDesc;
+    QSpinBox* hActDuree;
+    QSpinBox* mActDuree;
+    QHBoxLayout* coucheh1;
+    QVBoxLayout* coucheV1;
+    QPushButton* Enregistrer;
+public:
+    FenetreCreerActivite();
+public slots:
+    void sauverActivite();
 };
 
 #endif // ACTIVITE

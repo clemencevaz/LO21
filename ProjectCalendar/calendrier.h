@@ -3,6 +3,8 @@
 
 #include "ProjC.h"
 using namespace TIME;
+
+class Activite;
 class programmation;
 class programmationActivite;
 class programmationTache;
@@ -13,6 +15,7 @@ class agenda: public QWidget{
     std::vector<programmation> progs;
     QLabel* titreLabel;
     QHBoxLayout* coucheh1;
+    QPushButton* CreerActivite;
     agenda();
     //~agenda();
     agenda(const agenda& ag);
@@ -31,6 +34,8 @@ public:
     //programmation& ajouterProgrammation(const Tache& t, const TIME::Horaire& h, const Date& d);
     programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
+public slots:
+    void fenetreActivite();
 };
 
 class programmation{
