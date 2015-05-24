@@ -64,14 +64,13 @@ void programmationActivite::afficher() const {
 //    coucheV1->addWidget(duree);
 //    coucheH1->addWidget(date);
 //    coucheH1->addWidget(horaire);
-
-
-        QString msg;
-        msg+="Affichage de l'activité :";
-        //msg+=activite.getDescription();
-        QMessageBox msgBox;
-        msgBox.setText(msg);
-        msgBox.exec();
+    Activite act=this->activite;
+    QString msg;
+    msg+="Affichage de l'activité :";
+    msg+=act.getNom();
+    QMessageBox msgBox;
+    msgBox.setText(msg);
+    msgBox.exec();
 }
 
 void agenda::fenetreActivite(){
@@ -85,7 +84,7 @@ programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME
     return *newprog;
 }
 programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
-    programmationActivite* newprog=new programmationActivite(a,d,h);
+    programmationActivite* newprog= new programmationActivite(a,d,h);
     progs.push_back(newprog);
     return *newprog;
 }

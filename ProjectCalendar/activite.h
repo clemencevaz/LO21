@@ -10,9 +10,9 @@ private:
     TIME::Duree duree;
 public:
     Activite(const QString& n, const QString& d, const TIME::Duree& dur):nom(n), description(d), duree(dur){}
-    const QString& getNom(){return nom;}
-    const QString& getDescription(){return description;}
-    const TIME::Duree& getDuree(){return duree;}
+    const QString& getNom() const {return nom;}
+    const QString& getDescription() const {return description;}
+    const TIME::Duree& getDuree() const {return duree;}
 
 };
 
