@@ -39,6 +39,8 @@ void FenetreCreerActivite::sauverActivite(){
         QMessageBox msgBox;
         msgBox.setText("L'Activité a été crée");
         msgBox.exec();
+        FenetreProgrammerActivite* programactivite= new FenetreProgrammerActivite(*activite);
+        programactivite->show();
+        this->close();
     }
-    this->close();
 }

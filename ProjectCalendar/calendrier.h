@@ -66,4 +66,27 @@ public:
 
 };
 
+class FenetreProgrammerActivite:public QWidget{
+    Q_OBJECT
+    const Activite& activite;
+    QLabel* titreLabel;
+    QLabel* nom;
+    QLabel* description;
+    QLabel* duree;
+    QLabel* date;
+    QLabel* horaire;
+    QDateEdit* ProgDate;
+    QSpinBox* ProgHh;
+    QSpinBox* ProgHm;
+    QVBoxLayout* coucheV1;
+    QHBoxLayout* coucheH1;
+    QHBoxLayout* coucheH2;
+    QPushButton* Enregistrer;
+
+public:
+    FenetreProgrammerActivite(Activite& a);
+public slots:
+    void enregistrer();
+};
+
 #endif // PROGRAMMATION

@@ -40,4 +40,51 @@ programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIM
     return *newprog;
 }
 
+FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
+    titreLabel = new QLabel("Programmer une activité");
+    nom = new QLabel(this);
+    nom->setText(QVariant(a.getNom()).toString());
+    description=new QLabel();
+    description->setText(a.getDescription());
+    duree=new QLabel();
+    duree->setText(QVariant(a.getDuree().getDureeEnMinutes()).toString());
+    date= new QLabel("Date: ");
+    horaire= new QLabel("Horaire: (h-m)");
+    ProgDate= new QDateEdit();
+    ProgDate->setDate(QDate::currentDate());
+    ProgHh= new QSpinBox();
+    ProgHm = new QSpinBox();
+
+    coucheV1= new QVBoxLayout();
+    coucheV1->addWidget(titreLabel);
+    coucheV1->addWidget(nom);
+    coucheV1->addWidget(description);
+    coucheV1->addWidget(duree);
+
+    coucheH1= new QHBoxLayout();
+    coucheH1->addWidget(date);
+    coucheH1->addWidget(ProgDate);
+
+    coucheH2= new QHBoxLayout();
+    coucheH2->addWidget(horaire);
+    coucheH2->addWidget(ProgHh);
+    coucheH2->addWidget(ProgHm);
+
+    Enregistrer=new  QPushButton("Enregistrer");
+    coucheV1->addLayout(coucheH1);
+    coucheV1->addLayout(coucheH2);
+    coucheV1->addWidget(Enregistrer);
+
+    setLayout(coucheV1);
+    QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(enregistrer()));
+
+}
+
+void FenetreProgrammerActivite::enregistrer(){
+    if(programmation* progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()))){
+        QMessageBox msgBox;
+        msgBox.setText("L'Activité a été programmée");
+        msgBox.exec();
+    }
+}
 
