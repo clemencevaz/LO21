@@ -16,6 +16,7 @@ class agenda: public QWidget{
     QLabel* titreLabel;
     QHBoxLayout* coucheh1;
     QPushButton* CreerActivite;
+    QPushButton* Afficher;
     agenda();
     //~agenda();
     agenda(const agenda& ag);
@@ -34,14 +35,17 @@ public:
     //programmation& ajouterProgrammation(const Tache& t, const TIME::Horaire& h, const Date& d);
     programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
-    void afficher() ;
 public slots:
     void fenetreActivite();
+    void afficher() ;
+
 };
 
 class programmation{
+protected:
     TIME::Date date;
     TIME::Horaire horaire;
+private:
     friend class agenda;
     friend class programmationActivite;
     friend class programmationTache;
@@ -51,7 +55,7 @@ public:
     const TIME::Date getDate() const { return date; }
     const TIME::Horaire getHoraire() const { return horaire; }
     //virtual void afficher() ;
-    void afficher() const;
+    virtual void afficher() const {}
 };
 
 class programmationTache: public programmation{

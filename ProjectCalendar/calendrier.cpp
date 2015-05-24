@@ -15,43 +15,63 @@ agenda::agenda() {
     progs.reserve(10);
     titreLabel= new QLabel("Agenda");
     CreerActivite=new QPushButton("Créer une Activité", this);
+    Afficher=new QPushButton("Afficher",this);
+
     coucheh1 = new QHBoxLayout;
     coucheh1->addWidget(titreLabel);
     coucheh1->addWidget(CreerActivite);
+    coucheh1->addWidget(Afficher);
     setLayout(coucheh1);
 
     QObject::connect(CreerActivite,SIGNAL(clicked()),this,SLOT(fenetreActivite()));
+    QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
+
 
 }
 
 void agenda::afficher(){
+
     for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
         if(*it!=0)
         {
-            //(*it)->afficher();
+            (*it)->afficher();
         }
 }
 
 void programmationActivite::afficher() const {
-    QLabel* nom;
-    QLabel* description;
-    QLabel* duree;
-    QLabel* date;
-    QLabel* horaire;
-    QHBoxLayout* coucheH1;
-    QVBoxLayout* coucheV1;
-    nom= new QLabel();
-    //nom->setText(this->getActivite().getNom());
-    description=new QLabel();
-    //description->setText(this->getActivite().getDescription());
-    duree=new QLabel();
-    //duree->setText(this->getActivite().getDuree().getDureeEnMinutes());
-    date=new QLabel();
-    date->setText(QVariant(programmation::getDate().getJour()).toString());
-    horaire=new QLabel();
-    horaire->setText(programmation::getHoraire().getHeure()+":"+programmation::getHoraire().getMinute());
-    coucheH1=new QHBoxLayout();
-    coucheV1=new QVBoxLayout();
+//    QLabel* nom;
+//    QLabel* description;
+//    QLabel* duree;
+//    QLabel* date;
+//    QLabel* horaire;
+//    QHBoxLayout* coucheH1;
+//    QVBoxLayout* coucheV1;
+//    nom= new QLabel();
+//    //nom->setText(this->getActivite().getNom());
+//    description=new QLabel();
+//    //description->setText(this->getActivite().getDescription());
+//    duree=new QLabel();
+//    //duree->setText(this->getActivite().getDuree().getDureeEnMinutes());
+//    date=new QLabel();
+//    date->setText(QVariant(programmation::getDate().getJour()).toString());
+//    horaire=new QLabel();
+//    horaire->setText(programmation::getHoraire().getHeure()+":"+programmation::getHoraire().getMinute());
+//    coucheH1=new QHBoxLayout();
+//    coucheV1=new QVBoxLayout();
+
+//    coucheV1->addWidget(nom);
+//    coucheV1->addWidget(description);
+//    coucheV1->addWidget(duree);
+//    coucheH1->addWidget(date);
+//    coucheH1->addWidget(horaire);
+
+
+        QString msg;
+        msg+="Affichage de l'activité :";
+        //msg+=activite.getDescription();
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
 }
 
 void agenda::fenetreActivite(){
@@ -60,12 +80,12 @@ void agenda::fenetreActivite(){
 }
 
 programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h) {
-    programmation* newprog=new programmationTache(d,h);
+    programmationTache* newprog=new programmationTache(d,h);
     progs.push_back(newprog);
     return *newprog;
 }
 programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
-    programmation* newprog=new programmationActivite(a,d,h);
+    programmationActivite* newprog=new programmationActivite(a,d,h);
     progs.push_back(newprog);
     return *newprog;
 }
@@ -112,10 +132,11 @@ FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
 
 void FenetreProgrammerActivite::enregistrer(){
     programmation progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()));
-//    if(programmation progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()))){
-//            QMessageBox msgBox;
-//            msgBox.setText("L'Activité a été programmée");
-//            msgBox.exec();
-//        }
+    if(&progact!=0){
+        QMessageBox msgBox;
+        msgBox.setText("L'Activité a été programmée");
+        msgBox.exec();
+        this->close();
+    }
 }
 

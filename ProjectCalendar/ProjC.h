@@ -10,6 +10,7 @@
 #include <QString>
 #include <QWidget>
 #include <QCheckBox>
+#include <QBoxLayout>
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QVBoxLayout>
