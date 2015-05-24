@@ -29,12 +29,7 @@ class TacheEditeur : public QWidget{
 public:
     //explicit TacheEditeur(Tache& tacheToEdit, QWidget *parent = 0);
 signals:
-
-<<<<<<< HEAD
-    public slots:
-=======
 public slots:
->>>>>>> parent of 28eb983... tentative de commit non foireuse :3
     //void sauverTache();
 private slots:
     //void activerSauver(QString str="");
