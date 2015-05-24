@@ -24,6 +24,36 @@ agenda::agenda() {
 
 }
 
+void agenda::afficher(){
+    for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+        if(*it!=0)
+        {
+            //(*it)->afficher();
+        }
+}
+
+void programmationActivite::afficher() const {
+    QLabel* nom;
+    QLabel* description;
+    QLabel* duree;
+    QLabel* date;
+    QLabel* horaire;
+    QHBoxLayout* coucheH1;
+    QVBoxLayout* coucheV1;
+    nom= new QLabel();
+    //nom->setText(this->getActivite().getNom());
+    description=new QLabel();
+    //description->setText(this->getActivite().getDescription());
+    duree=new QLabel();
+    //duree->setText(this->getActivite().getDuree().getDureeEnMinutes());
+    date=new QLabel();
+    date->setText(QVariant(programmation::getDate().getJour()).toString());
+    horaire=new QLabel();
+    horaire->setText(programmation::getHoraire().getHeure()+":"+programmation::getHoraire().getMinute());
+    coucheH1=new QHBoxLayout();
+    coucheV1=new QVBoxLayout();
+}
+
 void agenda::fenetreActivite(){
     FenetreCreerActivite* fenetre= new FenetreCreerActivite;
     fenetre->show();
@@ -31,12 +61,12 @@ void agenda::fenetreActivite(){
 
 programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h) {
     programmation* newprog=new programmationTache(d,h);
-    progs.push_back(*newprog);
+    progs.push_back(newprog);
     return *newprog;
 }
 programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
     programmation* newprog=new programmationActivite(a,d,h);
-    progs.push_back(*newprog);
+    progs.push_back(newprog);
     return *newprog;
 }
 
@@ -81,10 +111,11 @@ FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
 }
 
 void FenetreProgrammerActivite::enregistrer(){
-    if(programmation* progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()))){
-        QMessageBox msgBox;
-        msgBox.setText("L'Activité a été programmée");
-        msgBox.exec();
-    }
+    programmation progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()));
+//    if(programmation progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()))){
+//            QMessageBox msgBox;
+//            msgBox.setText("L'Activité a été programmée");
+//            msgBox.exec();
+//        }
 }
 

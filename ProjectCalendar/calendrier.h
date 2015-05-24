@@ -12,7 +12,7 @@ class programmationTache;
 class agenda: public QWidget{
     Q_OBJECT
 
-    std::vector<programmation> progs;
+    std::vector<programmation*> progs;
     QLabel* titreLabel;
     QHBoxLayout* coucheh1;
     QPushButton* CreerActivite;
@@ -34,6 +34,7 @@ public:
     //programmation& ajouterProgrammation(const Tache& t, const TIME::Horaire& h, const Date& d);
     programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
+    void afficher() ;
 public slots:
     void fenetreActivite();
 };
@@ -47,8 +48,10 @@ class programmation{
     programmation(const TIME::Date& d, const TIME::Horaire& h):date(d),horaire(h){}
     //programmation (const TIME::Date& d, const TIME::Horaire& h):date(d), horaire(h){}
 public:
-    //const TIME::Date getDate() const { return date; }
-    //const TIME::Horaire getHoraire() const { return horaire; }
+    const TIME::Date getDate() const { return date; }
+    const TIME::Horaire getHoraire() const { return horaire; }
+    //virtual void afficher() ;
+    void afficher() const;
 };
 
 class programmationTache: public programmation{
@@ -62,7 +65,8 @@ class programmationActivite: public programmation{
 public:
     programmationActivite(const Activite& a,const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
     //programmationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
-    //const Activite& getActivite() const { return *activite; }
+    const Activite& getActivite() const { return activite; }
+    void afficher() const ;
 
 };
 
