@@ -139,13 +139,13 @@ namespace TIME {
 
 }
 
-std::ostream& operator<<(std::ostream&, const TIME::Date&);
-std::ostream& operator<<(std::ostream& f, const TIME::Duree & d);
-std::ostream& operator<<(std::ostream& f, const TIME::Horaire & h);
-std::ostream& operator<<(std::ostream& f, const TIME::Periode & p);
-std::ostream& operator<<(std::ostream& f, const TIME::Intervalle & p);
+//std::ostream& operator<<(std::ostream&, const TIME::Date&);
+//std::ostream& operator<<(std::ostream& f, const TIME::Duree & d);
+//std::ostream& operator<<(std::ostream& f, const TIME::Horaire & h);
+//std::ostream& operator<<(std::ostream& f, const TIME::Periode & p);
+//std::ostream& operator<<(std::ostream& f, const TIME::Intervalle & p);
 
-std::istream& operator>>(std::istream&, TIME::Date&); // lecture format JJ/MM/AAAA
-std::istream& operator>>(std::istream&, TIME::Duree&); //lecture format hhHmm
+//std::istream& operator>>(std::istream&, TIME::Date&); // lecture format JJ/MM/AAAA
+//std::istream& operator>>(std::istream&, TIME::Duree&); //lecture format hhHmm
 
 #endif

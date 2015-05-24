@@ -7,8 +7,8 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     
-    agenda& a=agenda::getInstance();
-    a.show();
+    //agenda& a=agenda::getInstance();
+    //a.show();
     
     return app.exec();
 }

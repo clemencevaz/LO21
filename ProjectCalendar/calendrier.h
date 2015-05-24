@@ -3,6 +3,7 @@
 
 #include "ProjC.h"
 using namespace TIME;
+using namespace std;
 class programmation;
 class programmationActivite;
 class programmationTache;
@@ -22,11 +23,12 @@ class agenda: public QWidget{
             ~AgendaHandler(){agenda::libererInstance();}
     };
     static AgendaHandler agendahandler;
+public:
     static agenda& getInstance();
     static void libererInstance();
     //programmation& ajouterProgrammation(const Tache& t, const TIME::Horaire& h, const Date& d);
     programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
-    programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
+    //programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
 
 class programmation{
     TIME::Date date;
@@ -50,9 +52,9 @@ public:
 };
 
 class programmationActivite: public programmation{
-    const Activite& activite;
+    //const Activite& activite;
 public:
-    programmationActivite(const Activite& a,const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
+    //programmationActivite(const Activite& a,const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
     //programmationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
     //const Activite& getActivite() const { return *activite; }
 };
