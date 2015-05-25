@@ -13,10 +13,21 @@ class agenda: public QWidget{
     Q_OBJECT
 
     std::vector<programmation*> progs;
+
+    //Affichage
     QLabel* titreLabel;
+    QLabel* textsemaine;
+    QLabel* heures[12];
+
     QHBoxLayout* coucheh1;
+    QVBoxLayout* couchev1;
+    QGridLayout* affprogs;
+
     QPushButton* CreerActivite;
     QPushButton* Afficher;
+
+
+
     agenda();
     //~agenda();
     agenda(const agenda& ag);

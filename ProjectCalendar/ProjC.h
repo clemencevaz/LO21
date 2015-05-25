@@ -11,6 +11,7 @@
 #include <QWidget>
 #include <QCheckBox>
 #include <QBoxLayout>
+#include <QGridLayout>
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QVBoxLayout>
