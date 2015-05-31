@@ -40,10 +40,6 @@ agenda::agenda() {
     //Affichage des programmations de la semaine
     affprogs=new QGridLayout;
         //jours de la semaine en haut de la grille
-    QString jheure("Heure");
-    QLabel* Ljheure;
-    Ljheure=new QLabel();
-    Ljheure->setText(jheure);
     QString j1;
     j1+="Lundi ";
     j1+="25"; //n° du jour du lundi
@@ -88,14 +84,29 @@ agenda::agenda() {
     Lj7->setText(j7);
 
 
-    affprogs->addWidget(Ljheure,0,0);
-    affprogs->addWidget(Lj1,0,1);
-    affprogs->addWidget(Lj2,0,2);
-    affprogs->addWidget(Lj3,0,3);
-    affprogs->addWidget(Lj4,0,4);
-    affprogs->addWidget(Lj5,0,5);
-    affprogs->addWidget(Lj6,0,6);
-    affprogs->addWidget(Lj7,0,7);
+    affprogs->addWidget(Lj1,0,0);
+    affprogs->addWidget(Lj2,0,1);
+    affprogs->addWidget(Lj3,0,2);
+    affprogs->addWidget(Lj4,0,3);
+    affprogs->addWidget(Lj5,0,4);
+    affprogs->addWidget(Lj6,0,5);
+    affprogs->addWidget(Lj7,0,6);
+
+    //on trie les données par horaire croissant des vecteurs vjour
+    std::sort(vjour1.begin(), vjour1.end(), ComparatorByHoraire());
+    std::sort(vjour2.begin(), vjour2.end(), ComparatorByHoraire());
+    std::sort(vjour3.begin(), vjour3.end(), ComparatorByHoraire());
+    std::sort(vjour4.begin(), vjour4.end(), ComparatorByHoraire());
+    std::sort(vjour5.begin(), vjour5.end(), ComparatorByHoraire());
+    std::sort(vjour6.begin(), vjour6.end(), ComparatorByHoraire());
+    std::sort(vjour7.begin(), vjour7.end(), ComparatorByHoraire());
+
+    //affichage des programmations
+    for(std::vector<programmation*>::const_iterator it=vjour1.cbegin();it!=vjour1.cend();it++)
+    {
+
+    }
+
 
     //page en vertical
     couchev1= new QVBoxLayout;
@@ -115,11 +126,42 @@ agenda::agenda() {
 }
 
 void agenda::afficher(){
+
+    //on récupère la taille de chaque vjour
+    int tabi[7];
+    tabi[0]=(int)vjour1.size();
+    tabi[1]=(int)vjour2.size();
+    tabi[2]=(int)vjour3.size();
+    tabi[3]=(int)vjour4.size();
+    tabi[4]=(int)vjour5.size();
+    tabi[5]=(int)vjour6.size();
+    tabi[6]=(int)vjour7.size();
+
+    //on vide les progs la grille affprogs
+    for(int k1=0;k1<7;k1++)//colonne
+    {
+        for(int k2=0; k2<tabi[k1];k2++)//ligne
+            affprogs->removeWidget(affprogs->itemAtPosition(k2+1, k1)->widget());
+    }
+
+    //on vide les vecteurs jours
+    vjour1.clear();
+    vjour2.clear();
+    vjour3.clear();
+    vjour4.clear();
+    vjour5.clear();
+    vjour6.clear();
+    vjour7.clear();
+
     Date* j;
-    j= new Date(0,0,0);
+    j= new Date(1,1,2015);
     Date* d;
-    d=new Date(0,0,0);
+    d=new Date(1,1,2015);
+
+    //on incrémente les progs de la semaine dans les vjour
     for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+    {
+
         if((*it)!=0)
         {
             *j=(*it)->getDate();
@@ -145,6 +187,7 @@ void agenda::afficher(){
             if(*d==*j)
                 vjour7.push_back(*it);
         }
+    }
 }
 
 void programmationActivite::afficher() const {

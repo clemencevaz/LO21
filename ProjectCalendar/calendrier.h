@@ -59,11 +59,7 @@ public:
     Date& getJour1();
 
     //pour trier les programmations par horaire selon le jour
-//    struct ComparatorByHoraire{
-//        bool operator() (programmation* a, programmation* b){
-//            return *a->getHoraire() < *b->getHoraire();
-//        }
-//    };
+
 
 public slots:
     void fenetreActivite();
@@ -125,6 +121,13 @@ public:
     FenetreProgrammerActivite(Activite& a);
 public slots:
     void enregistrer();
+};
+class ComparatorByHoraire{
+public:
+    bool operator() (programmation *a, programmation *b){
+
+        return (*a).getHoraire() < (*b).getHoraire();
+    }
 };
 
 #endif // PROGRAMMATION
