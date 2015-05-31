@@ -57,6 +57,7 @@ public:
     programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
     Date& getJour1();
+    void deleteChildWidgets(QLayoutItem *item);
 
     //pour trier les programmations par horaire selon le jour
 
@@ -71,15 +72,17 @@ class programmation{
 protected:
     TIME::Date date;
     TIME::Horaire horaire;
+    QVBoxLayout* prog;
 private:
     friend class agenda;
     friend class programmationActivite;
     friend class programmationTache;
-    programmation(const TIME::Date& d, const TIME::Horaire& h):date(d),horaire(h){}
+    programmation(const TIME::Date& d, const TIME::Horaire& h):date(d),horaire(h){prog=new QVBoxLayout();}
     //programmation (const TIME::Date& d, const TIME::Horaire& h):date(d), horaire(h){}
 public:
     const TIME::Date getDate() const { return date; }
     const TIME::Horaire getHoraire() const { return horaire; }
+    QVBoxLayout* getLayout() const {return prog;}
     //virtual void afficher() ;
     virtual void afficher() const {}
 };
@@ -126,7 +129,7 @@ class ComparatorByHoraire{
 public:
     bool operator() (programmation *a, programmation *b){
 
-        return (*a).getHoraire() < (*b).getHoraire();
+        return ((*a).getHoraire() < (*b).getHoraire());
     }
 };
 

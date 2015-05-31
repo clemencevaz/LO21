@@ -42,43 +42,43 @@ agenda::agenda() {
         //jours de la semaine en haut de la grille
     QString j1;
     j1+="Lundi ";
-    j1+="25"; //n° du jour du lundi
+    j1+=QVariant(jour1->getJour()).toString(); //n° du jour du lundi
     QLabel* Lj1;
     Lj1=new QLabel();
     Lj1->setText(j1);
     QString j2;
     j2+="Mardi ";
-    j2+="26"; //n° du jour du mardi
+    j2+=QVariant(jour1->demain().getJour()).toString(); //n° du jour du mardi
     QLabel* Lj2;
     Lj2=new QLabel;
     Lj2->setText(j2);
     QString j3;
     j3+="Mercredi ";
-    j3+="27"; //n° du jour du mercredi
+    j3+=QVariant(jour1->demain().demain().getJour()).toString(); //n° du jour du mercredi
     QLabel* Lj3;
     Lj3=new QLabel;
     Lj3->setText(j3);
     QString j4;
     j4+="Jeudi ";
-    j4+="28"; //n° du jour du jeudi
+    j4+=QVariant(jour1->demain().demain().demain().getJour()).toString(); //n° du jour du jeudi
     QLabel* Lj4;
     Lj4=new QLabel;
     Lj4->setText(j4);
     QString j5;
     j5+="Vendredi ";
-    j5+="29"; //n° du jour du vendredi
+    j5+=QVariant(jour1->demain().demain().demain().demain().getJour()).toString(); //n° du jour du vendredi
     QLabel* Lj5;
     Lj5=new QLabel;
     Lj5->setText(j5);
     QString j6;
     j6+="Samedi ";
-    j6+="30"; //n° du jour du samedi
+    j6+=QVariant(jour1->demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du samedi
     QLabel* Lj6;
     Lj6=new QLabel;
     Lj6->setText(j6);
     QString j7;
     j7+="Dimanche ";
-    j7+="31"; //n° du jour du dimanche
+    j7+=QVariant(jour1->demain().demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du dimanche
     QLabel* Lj7;
     Lj7= new QLabel;
     Lj7->setText(j7);
@@ -92,20 +92,6 @@ agenda::agenda() {
     affprogs->addWidget(Lj6,0,5);
     affprogs->addWidget(Lj7,0,6);
 
-    //on trie les données par horaire croissant des vecteurs vjour
-    std::sort(vjour1.begin(), vjour1.end(), ComparatorByHoraire());
-    std::sort(vjour2.begin(), vjour2.end(), ComparatorByHoraire());
-    std::sort(vjour3.begin(), vjour3.end(), ComparatorByHoraire());
-    std::sort(vjour4.begin(), vjour4.end(), ComparatorByHoraire());
-    std::sort(vjour5.begin(), vjour5.end(), ComparatorByHoraire());
-    std::sort(vjour6.begin(), vjour6.end(), ComparatorByHoraire());
-    std::sort(vjour7.begin(), vjour7.end(), ComparatorByHoraire());
-
-    //affichage des programmations
-    for(std::vector<programmation*>::const_iterator it=vjour1.cbegin();it!=vjour1.cend();it++)
-    {
-
-    }
 
 
     //page en vertical
@@ -138,11 +124,15 @@ void agenda::afficher(){
     tabi[6]=(int)vjour7.size();
 
     //on vide les progs la grille affprogs
-    for(int k1=0;k1<7;k1++)//colonne
+    for(int k1=0;k1<6;k1++)//colonne
     {
         for(int k2=0; k2<tabi[k1];k2++)//ligne
-            affprogs->removeWidget(affprogs->itemAtPosition(k2+1, k1)->widget());
-    }
+        {
+            this->deleteChildWidgets(affprogs->itemAtPosition(k2+1,k1));
+            this->deleteChildWidgets(affprogs->itemAtPosition(k2+1,k1));
+            this->deleteChildWidgets(affprogs->itemAtPosition(k2+1,k1));
+        };
+    };
 
     //on vide les vecteurs jours
     vjour1.clear();
@@ -161,11 +151,10 @@ void agenda::afficher(){
     //on incrémente les progs de la semaine dans les vjour
     for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
     {
-
         if((*it)!=0)
         {
             *j=(*it)->getDate();
-            d=jour1;
+            *d=*jour1;
             if(*d==*j)
                 vjour1.push_back(*it);
             *d=d->demain();
@@ -188,44 +177,102 @@ void agenda::afficher(){
                 vjour7.push_back(*it);
         }
     }
+
+    //on trie les données par horaire croissant des vecteurs vjour
+    std::sort(vjour1.begin(), vjour1.end(), ComparatorByHoraire());
+    std::sort(vjour2.begin(), vjour2.end(), ComparatorByHoraire());
+    std::sort(vjour3.begin(), vjour3.end(), ComparatorByHoraire());
+    std::sort(vjour4.begin(), vjour4.end(), ComparatorByHoraire());
+    std::sort(vjour5.begin(), vjour5.end(), ComparatorByHoraire());
+    std::sort(vjour6.begin(), vjour6.end(), ComparatorByHoraire());
+    std::sort(vjour7.begin(), vjour7.end(), ComparatorByHoraire());
+
+    int jx=1;
+    //affichage des programmations
+    for(std::vector<programmation*>::const_iterator it=vjour1.cbegin();it!=vjour1.cend();it++)
+    {
+        (*it)->afficher(); //on met à jour l'affichage de la prog
+        affprogs->addLayout((*it)->getLayout(),jx,0); //on implémente la prog dans l'affichage des progs
+        jx++;
+    }
+    jx=1;
+    for(std::vector<programmation*>::const_iterator it=vjour2.cbegin();it!=vjour2.cend();it++)
+    {
+        (*it)->afficher(); //on met à jour l'affichage de la prog
+        affprogs->addLayout((*it)->getLayout(),jx,1); //on implémente la prog dans l'affichage des progs
+        jx++;
+    }
+    jx=1;
+    for(std::vector<programmation*>::const_iterator it=vjour3.cbegin();it!=vjour3.cend();it++)
+    {
+        (*it)->afficher(); //on met à jour l'affichage de la prog
+        affprogs->addLayout((*it)->getLayout(),jx,2); //on implémente la prog dans l'affichage des progs
+        jx++;
+    }
+    jx=1;
+    for(std::vector<programmation*>::const_iterator it=vjour4.cbegin();it!=vjour4.cend();it++)
+    {
+        (*it)->afficher(); //on met à jour l'affichage de la prog
+        affprogs->addLayout((*it)->getLayout(),jx,3); //on implémente la prog dans l'affichage des progs
+        jx++;
+    }
+    jx=1;
+    for(std::vector<programmation*>::const_iterator it=vjour5.cbegin();it!=vjour5.cend();it++)
+    {
+        (*it)->afficher(); //on met à jour l'affichage de la prog
+        affprogs->addLayout((*it)->getLayout(),jx,4); //on implémente la prog dans l'affichage des progs
+        jx++;
+    }
+    jx=1;
+    for(std::vector<programmation*>::const_iterator it=vjour6.cbegin();it!=vjour6.cend();it++)
+    {
+        (*it)->afficher(); //on met à jour l'affichage de la prog
+        affprogs->addLayout((*it)->getLayout(),jx,5); //on implémente la prog dans l'affichage des progs
+        jx++;
+    }
+    jx=1;
+    for(std::vector<programmation*>::const_iterator it=vjour7.cbegin();it!=vjour7.cend();it++)
+    {
+        (*it)->afficher(); //on met à jour l'affichage de la prog
+        affprogs->addLayout((*it)->getLayout(),jx,6); //on implémente la prog dans l'affichage des progs
+        jx++;
+    }
+    j=0;
+    d=0;
+    delete j;
+    delete d;
+
 }
 
 void programmationActivite::afficher() const {
+    delete prog->widget();
     Activite act=this->activite;
     QLabel* nom;
-//    QLabel* description;
-//    QLabel* duree;
-//    QLabel* date;
-//    QLabel* horaire;
-//    QHBoxLayout* coucheH1;
-//    QVBoxLayout* coucheV1;
+    QLabel* description;
+    QLabel* duree;
+    QLabel* horaire;
     nom= new QLabel();
     nom->setText(act.getNom());
-//    description=new QLabel();
-//    //description->setText(this->getActivite().getDescription());
-//    duree=new QLabel();
-//    //duree->setText(this->getActivite().getDuree().getDureeEnMinutes());
-//    date=new QLabel();
-//    date->setText(QVariant(programmation::getDate().getJour()).toString());
-//    horaire=new QLabel();
-//    horaire->setText(programmation::getHoraire().getHeure()+":"+programmation::getHoraire().getMinute());
-//    coucheH1=new QHBoxLayout();
-//    coucheV1=new QVBoxLayout();
+    description=new QLabel();
+    description->setText(act.getDescription());
+    duree=new QLabel();
+    duree->setText(QVariant(act.getDuree().getDureeEnMinutes()).toString());
 
-//    coucheV1->addWidget(nom);
-//    coucheV1->addWidget(description);
-//    coucheV1->addWidget(duree);
-//    coucheH1->addWidget(date);
-//    coucheH1->addWidget(horaire);
+    horaire=new QLabel();
+    horaire->setText(QVariant(this->getHoraire().getHeure()).toString()+":"+QVariant(this->getHoraire().getMinute()).toString());
 
-    QString msg;
-    msg+="Affichage de l'activité :";
-    msg+=act.getNom();
-    QMessageBox msgBox;
-    msgBox.setText(msg);
-    msgBox.exec();
+    prog->addWidget(nom);
+    prog->addWidget(horaire);
+    prog->addWidget(duree);
+    prog->addWidget(description);
 
-    agenda::getInstance().layout()->addWidget(nom);
+//    QString msg;
+//    msg+="Affichage de l'activité :";
+//    msg+=act.getNom();
+//    QMessageBox msgBox;
+//    msgBox.setText(msg);
+//    msgBox.exec();
+
 }
 
 void agenda::fenetreActivite(){
@@ -292,5 +339,16 @@ void FenetreProgrammerActivite::enregistrer(){
         msgBox.exec();
         this->close();
     }
+}
+void agenda::deleteChildWidgets(QLayoutItem *item){
+    if (item->layout())
+    {
+        // Process all child items recursively.
+        for (int i = 0; i < item->layout()->count(); i++)
+        {
+            deleteChildWidgets(item->layout()->itemAt(i));
+        }
+    }
+    delete item->widget();
 }
 
