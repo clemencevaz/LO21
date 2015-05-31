@@ -11,6 +11,10 @@ void agenda::libererInstance() {
     agendahandler.instance=0;
 }
 
+Date& agenda::getJour1(){
+    return *jour1;
+}
+
 agenda::agenda() {
     progs.reserve(10);
     //Titre en haut de page
@@ -30,6 +34,8 @@ agenda::agenda() {
     msgsemaine+=" au ";
     msgsemaine+="31/05/2015";//date du dernier jour de la semaine
     textsemaine=new QLabel(msgsemaine);
+
+    jour1=new Date(1,6,2015);
 
     //Affichage des programmations de la semaine
     affprogs=new QGridLayout;
@@ -81,17 +87,6 @@ agenda::agenda() {
     Lj7= new QLabel;
     Lj7->setText(j7);
 
-    QString textheure;
-    unsigned int k=8;
-    for(unsigned i=0;i<12;i++)
-    {
-        textheure=QVariant(k).toString();
-        textheure+="h";
-        heures[i]=new QLabel;
-        heures[i]->setText(textheure);
-        affprogs->addWidget(heures[i],i+1,0);
-        k++;
-    }
 
     affprogs->addWidget(Ljheure,0,0);
     affprogs->addWidget(Lj1,0,1);
@@ -120,11 +115,35 @@ agenda::agenda() {
 }
 
 void agenda::afficher(){
-
+    Date* j;
+    j= new Date(0,0,0);
+    Date* d;
+    d=new Date(0,0,0);
     for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
-        if(*it!=0)
+        if((*it)!=0)
         {
-            (*it)->afficher();
+            *j=(*it)->getDate();
+            d=jour1;
+            if(*d==*j)
+                vjour1.push_back(*it);
+            *d=d->demain();
+            if(*d==*j)
+                vjour2.push_back(*it);
+            *d=d->demain();
+            if(*d==*j)
+                vjour3.push_back(*it);
+            *d=d->demain();
+            if(*d==*j)
+                vjour4.push_back(*it);
+            *d=d->demain();
+            if(*d==*j)
+                vjour5.push_back(*it);
+            *d=d->demain();
+            if(*d==*j)
+                vjour6.push_back(*it);
+            *d=d->demain();
+            if(*d==*j)
+                vjour7.push_back(*it);
         }
 }
 

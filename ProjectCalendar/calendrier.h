@@ -14,6 +14,15 @@ class agenda: public QWidget{
 
     std::vector<programmation*> progs;
 
+    //vecteurs pour l'affichage des jours
+    std::vector<programmation*> vjour1;
+    std::vector<programmation*> vjour2;
+    std::vector<programmation*> vjour3;
+    std::vector<programmation*> vjour4;
+    std::vector<programmation*> vjour5;
+    std::vector<programmation*> vjour6;
+    std::vector<programmation*> vjour7;
+
     //Affichage
     QLabel* titreLabel;
     QLabel* textsemaine;
@@ -26,6 +35,7 @@ class agenda: public QWidget{
     QPushButton* CreerActivite;
     QPushButton* Afficher;
 
+    Date* jour1;
 
 
     agenda();
@@ -46,6 +56,15 @@ public:
     //programmation& ajouterProgrammation(const Tache& t, const TIME::Horaire& h, const Date& d);
     programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
+    Date& getJour1();
+
+    //pour trier les programmations par horaire selon le jour
+//    struct ComparatorByHoraire{
+//        bool operator() (programmation* a, programmation* b){
+//            return *a->getHoraire() < *b->getHoraire();
+//        }
+//    };
+
 public slots:
     void fenetreActivite();
     void afficher() ;
