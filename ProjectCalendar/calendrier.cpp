@@ -274,7 +274,9 @@ void programmationActivite::afficher() const {
 //    msgBox.exec();
 
 }
-
+TIME::Horaire programmationActivite::getHorairefin() const{
+    return Horaire(this->getHoraire()+this->getActivite().getDuree());
+}
 void agenda::fenetreActivite(){
     FenetreCreerActivite* fenetre= new FenetreCreerActivite;
     fenetre->show();
@@ -287,9 +289,13 @@ programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME
 }
 programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
     programmationActivite* newprog= new programmationActivite(a,d,h);
-    progs.push_back(newprog);
-    return *newprog;
+    if(trouverProgrammation(d,h,h+a.getDuree()))
+    {
+        progs.push_back(newprog);
+        return *newprog;
+    }
 }
+
 
 FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
     titreLabel = new QLabel("Programmer une activité");
@@ -350,5 +356,16 @@ void agenda::deleteChildWidgets(QLayoutItem *item){
         }
     }
     delete item->widget();
+}
+programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut, const Horaire& hfin){
+    for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+    {
+//        //on ne prend que les programmations qui ont cette date de début
+//        if((*it)->getDate()==d && (*it)->getHoraire()>hdebut)// && (*it)->getActivite()->getHorairefin<hfin
+//        {
+//            return (*it);
+//        }
+    }
+    return 0;
 }
 

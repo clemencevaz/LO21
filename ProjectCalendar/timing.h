@@ -84,11 +84,13 @@ namespace TIME {
             \param m minute avec 0<=m<=59
             */
         Horaire(unsigned short int  h, unsigned short int  m):heure(h),minute(m) {if (h>23||m>59) throw TimeException("erreur: initialisation horaire invalide");}
+        Horaire(const Horaire& h):heure(h.getHeure()),minute(h.getMinute()){}
         void setHoraire(unsigned short int h, unsigned short int m) { if (h>23||m>59) throw TimeException("erreur: initialisation horaire invalide"); heure=h; minute=m; }
         void afficher(std::ostream& f=std::cout) const { f<<std::setfill('0')<<std::setw(2)<<heure<<"H"<<std::setfill('0')<<std::setw(2)<<minute<<std::setfill(' '); } //<!Affiche l'horaire sous le format hhHmm
         unsigned short int getHeure() const { return heure; } //<!Retourne l'heure de l'horaire
         unsigned short int getMinute() const { return minute; } //<!Retourne les minutes de l'horaire
         bool operator<(const Horaire& h) const; //<! h1<h2 retourne true si h1 est avant h2 dans le temps
+        Horaire operator+(const Duree& d) const;
     private:
         unsigned short int  heure;
         unsigned short int  minute;

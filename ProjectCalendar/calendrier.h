@@ -58,6 +58,7 @@ public:
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
     Date& getJour1();
     void deleteChildWidgets(QLayoutItem *item);
+    programmation* trouverProgrammation(const Date& d, const Horaire& hdebut, const Horaire& hfin);
 
     //pour trier les programmations par horaire selon le jour
 
@@ -83,7 +84,6 @@ public:
     const TIME::Date getDate() const { return date; }
     const TIME::Horaire getHoraire() const { return horaire; }
     QVBoxLayout* getLayout() const {return prog;}
-    //virtual void afficher() ;
     virtual void afficher() const {}
 };
 
@@ -100,6 +100,8 @@ public:
     //programmationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
     const Activite& getActivite() const { return activite; }
     void afficher() const ;
+    TIME::Horaire getHorairefin() const;
+
 
 };
 

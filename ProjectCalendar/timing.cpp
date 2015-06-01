@@ -78,6 +78,21 @@ bool Horaire::operator<(const Horaire& h) const{
 	if (minute>h.minute) return false;
 	return true;
 }
+Horaire Horaire::operator+(const Duree& d) const{
+    Horaire h1=*this;
+    unsigned short heure=0;
+    unsigned short minute=0;
+    heure=h1.getHeure();
+    minute=h1.getMinute();
+    minute+=d.getDureeEnMinutes();
+    while(minute>60)
+    {
+        minute=minute-60;
+        heure++;
+    }
+    Horaire* h2=new Horaire(heure,minute);
+    return *h2;
+}
 
 Periode::Periode(unsigned int j, unsigned int m, unsigned int a): 
 		   nb_jours(j), nb_mois(m), nb_annees(a) {
