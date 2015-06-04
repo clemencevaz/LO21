@@ -2,6 +2,7 @@
 #define PROJET
 #include "ProjC.h"
 #include "tache.h"
+class Tache;
 
 class Projet{
 	friend class Iterator;
@@ -21,9 +22,9 @@ public:
     }
   };
 
-    *********
+    /*********
      Accessors
-    *********
+    *********/
     const std::vector<Tache*> getTaches() const{ return taches; }
 
 

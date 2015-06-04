@@ -2,8 +2,6 @@
 #define PROJETMANAGER_H
 #include "ProjC.h"
 
-class ProjetManager;
-
 class ProjetManager{
 
 friend class Iterator;
@@ -14,11 +12,11 @@ public:
 	~ProjetManager();
 	ProjetManager& getManager(){
 		return new ProjetManager();
-	};
+	}
 
 	void addProjet(Projet& proj){
 		projects.push_back(proj);
-	};
+	}
 
 	void removeProject(Projet& proj){
 		for (int i = 0; i < projects.size(); i++){
