@@ -373,11 +373,7 @@ void agenda::deleteChildWidgets(QLayoutItem *item){
     }
     delete item->widget();
 }
-<<<<<<< Updated upstream
 programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut){
-=======
-programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut, const Horaire& hfin){
->>>>>>> Stashed changes
     for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
         //on ne prend que les programmations qui ont cette date de début
