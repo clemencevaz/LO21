@@ -1,8 +1,7 @@
 #include "tache.h"
 
-Tache::addTacheProjet(Projet& pere){
-    pere.taches
-}
+/*Tache::addTacheProjet(Projet& pere){
+}*/
 
 FenetreCreerTache::FenetreCreerTache(){
     titreLabel= new QLabel("Créer une tâche");
