@@ -75,4 +75,5 @@ build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Debug
 *.exe
 
 *.user
+*.user*
 
