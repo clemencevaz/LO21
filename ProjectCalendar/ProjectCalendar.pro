@@ -1,6 +1,6 @@
-QT += widgets
+QT -= widgets
 /NODEFAULTLIB:msvcrt.lib
-QT += xml
+QT -= xml
 
 SOURCES += \
     main.cpp \
@@ -9,7 +9,8 @@ SOURCES += \
     calendrier.cpp \
     tacheediteur.cpp \
     timing.cpp \
-    activite.cpp
+    activite.cpp \
+    projetManager.c
 HEADERS += \
     ProjC.h \
     tache.h \
@@ -17,4 +18,5 @@ HEADERS += \
     activite.h \
     calendrier.h \
     tacheediteur.h \
-    timing.h
+    timing.h \
+    projetManager.h
