@@ -34,7 +34,7 @@ public:
 	class Iterator{
 	private:
 		int i;
-		Iterator():i(0){};
+		Iterator():i(0){}
 	public:
 		~Iterator();
 
