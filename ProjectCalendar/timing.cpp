@@ -78,6 +78,13 @@ bool Horaire::operator<(const Horaire& h) const{
 	if (minute>h.minute) return false;
 	return true;
 }
+bool Horaire::operator>=(const Horaire& h) const{
+    if(heure>=h.heure) return true;
+    if(heure<h.heure) return false;
+    if(minute>=h.minute) return true;
+    if(minute<h.minute) return false;
+    return true;
+}
 Horaire Horaire::operator+(const Duree& d) const{
     Horaire h1=*this;
     unsigned short heure=0;

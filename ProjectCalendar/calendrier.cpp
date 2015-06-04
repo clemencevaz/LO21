@@ -289,11 +289,20 @@ programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME
 }
 programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
     programmationActivite* newprog= new programmationActivite(a,d,h);
-    if(trouverProgrammation(d,h,h+a.getDuree()))
+    if(trouverProgrammation(d,h))
     {
+        QString msg;
+        msg+="Déjà une programmation";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        newprog=0;
+        return *newprog;
+        //throw CalendarException("erreur, TacheManager, tache deja existante");
+
+    }
         progs.push_back(newprog);
         return *newprog;
-    }
 }
 
 
@@ -338,12 +347,19 @@ FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
 }
 
 void FenetreProgrammerActivite::enregistrer(){
-    programmation progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()));
+    programmation& progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()));
     if(&progact!=0){
         QMessageBox msgBox;
         msgBox.setText("L'Activité a été programmée");
         msgBox.exec();
         this->close();
+    }
+    else
+    {
+        delete &progact;
+        QMessageBox msgBox;
+        msgBox.setText("L'Activité n'a pas été programmée");
+        msgBox.exec();
     }
 }
 void agenda::deleteChildWidgets(QLayoutItem *item){
@@ -357,14 +373,14 @@ void agenda::deleteChildWidgets(QLayoutItem *item){
     }
     delete item->widget();
 }
-programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut, const Horaire& hfin){
-    for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut){
+    for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
-//        //on ne prend que les programmations qui ont cette date de début
-//        if((*it)->getDate()==d && (*it)->getHoraire()>hdebut)// && (*it)->getActivite()->getHorairefin<hfin
-//        {
-//            return (*it);
-//        }
+        //on ne prend que les programmations qui ont cette date de début
+        if((*it)->getDate()==d && (*it)->getHoraire()>=hdebut) //&& (*it)->getHorairefin()<hfin)
+        {
+            return (*it);
+        }
     }
     return 0;
 }
