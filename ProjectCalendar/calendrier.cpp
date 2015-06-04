@@ -149,7 +149,7 @@ void agenda::afficher(){
     d=new Date(1,1,2015);
 
     //on incrémente les progs de la semaine dans les vjour
-    for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
         if((*it)!=0)
         {
@@ -189,49 +189,49 @@ void agenda::afficher(){
 
     int jx=1;
     //affichage des programmations
-    for(std::vector<programmation*>::const_iterator it=vjour1.cbegin();it!=vjour1.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=vjour1.begin();it!=vjour1.end();it++)
     {
         (*it)->afficher(); //on met à jour l'affichage de la prog
         affprogs->addLayout((*it)->getLayout(),jx,0); //on implémente la prog dans l'affichage des progs
         jx++;
     }
     jx=1;
-    for(std::vector<programmation*>::const_iterator it=vjour2.cbegin();it!=vjour2.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=vjour2.begin();it!=vjour2.end();it++)
     {
         (*it)->afficher(); //on met à jour l'affichage de la prog
         affprogs->addLayout((*it)->getLayout(),jx,1); //on implémente la prog dans l'affichage des progs
         jx++;
     }
     jx=1;
-    for(std::vector<programmation*>::const_iterator it=vjour3.cbegin();it!=vjour3.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=vjour3.begin();it!=vjour3.end();it++)
     {
         (*it)->afficher(); //on met à jour l'affichage de la prog
         affprogs->addLayout((*it)->getLayout(),jx,2); //on implémente la prog dans l'affichage des progs
         jx++;
     }
     jx=1;
-    for(std::vector<programmation*>::const_iterator it=vjour4.cbegin();it!=vjour4.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=vjour4.begin();it!=vjour4.end();it++)
     {
         (*it)->afficher(); //on met à jour l'affichage de la prog
         affprogs->addLayout((*it)->getLayout(),jx,3); //on implémente la prog dans l'affichage des progs
         jx++;
     }
     jx=1;
-    for(std::vector<programmation*>::const_iterator it=vjour5.cbegin();it!=vjour5.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=vjour5.begin();it!=vjour5.end();it++)
     {
         (*it)->afficher(); //on met à jour l'affichage de la prog
         affprogs->addLayout((*it)->getLayout(),jx,4); //on implémente la prog dans l'affichage des progs
         jx++;
     }
     jx=1;
-    for(std::vector<programmation*>::const_iterator it=vjour6.cbegin();it!=vjour6.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=vjour6.begin();it!=vjour6.end();it++)
     {
         (*it)->afficher(); //on met à jour l'affichage de la prog
         affprogs->addLayout((*it)->getLayout(),jx,5); //on implémente la prog dans l'affichage des progs
         jx++;
     }
     jx=1;
-    for(std::vector<programmation*>::const_iterator it=vjour7.cbegin();it!=vjour7.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=vjour7.begin();it!=vjour7.end();it++)
     {
         (*it)->afficher(); //on met à jour l'affichage de la prog
         affprogs->addLayout((*it)->getLayout(),jx,6); //on implémente la prog dans l'affichage des progs
@@ -373,7 +373,11 @@ void agenda::deleteChildWidgets(QLayoutItem *item){
     }
     delete item->widget();
 }
+<<<<<<< Updated upstream
 programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut){
+=======
+programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut, const Horaire& hfin){
+>>>>>>> Stashed changes
     for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
         //on ne prend que les programmations qui ont cette date de début
