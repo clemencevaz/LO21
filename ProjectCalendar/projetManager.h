@@ -29,29 +29,33 @@ public:
 	}
 
 
-	class Iterator;
-
 	class Iterator{
+	
+		friend class ProjetManager;
+		 
 	private:
+		std::vector<Project*> projs;
 		int i;
-		Iterator():i(0){}
+
+		Iterator(std::vector<Project*> projects):projs(projects),i(0){}
+
 	public:
 		~Iterator();
 
 		Projet& current(){
-			return ProjetManager::projects[i];
+			return projs[i];
 		}
 
 		void next(){
-			if (i>ProjetManager::projects.max_size()){
-				end();
+			if (end()){
+				throw CalendarException("next() sur un iterateur fini");
 			}else{
 				i++;
 			}
 		}
 
 		bool end(){
-			if (i >= ProjetManager::projects.max_size()){
+			if (i >= projs.max_size()){
 				return true;
 			}else{
 				return false;
@@ -59,7 +63,7 @@ public:
 		}
 	};
 
-
+	Iterator getIterator() const { return Iterator(projects); }
 };
 
 #endif

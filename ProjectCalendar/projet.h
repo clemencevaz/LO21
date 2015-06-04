@@ -48,38 +48,40 @@ public:
 		}
 	}
 
-	class Iterator;
+
 
 	class Iterator{
+		friend class Projet;
+
 	private:
 		int i; //index
-		Iterator(){
-			i = 0;
-		}
+		std::vector<Tache*> tac;
+
+		Iterator(std::vector<Tache*> taches):tac(taches), i(0){}
 	public:
 		~Iterator();
 
         Tache& current(){
-			return Projet::taches[i];
+			return tac[i];
 		}
 
 		void next(){ 
-			if (i>Projet::taches.max_size()){
-				end();
+			if (end()){
+				throw CalendarException("next dans iterator fini");
 			}else{
 				i++;
 			}
 		}
 
 		bool end(){
-			if (i >= Projet::taches.max_size()){
+			if (i >= tac.max_size()){
 				return true;
 			}else{
 				return false;
 			}
 		}
 
-		static Iterator getIterator(){ return new Iterator(); }
+		static Iterator getIterator() const { return new Iterator(taches); }
 	};
 
 };
