@@ -3,6 +3,7 @@
 
 
 #Qt folders
+build-*
 build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Debug
 build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Debug
 build-ProjectCalendar-Desktop_Qt_5_4_1_clang_64bit-Debug
@@ -14,3 +15,5 @@ build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Release/Makefile
 *.obj
 build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Release/release/moc_calendrier.cpp
 *.cpp
+ProjectCalendar/ProjectCalendar.pro.user
+*.user

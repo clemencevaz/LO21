@@ -6,7 +6,6 @@
 class Projet{
 	friend class Iterator;
 private:
-
 	QString nom;
     std::vector<Tache*> taches;
 
@@ -43,7 +42,7 @@ public:
 		// Creer iterateur
     void deleteTache(const Tache& tache){
 		for (int i = 0; i < taches.size(); i++){
-			if (&taches[i] === tache){
+            if (&taches[i] == tache){
 				taches.erase(taches.begin()+i);
 			}
 		}
@@ -58,12 +57,14 @@ public:
 			i = 0;
 		}
 	public:
+		~Iterator();
+
         Tache& current(){
-			return project::taches[i];
+			return Projet::taches[i];
 		}
 
 		void next(){ 
-			if (i>project::taches.max_size()){
+			if (i>Projet::taches.max_size()){
 				end();
 			}else{
 				i++;
@@ -71,7 +72,7 @@ public:
 		}
 
 		bool end(){
-			if (i >= project::taches.max_size()){
+			if (i >= Projet::taches.max_size()){
 				return true;
 			}else{
 				return false;
