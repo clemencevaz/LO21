@@ -2,7 +2,6 @@
 #define TACHE
 using namespace std;
 #include "ProjC.h"
-#include "projet.h"
 #include<stdexcept>
 
 class Tache{

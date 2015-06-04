@@ -1,9 +1,8 @@
 #ifndef PROJET
 #define PROJET
 #include "ProjC.h"
-#include "tache.h"
-class Tache;
 
+class Tache;
 class Projet{
 	friend class Iterator;
 private:
@@ -87,7 +86,5 @@ public:
 	};
 
 };
-
-
 
 #endif
