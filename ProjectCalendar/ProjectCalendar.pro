@@ -1,6 +1,6 @@
-QT -= widgets
+QT += widgets
 /NODEFAULTLIB:msvcrt.lib
-QT -= xml
+QT += xml
 
 SOURCES += \
     main.cpp \
