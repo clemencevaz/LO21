@@ -1,6 +1,6 @@
-QT -= widgets
+QT += widgets
 /NODEFAULTLIB:msvcrt.lib
-QT -= xml
+QT += xml
 
 SOURCES += \
     main.cpp \
@@ -20,3 +20,6 @@ HEADERS += \
     tacheediteur.h \
     timing.h \
     projetManager.h
+
+FORMS += \
+    projectViewer.ui
