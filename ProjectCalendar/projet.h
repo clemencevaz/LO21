@@ -1,4 +1,3 @@
-class Projet;
 #ifndef PROJET
 #define PROJET
 #include "ProjC.h"
@@ -21,7 +20,7 @@ public:
 		}
     }
   };
-/*
+
     *********
      Accessors
     *********
@@ -30,14 +29,14 @@ public:
 
 	/**********
 	/ Setters
-    *********
+    *********/
     void addTache(const Tache& tache){ taches.push_back(tache); }
 
     /*void addTaches(const vector<tache*> addingTaches){
 		for (int i = 0; i < addingTaches.size(); i++){
 			taches.push_back(addTaches[i]);
 		}
-	}
+	}*/
 
 
 	//TODO:
