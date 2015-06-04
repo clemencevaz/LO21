@@ -3,6 +3,7 @@
 #include "ProjC.h"
 
 class Tache;
+
 class Projet{
 	friend class Iterator;
 private:
@@ -19,7 +20,6 @@ public:
 			delete taches[i];
 		}
     }
-  };
 
     /*********
      Accessors
@@ -86,5 +86,4 @@ public:
 	};
 
 };
-
 #endif
