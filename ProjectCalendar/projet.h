@@ -1,7 +1,8 @@
+class Projet;
 #ifndef PROJET
 #define PROJET
 #include "ProjC.h"
-
+#include "tache.h"
 
 class Projet{
 	friend class Iterator;
@@ -18,17 +19,18 @@ public:
 		for (int i = 0; i < taches.size(); i++){
 			delete taches[i];
 		}
-	}
-
-	/**********
-	/ Accessors
-	**********/
+    }
+  };
+/*
+    *********
+     Accessors
+    *********
     const std::vector<Tache*> getTaches() const{ return taches; }
 
 
 	/**********
 	/ Setters
-	**********/
+    *********
     void addTache(const Tache& tache){ taches.push_back(tache); }
 
     /*void addTaches(const vector<tache*> addingTaches){
@@ -36,7 +38,7 @@ public:
 			taches.push_back(addTaches[i]);
 		}
 	}
-    */
+
 
 	//TODO:
 		// Creer iterateur
@@ -87,5 +89,5 @@ public:
 };
 
 
-#endif // PROJET
 
+#endif

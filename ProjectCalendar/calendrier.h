@@ -9,6 +9,15 @@ class programmation;
 class programmationActivite;
 class programmationTache;
 
+class CalendarException{
+public:
+    //! Constructeur à partir d'une string
+    CalendarException(const std::string& m):info(m){}
+    const std::string& GetInfo() const { return info; } //<! Retourne l'information stockée dans la classe
+private:
+    std::string info;
+};
+
 class agenda: public QWidget{
     Q_OBJECT
 
@@ -58,7 +67,7 @@ public:
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
     Date& getJour1();
     void deleteChildWidgets(QLayoutItem *item);
-    programmation* trouverProgrammation(const Date& d, const Horaire& hdebut, const Horaire& hfin);
+    programmation* trouverProgrammation(const Date& d, const Horaire& hdebut);
 
     //pour trier les programmations par horaire selon le jour
 
@@ -85,12 +94,15 @@ public:
     const TIME::Horaire getHoraire() const { return horaire; }
     QVBoxLayout* getLayout() const {return prog;}
     virtual void afficher() const {}
+    //virtual const Activite& getActivite() const {return Activite("",0,Duree(0,0));}
+    virtual TIME::Horaire getHorairefin() const{return Horaire(0,0);}
 };
 
 class programmationTache: public programmation{
     //const Tache& tache;
 public:
     programmationTache(const TIME::Date& d, const TIME::Horaire& h):programmation(d,h){}
+
 };
 
 class programmationActivite: public programmation{
