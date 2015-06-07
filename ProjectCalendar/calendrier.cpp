@@ -38,15 +38,12 @@ agenda::agenda() {
     ChoisirJ1= new QPushButton("1er jour");
 
     QString msgsemaine;
-    msgsemaine="";
     msgsemaine+="Semaine du ";
-    msgsemaine+=jour1->getJour();//date du 1er jour de la semaine
+    msgsemaine+=QVariant((jour1->getJour())).toString();
     msgsemaine+="/";
-    msgsemaine+=jour1->getMois();
+    msgsemaine+=QVariant((jour1->getMois())).toString();
     msgsemaine+="/";
-    msgsemaine+=jour1->getAnnee();
-    msgsemaine+=" au ";
-    msgsemaine+="31/05/2015";//date du dernier jour de la semaine
+    msgsemaine+=QVariant((jour1->getAnnee())).toString();
     textsemaine=new QLabel(msgsemaine);
 
 
@@ -55,43 +52,43 @@ agenda::agenda() {
         //jours de la semaine en haut de la grille
     QString j1;
     j1+="Lundi ";
-    j1+=QVariant(jour1->getJour()).toString(); //n° du jour du lundi
+    //j1+=QVariant(jour1->getJour()).toString(); //n° du jour du lundi
     QLabel* Lj1;
     Lj1=new QLabel();
     Lj1->setText(j1);
     QString j2;
     j2+="Mardi ";
-    j2+=QVariant(jour1->demain().getJour()).toString(); //n° du jour du mardi
+    //j2+=QVariant(jour1->demain().getJour()).toString(); //n° du jour du mardi
     QLabel* Lj2;
     Lj2=new QLabel;
     Lj2->setText(j2);
     QString j3;
     j3+="Mercredi ";
-    j3+=QVariant(jour1->demain().demain().getJour()).toString(); //n° du jour du mercredi
+    //j3+=QVariant(jour1->demain().demain().getJour()).toString(); //n° du jour du mercredi
     QLabel* Lj3;
     Lj3=new QLabel;
     Lj3->setText(j3);
     QString j4;
     j4+="Jeudi ";
-    j4+=QVariant(jour1->demain().demain().demain().getJour()).toString(); //n° du jour du jeudi
+    //j4+=QVariant(jour1->demain().demain().demain().getJour()).toString(); //n° du jour du jeudi
     QLabel* Lj4;
     Lj4=new QLabel;
     Lj4->setText(j4);
     QString j5;
     j5+="Vendredi ";
-    j5+=QVariant(jour1->demain().demain().demain().demain().getJour()).toString(); //n° du jour du vendredi
+    //j5+=QVariant(jour1->demain().demain().demain().demain().getJour()).toString(); //n° du jour du vendredi
     QLabel* Lj5;
     Lj5=new QLabel;
     Lj5->setText(j5);
     QString j6;
     j6+="Samedi ";
-    j6+=QVariant(jour1->demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du samedi
+    //j6+=QVariant(jour1->demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du samedi
     QLabel* Lj6;
     Lj6=new QLabel;
     Lj6->setText(j6);
     QString j7;
     j7+="Dimanche ";
-    j7+=QVariant(jour1->demain().demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du dimanche
+    //j7+=QVariant(jour1->demain().demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du dimanche
     QLabel* Lj7;
     Lj7= new QLabel;
     Lj7->setText(j7);
@@ -125,6 +122,11 @@ agenda::agenda() {
 
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
 }
+void agenda::setTextsemaine(QString s){
+    textsemaine->clear();
+    textsemaine->setText(s);
+}
+
 void agenda::choixj1(){
     myCalendar* calendar;
     calendar=new myCalendar();
@@ -137,7 +139,15 @@ void myCalendar::setj1(const QDate& date){
     {
         Date* jour1=new Date(date.day(),date.month(),date.year());
         agenda::getInstance().setJour1(*jour1);
-        //agenda::getInstance();
+        QString msg;
+        msg+="Semaine du ";
+        msg+=QVariant((jour1->getJour())).toString();
+        msg+="/";
+        msg+=QVariant((jour1->getMois())).toString();
+        msg+="/";
+        msg+=QVariant((jour1->getAnnee())).toString();
+        agenda::getInstance().setTextsemaine(msg);
+        agenda::getInstance().afficher();
         this->close();
     }
     else
@@ -164,7 +174,7 @@ void agenda::afficher(){
     tabi[6]=(int)vjour7.size();
 
     //on vide les progs la grille affprogs
-    for(int k1=0;k1<6;k1++)//colonne
+    for(int k1=0;k1<7;k1++)//colonne
     {
         for(int k2=0; k2<tabi[k1];k2++)//ligne
         {
@@ -281,7 +291,6 @@ void agenda::afficher(){
     d=0;
     delete j;
     delete d;
-
 }
 
 void programmationActivite::afficher() const {

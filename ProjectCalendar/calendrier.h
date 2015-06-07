@@ -2,8 +2,9 @@
 #define PROGRAMMATION
 
 #include "ProjC.h"
-using namespace TIME;
 
+using namespace TIME;
+using namespace std;
 class Activite;
 class programmation;
 class programmationActivite;
@@ -72,8 +73,7 @@ public:
     void setJour1(const Date& d);
     void deleteChildWidgets(QLayoutItem *item);
     programmation* trouverProgrammation(const Date& d, const Horaire& hdebut);
-
-    //pour trier les programmations par horaire selon le jour
+    void setTextsemaine(QString s);
 
 
 public slots:
@@ -159,6 +159,7 @@ class myCalendar: public QCalendarWidget
     {
       QObject::connect(this, SIGNAL(clicked(const QDate&)), this, SLOT(setj1(const QDate&)));
     }
+
 
   public slots:
         void setj1(const QDate& date);
