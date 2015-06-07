@@ -24,10 +24,12 @@ agenda::agenda() {
     titreLabel= new QLabel("Agenda");
 
     //barre d'outils
+    CreerProjet = new QPushButton("Creer un Projet", this);
     CreerActivite=new QPushButton("Créer une Activité", this);
     CreerTache=new QPushButton("Créer une Tâche", this);
     Afficher=new QPushButton("Afficher",this);
     coucheh1 = new QHBoxLayout;
+    coucheh1->addWidget(CreerProjet);
     coucheh1->addWidget(CreerActivite);
     coucheh1->addWidget(CreerTache);
     coucheh1->addWidget(Afficher);
@@ -118,8 +120,9 @@ agenda::agenda() {
 
     //actions
     QObject::connect(CreerActivite,SIGNAL(clicked()),this,SLOT(fenetreActivite()));
-    QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreCreerTache()));
+    QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreTache()));
     QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
+
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
 }
 void agenda::choixj1(){
@@ -127,6 +130,7 @@ void agenda::choixj1(){
     calendar=new myCalendar();
     calendar->setGridVisible(true);
     calendar->show();
+
 }
 void myCalendar::setj1(const QDate& date){
     if(date.dayOfWeek()==1)
@@ -317,6 +321,7 @@ void agenda::fenetreActivite(){
     FenetreCreerActivite* fenetre= new FenetreCreerActivite;
     fenetre->show();
 }
+
 
 programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h) {
     programmationTache* newprog=new programmationTache(d,h);

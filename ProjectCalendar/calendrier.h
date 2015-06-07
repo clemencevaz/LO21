@@ -43,6 +43,7 @@ class agenda: public QWidget{
 
     QPushButton* CreerActivite;
     QPushButton* CreerTache;
+    QPushButton* CreerProjet;
     QPushButton* Afficher;
     QPushButton* ChoisirJ1;
 
@@ -77,6 +78,7 @@ public:
 
 public slots:
     void fenetreActivite();
+    void fenetreTache();
     void afficher() ;
     void choixj1();
 };
