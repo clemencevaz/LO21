@@ -22,9 +22,11 @@ agenda::agenda() {
 
     //barre d'outils
     CreerActivite=new QPushButton("Créer une Activité", this);
+    CreerTache=new QPushButton("Créer une Tâche", this);
     Afficher=new QPushButton("Afficher",this);
     coucheh1 = new QHBoxLayout;
     coucheh1->addWidget(CreerActivite);
+    coucheh1->addWidget(CreerTache);
     coucheh1->addWidget(Afficher);
 
     //Affichage de la semaine
@@ -106,6 +108,7 @@ agenda::agenda() {
 
     //actions
     QObject::connect(CreerActivite,SIGNAL(clicked()),this,SLOT(fenetreActivite()));
+    QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreCreerTache()));
     QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
 
 
