@@ -17,3 +17,4 @@ build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Release/release/moc_calend
 *.cpp
 ProjectCalendar/ProjectCalendar.pro.user
 *.user
+*.pro.user
