@@ -8,6 +8,7 @@
 #include<iomanip>
 #include <vector>
 #include <algorithm>
+#include <QCalendarWidget>
 #include <QString>
 #include <QWidget>
 #include <QCheckBox>

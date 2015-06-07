@@ -45,6 +45,7 @@ class agenda: public QWidget{
     QPushButton* CreerTache;
     QPushButton* CreerProjet;
     QPushButton* Afficher;
+    QPushButton* ChoisirJ1;
 
     Date* jour1;
 
@@ -68,6 +69,7 @@ public:
     programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
     Date& getJour1();
+    void setJour1(const Date& d);
     void deleteChildWidgets(QLayoutItem *item);
     programmation* trouverProgrammation(const Date& d, const Horaire& hdebut);
 
@@ -76,8 +78,13 @@ public:
 
 public slots:
     void fenetreActivite();
+<<<<<<< HEAD
     void fenetreProjet();
+=======
+    void fenetreTache();
+>>>>>>> 22ba7cae6829c371523048674dc5db5b53aed7b1
     void afficher() ;
+    void choixj1();
 
 };
 

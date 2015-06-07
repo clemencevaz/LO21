@@ -34,10 +34,16 @@ FenetreCreerTache::FenetreCreerTache(){
     setLayout(coucheV1);
 
     QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(sauverTache()));
+};
 
-}
+FenetreChoixTypeTache::FenetreChoixTypeTache(){
+    unitaire=new QCheckBox("Tache unitaire");
+    composite=new QCheckBox("Tache composite");
+};
+
+/*
 void FenetreCreerTache::sauverTache(){
-    if(Activite* activite=new Activite(ActNom->text(),ActDesc->toPlainText(),Duree(hActDuree->value(),mActDuree->value())))
+    if(Tache* tache=new Tache(ActNom->text(),ActDesc->toPlainText(),Duree(hActDuree->value(),mActDuree->value())))
     {
         QMessageBox msgBox;
         msgBox.setText("La tâche a été crée");
@@ -46,5 +52,5 @@ void FenetreCreerTache::sauverTache(){
         programactivite->show();
         this->close();
     }
-}
+}*/
 
