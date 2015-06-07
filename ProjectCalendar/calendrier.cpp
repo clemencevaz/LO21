@@ -14,6 +14,9 @@ void agenda::libererInstance() {
 Date& agenda::getJour1(){
     return *jour1;
 }
+void agenda::setJour1(const Date& d){
+    jour1=new Date(d);
+}
 
 agenda::agenda() {
     progs.reserve(10);
@@ -30,6 +33,8 @@ agenda::agenda() {
     coucheh1->addWidget(Afficher);
 
     //Affichage de la semaine
+    ChoisirJ1= new QPushButton("1er jour");
+
     QString msgsemaine;
     msgsemaine+="Semaine du ";
     msgsemaine+="25/05/2015";//date du 1er jour de la semaine
@@ -100,6 +105,7 @@ agenda::agenda() {
     couchev1= new QVBoxLayout;
     couchev1->addWidget(titreLabel);//1 niveau titre
     couchev1->addLayout(coucheh1);//2 niveau barre d'outils
+    couchev1->addWidget(ChoisirJ1);//choisir le premier jour
     couchev1->addWidget(textsemaine);//3 niveau information sur la semaine affichée
     couchev1->addLayout(affprogs);
 
@@ -110,7 +116,13 @@ agenda::agenda() {
     QObject::connect(CreerActivite,SIGNAL(clicked()),this,SLOT(fenetreActivite()));
     QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreCreerTache()));
     QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
-
+    QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
+}
+void agenda::choixj1(){
+    QCalendarWidget* calendar;
+    calendar=new QCalendarWidget();
+    calendar->setGridVisible(true);
+    calendar->show();
 
 }
 
