@@ -46,7 +46,7 @@ class agenda: public QWidget{
     QPushButton* Afficher;
     QPushButton* ChoisirJ1;
 
-    Date* jour1;
+    Date* jour1=new Date(1,6,2015);
 
 
     agenda();
@@ -79,7 +79,6 @@ public slots:
     void fenetreActivite();
     void afficher() ;
     void choixj1();
-
 };
 
 class programmation{
@@ -149,6 +148,19 @@ public:
 
         return ((*a).getHoraire() < (*b).getHoraire());
     }
+};
+class myCalendar: public QCalendarWidget
+{
+    Q_OBJECT
+  public:
+    myCalendar() : QCalendarWidget()
+    {
+      QObject::connect(this, SIGNAL(clicked(const QDate&)), this, SLOT(setj1(const QDate&)));
+    }
+
+  public slots:
+        void setj1(const QDate& date);
+
 };
 
 #endif // PROGRAMMATION

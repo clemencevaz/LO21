@@ -36,13 +36,17 @@ agenda::agenda() {
     ChoisirJ1= new QPushButton("1er jour");
 
     QString msgsemaine;
+    msgsemaine="";
     msgsemaine+="Semaine du ";
-    msgsemaine+="25/05/2015";//date du 1er jour de la semaine
+    msgsemaine+=jour1->getJour();//date du 1er jour de la semaine
+    msgsemaine+="/";
+    msgsemaine+=jour1->getMois();
+    msgsemaine+="/";
+    msgsemaine+=jour1->getAnnee();
     msgsemaine+=" au ";
     msgsemaine+="31/05/2015";//date du dernier jour de la semaine
     textsemaine=new QLabel(msgsemaine);
 
-    jour1=new Date(1,6,2015);
 
     //Affichage des programmations de la semaine
     affprogs=new QGridLayout;
@@ -119,12 +123,29 @@ agenda::agenda() {
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
 }
 void agenda::choixj1(){
-    QCalendarWidget* calendar;
-    calendar=new QCalendarWidget();
+    myCalendar* calendar;
+    calendar=new myCalendar();
     calendar->setGridVisible(true);
     calendar->show();
-
 }
+void myCalendar::setj1(const QDate& date){
+    if(date.dayOfWeek()==1)
+    {
+        Date* jour1=new Date(date.day(),date.month(),date.year());
+        agenda::getInstance().setJour1(*jour1);
+        //agenda::getInstance();
+        this->close();
+    }
+    else
+    {
+        QString msg;
+        msg+="Le jour choisi n'est pas un lundi";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+    }
+}
+
 
 void agenda::afficher(){
 

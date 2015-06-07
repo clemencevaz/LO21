@@ -24,6 +24,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QDate>
 #include <QDateEdit>
 #include <QVector>
 #include "timing.h"
