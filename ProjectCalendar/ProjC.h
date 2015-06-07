@@ -23,6 +23,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QMessageBox>
+#include <QRadioButton>
 #include <QPushButton>
 #include <QDate>
 #include <QDateEdit>

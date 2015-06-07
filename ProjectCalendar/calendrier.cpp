@@ -323,8 +323,8 @@ void agenda::fenetreActivite(){
 }
 
 void agenda::fenetreTache(){
-    //FenetreCreerTache* fenetre= new FenetreCreerTache;
-    //fenetre->show();
+    FenetreChoixTypeTache * fenetre= new FenetreChoixTypeTache;
+    fenetre->show();
 }
 
 programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h) {

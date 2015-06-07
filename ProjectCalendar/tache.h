@@ -47,17 +47,17 @@ class TacheComposite : public Tache{
         ~TacheComposite();
 };
 
-/*class FenetreChoixTypeTache : public QWidget{
-    Q_OBJECT
-    QCheckBox* unitaire;
-    QCheckBox* composite;
+class FenetreChoixTypeTache : public QWidget{
+    QLabel* titreLabel;
+    QRadioButton* unitaire;
+    QRadioButton* composite;
+    QVBoxLayout* coucheV1;
+    QPushButton* valide;
 public:
     FenetreChoixTypeTache();
-public slots :
-    void valider();
-};*/
+};
 
-class FenetreCreerTache: public QWidget{
+class FenetreCreerTacheUnitaire: public QWidget{
     Q_OBJECT
     QLabel* titreLabel;
     QLabel* nom;
@@ -71,7 +71,7 @@ class FenetreCreerTache: public QWidget{
     QVBoxLayout* coucheV1;
     QPushButton* Enregistrer;
 public:
-    FenetreCreerTache();
+    FenetreCreerTacheUnitaire();
 public slots:
     void sauverTache();
 };

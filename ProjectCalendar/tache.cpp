@@ -1,9 +1,6 @@
 #include "tache.h"
 
-/*Tache::addTacheProjet(Projet& pere){
-}*/
-
-FenetreCreerTache::FenetreCreerTache(){
+FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire(){
     titreLabel= new QLabel("Créer une tâche");
     nom= new QLabel("Nom: ");
     description=new QLabel("Description: ");
@@ -36,13 +33,26 @@ FenetreCreerTache::FenetreCreerTache(){
     QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(sauverTache()));
 }
 
-/*FenetreChoixTypeTache::FenetreChoixTypeTache(){
-    unitaire=new QCheckBox("Tache unitaire");
-    composite=new QCheckBox("Tache composite");
-};*/
+FenetreChoixTypeTache::FenetreChoixTypeTache(){
+    titreLabel= new QLabel("Créer une tâche");
+    coucheV1= new QVBoxLayout;
+    unitaire=new QRadioButton("Tache unitaire",this);
+    composite=new QRadioButton("Tache composite",this);
+    coucheV1->addWidget(unitaire);
+    coucheV1->addWidget(composite);
 
+    valide=new QPushButton("Valider");
+    coucheV1->addWidget(valide);
+    setLayout(coucheV1);
 
-void FenetreCreerTache::sauverTache(){
+    if(unitaire->isChecked())
+      {
+        QObject::connect(valide,SIGNAL(clicked()),this,SLOT(FenetreCreerTacheUnitaire()));
+      }
+
+}
+
+void FenetreCreerTacheUnitaire::sauverTache(){
     if(Activite* activite=new Activite(ActNom->text(),ActDesc->toPlainText(),Duree(hActDuree->value(),mActDuree->value())))
     {
         QMessageBox msgBox;
