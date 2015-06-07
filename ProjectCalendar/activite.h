@@ -2,6 +2,7 @@
 #define ACTIVITE
 
 #include "ProjC.h"
+using namespace TIME;
 
 class Activite{
 private:

@@ -1,8 +1,7 @@
 #ifndef PROJET
 #define PROJET
 #include "ProjC.h"
-class Tache{};
-
+class Tache;
 /*!	\class Projet
 	\brief La classe qui definit les projets
 
