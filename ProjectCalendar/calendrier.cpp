@@ -322,6 +322,13 @@ void agenda::fenetreActivite(){
     fenetre->show();
 }
 
+<<<<<<< Updated upstream
+=======
+void agenda::fenetreTache(){
+    //FenetreCreerTache* fenetre= new FenetreCreerTache;
+    //fenetre->show();
+}
+>>>>>>> Stashed changes
 
 programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h) {
     programmationTache* newprog=new programmationTache(d,h);
