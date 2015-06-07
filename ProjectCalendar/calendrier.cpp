@@ -118,8 +118,7 @@ agenda::agenda() {
     QObject::connect(CreerActivite,SIGNAL(clicked()),this,SLOT(fenetreActivite()));
     QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreTache()));
     QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
-<<<<<<< HEAD
-=======
+
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
 }
 void agenda::choixj1(){
@@ -127,7 +126,7 @@ void agenda::choixj1(){
     calendar=new QCalendarWidget();
     calendar->setGridVisible(true);
     calendar->show();
->>>>>>> 22ba7cae6829c371523048674dc5db5b53aed7b1
+
 
 }
 

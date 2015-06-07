@@ -78,11 +78,7 @@ public:
 
 public slots:
     void fenetreActivite();
-<<<<<<< HEAD
-    void fenetreProjet();
-=======
     void fenetreTache();
->>>>>>> 22ba7cae6829c371523048674dc5db5b53aed7b1
     void afficher() ;
     void choixj1();
 
