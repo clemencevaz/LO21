@@ -24,7 +24,7 @@ FenetreChoixTypeTache::FenetreChoixTypeTache(){
 
 }
 void FenetreChoixTypeTache::fenetreTacheUnitaire(){
-    FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire * fenetre= new FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire;
+    FenetreCreerTacheUnitaire * fenetre= new FenetreCreerTacheUnitaire;
     fenetre->show();
 }
 
