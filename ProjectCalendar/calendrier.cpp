@@ -114,7 +114,7 @@ agenda::agenda() {
 
     //actions
     QObject::connect(CreerActivite,SIGNAL(clicked()),this,SLOT(fenetreActivite()));
-    QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreCreerTache()));
+    QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreTache()));
     QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
 }
@@ -294,6 +294,11 @@ TIME::Horaire programmationActivite::getHorairefin() const{
 }
 void agenda::fenetreActivite(){
     FenetreCreerActivite* fenetre= new FenetreCreerActivite;
+    fenetre->show();
+}
+
+void agenda::fenetreTache(){
+    FenetreCreerTache* fenetre= new FenetreCreerTache;
     fenetre->show();
 }
 

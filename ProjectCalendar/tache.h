@@ -47,6 +47,16 @@ class TacheComposite : public Tache{
         ~TacheComposite();
 };
 
+class FenetreChoixTypeTache : public QWidget{
+    Q_OBJECT
+    QCheckBox* unitaire;
+    QCheckBox* composite;
+public:
+    FenetreChoixTypeTache();
+public slots :
+    void valider();
+};
+
 class FenetreCreerTache: public QWidget{
     Q_OBJECT
     QLabel* titreLabel;
