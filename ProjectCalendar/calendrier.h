@@ -43,6 +43,7 @@ class agenda: public QWidget{
 
     QPushButton* CreerActivite;
     QPushButton* CreerTache;
+    QPushButton* CreerProjet;
     QPushButton* Afficher;
 
     Date* jour1;
@@ -75,6 +76,7 @@ public:
 
 public slots:
     void fenetreActivite();
+    void fenetreProjet();
     void afficher() ;
 
 };
