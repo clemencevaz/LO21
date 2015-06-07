@@ -36,6 +36,16 @@ agenda::agenda() {
 
     //Affichage de la semaine
     ChoisirJ1= new QPushButton("1er jour");
+    QDate lundi=QDate::currentDate();
+
+    if(lundi.dayOfWeek()>1)
+    {
+        while(lundi.dayOfWeek()>1)
+        {
+            lundi=lundi.addDays(-1);
+        }
+    }
+    jour1=new Date(lundi.day(),lundi.month(),lundi.year());
 
     QString msgsemaine;
     msgsemaine+="Semaine du ";
@@ -324,7 +334,8 @@ void programmationActivite::afficher() const {
 
 }
 TIME::Horaire programmationActivite::getHorairefin() const{
-    return Horaire(this->getHoraire()+this->getActivite().getDuree());
+    Horaire* h1=new Horaire(this->getHoraire()+this->getActivite().getDuree());
+    return *h1;
 }
 void agenda::fenetreActivite(){
     FenetreCreerActivite* fenetre= new FenetreCreerActivite;
@@ -336,14 +347,14 @@ void agenda::fenetreTache(){
     fenetre->show();
 }
 
-programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h) {
-    programmationTache* newprog=new programmationTache(d,h);
+programmation& agenda::ajouterProgrammationTache(const Tache& t, const TIME::Date& d, const TIME::Horaire& h) {
+    programmationTache* newprog=new programmationTache(t,d,h);
     progs.push_back(newprog);
     return *newprog;
 }
 programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
     programmationActivite* newprog= new programmationActivite(a,d,h);
-    if(trouverProgrammation(d,h))
+    if(trouverProgrammation(d,h,a.getDuree()))
     {
         QString msg;
         msg+="Déjà une programmation";
@@ -427,11 +438,11 @@ void agenda::deleteChildWidgets(QLayoutItem *item){
     }
     delete item->widget();
 }
-programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut){
+programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut, const Duree& dur){
+    Horaire hfin=Horaire(hdebut+dur);
     for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
-        //on ne prend que les programmations qui ont cette date de début
-        if((*it)->getDate()==d && (*it)->getHoraire()>=hdebut) //&& (*it)->getHorairefin()<hfin)
+        if((*it)->getDate()==d && ((hdebut>=(*it)->getHoraire() && hdebut<=(*it)->getHorairefin()) ||(hfin>=(*it)->getHoraire() && hfin<=(*it)->getHorairefin())))
         {
             return (*it);
         }
