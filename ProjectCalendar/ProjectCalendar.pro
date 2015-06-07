@@ -22,4 +22,5 @@ HEADERS += \
     projetManager.h
 
 FORMS += \
-    projectViewer.ui
+    projectViewer.ui \
+    newProject.ui
