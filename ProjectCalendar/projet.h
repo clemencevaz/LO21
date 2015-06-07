@@ -118,7 +118,7 @@ public:
 
 	};
 	
-	Iterator getIterator() const { return new Iterator(taches); }
+    Iterator* getIterator() const { return new Iterator(taches); }
 
 };
 #endif
