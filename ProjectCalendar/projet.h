@@ -119,11 +119,9 @@ public:
 
 	};
 	
-<<<<<<< HEAD
-   Iterator* getIterator() { return new Iterator(taches); }
-=======
+
     Iterator* getIterator() const { return new Iterator(taches); }
->>>>>>> 4f05a1b2079e20945afe2a74ed8a6ae841b0c3ec
+
 
 };
 #endif
