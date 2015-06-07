@@ -47,7 +47,7 @@ class TacheComposite : public Tache{
         ~TacheComposite();
 };
 
-class FenetreChoixTypeTache : public QWidget{
+/*class FenetreChoixTypeTache : public QWidget{
     Q_OBJECT
     QCheckBox* unitaire;
     QCheckBox* composite;
@@ -55,7 +55,7 @@ public:
     FenetreChoixTypeTache();
 public slots :
     void valider();
-};
+};*/
 
 class FenetreCreerTache: public QWidget{
     Q_OBJECT
@@ -75,4 +75,4 @@ public:
 public slots:
     void sauverTache();
 };
-#endif // TACHE
+#endif

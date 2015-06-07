@@ -1,3 +1,5 @@
+
+CONFIG   -= x86_64
 QT += widgets
 /NODEFAULTLIB:msvcrt.lib
 QT += xml
