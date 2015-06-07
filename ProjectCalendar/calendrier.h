@@ -42,6 +42,7 @@ class agenda: public QWidget{
     QGridLayout* affprogs;
 
     QPushButton* CreerActivite;
+    QPushButton* CreerTache;
     QPushButton* Afficher;
 
     Date* jour1;
