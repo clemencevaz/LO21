@@ -1,7 +1,11 @@
 #ifndef PROJET
 #define PROJET
 #include "ProjC.h"
+<<<<<<< HEAD
 class Tache{};
+=======
+class Tache;
+>>>>>>> c2ed46df7b8ad5bceadd7fbdc4946cfd3ad01b61
 
 /*!	\class Projet
 	\brief La classe qui definit les projets
@@ -119,7 +123,11 @@ public:
 
 	};
 	
-	Iterator getIterator() const { return new Iterator(taches); }
+<<<<<<< HEAD
+   Iterator* getIterator() { return new Iterator(taches); }
+=======
+    Iterator* getIterator() const { return new Iterator(taches); }
+>>>>>>> 4f05a1b2079e20945afe2a74ed8a6ae841b0c3ec
 
 };
 #endif

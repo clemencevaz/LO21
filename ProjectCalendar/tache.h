@@ -3,6 +3,7 @@
 using namespace std;
 #include "ProjC.h"
 #include<stdexcept>
+using namespace TIME;
 
 class Tache{
 	Projet projet_pere;
