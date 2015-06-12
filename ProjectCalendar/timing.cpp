@@ -64,6 +64,16 @@ Date Date::demain() const{
 	if (d.mois==13){ d.annee++; d.mois=1; }
 	return d;
 }
+void Date::setDateAujourdhui(){
+    // initialisation de la date avec la date d'aujourd'hui
+    time_t rawtime;
+    struct tm * timeinfo;
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    jour=timeinfo->tm_mday;
+    mois=timeinfo->tm_mon+1;
+    annee=timeinfo->tm_year+1900;
+}
 
 Date Date::operator+(unsigned int nb_jours) const{
 	Date d=*this;
@@ -78,12 +88,29 @@ bool Horaire::operator<(const Horaire& h) const{
 	if (minute>h.minute) return false;
 	return true;
 }
+bool Horaire::operator<=(const Horaire& h) const{
+    if(heure<=h.heure)
+    {
+        if(heure==h.heure)
+        {
+            if(minute<=h.minute)return true;
+            else return false;
+        }
+        else return true;
+    }
+    return false;
+}
 bool Horaire::operator>=(const Horaire& h) const{
-    if(heure>=h.heure) return true;
-    if(heure<h.heure) return false;
-    if(minute>=h.minute) return true;
-    if(minute<h.minute) return false;
-    return true;
+    if(heure>=h.heure)
+    {
+        if(heure==h.heure)
+        {
+            if(minute>=h.minute)return true;
+            else return false;
+        }
+        else return true;
+    }
+    return false;
 }
 Horaire Horaire::operator+(const Duree& d) const{
     Horaire h1=*this;
@@ -91,14 +118,14 @@ Horaire Horaire::operator+(const Duree& d) const{
     unsigned short minute=0;
     heure=h1.getHeure();
     minute=h1.getMinute();
-    minute+=d.getDureeEnMinutes();
-    while(minute>60)
+    minute=d.getDureeEnMinutes();
+    while(minute>=60)
     {
         minute=minute-60;
         heure++;
     }
-    Horaire* h2=new Horaire(heure,minute);
-    return *h2;
+    h1.setHoraire(heure,minute);
+    return h1;
 }
 
 Periode::Periode(unsigned int j, unsigned int m, unsigned int a): 

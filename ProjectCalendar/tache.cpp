@@ -32,6 +32,7 @@ FenetreChoixProjet::FenetreChoixProjet(){
 }
 
 void FenetreChoixTypeTache::fenetreTacheUnitaire(){
+<<<<<<< HEAD
   if(unitaire->isChecked()){
     FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire * fenetreuni = new FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire;
     fenetreuni->show();
@@ -40,6 +41,10 @@ void FenetreChoixTypeTache::fenetreTacheUnitaire(){
     FenetreCreerTacheComposite::FenetreCreerTacheComposite * fenetrecompo = new FenetreCreerTacheComposite::FenetreCreerTacheComposite;
     fenetrecompo->show();
   }
+=======
+    FenetreCreerTacheUnitaire * fenetre= new FenetreCreerTacheUnitaire;
+    fenetre->show();
+>>>>>>> origin/master
 }
 
 

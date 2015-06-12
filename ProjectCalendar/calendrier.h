@@ -67,12 +67,12 @@ public:
     static agenda& getInstance();
     static void libererInstance();
     //programmation& ajouterProgrammation(const Tache& t, const TIME::Horaire& h, const Date& d);
-    programmation& ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h);
+    programmation& ajouterProgrammationTache(const Tache& t,const TIME::Date& d, const TIME::Horaire& h);
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);
     Date& getJour1();
     void setJour1(const Date& d);
     void deleteChildWidgets(QLayoutItem *item);
-    programmation* trouverProgrammation(const Date& d, const Horaire& hdebut);
+    programmation* trouverProgrammation(const Date& d, const Horaire& hdebut, const Duree& dur);
     void setTextsemaine(QString s);
 
 
@@ -104,9 +104,12 @@ public:
 };
 
 class programmationTache: public programmation{
-    //const Tache& tache;
+    const Tache& tache;
 public:
-    programmationTache(const TIME::Date& d, const TIME::Horaire& h):programmation(d,h){}
+    programmationTache(const Tache& t,const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),tache(t){}
+    const Tache& getTache() const {return tache;}
+    //void afficher() const;
+    //TIME::Horaire getHorairefin() const;
 
 };
 
@@ -114,7 +117,6 @@ class programmationActivite: public programmation{
     const Activite& activite;
 public:
     programmationActivite(const Activite& a,const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
-    //programmationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),activite(a){}
     const Activite& getActivite() const { return activite; }
     void afficher() const ;
     TIME::Horaire getHorairefin() const;
