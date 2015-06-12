@@ -91,4 +91,15 @@ public:
 public slots:
     void sauverTacheC();
 };
+
+class FenetreChoixProjet : public QWidget{
+  Q_OBJECT
+  QVBoxLayout* coucheV1;
+  QComboBox * listeprojets;
+  QPushButton* Enregistrer;
+public:
+  FenetreChoixProjet();
+public slots:
+  void sauverprojet();
+};
 #endif

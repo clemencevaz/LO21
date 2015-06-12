@@ -17,7 +17,7 @@ friend class Iterator;
 private:
 
 
-	std::vector<Project*> projects; /*!< Le vecteur qui contiendra les projets, en pointeur pour la memoire*/
+	std::vector<Projet*> projets; /*!< Le vecteur qui contiendra les projets, en pointeur pour la memoire*/
 
 	//! Le constructeur, prive, du Project Manager
 	/*!
@@ -25,7 +25,7 @@ private:
 		10 projets dans le vecteur.
 	*/
 	ProjetManager(){
-		projects.reserve(10);
+		projets.reserve(10);
 	};
 
 	ProjetManager(const ProjetManager &old); // desactivation de la copie
@@ -42,8 +42,8 @@ private:
 		dans le cal
 	*/
 	~ProjetManager(){
-		for(unsigned int i = 0; i<projects.size(); i++){
-			delete projects[i];
+		for(unsigned int i = 0; i<projets.size(); i++){
+			delete projets[i];
 		}
 	};
 public:
@@ -65,7 +65,7 @@ public:
 		\param proj une reference au Projet qui sera ajoute
 	*/
 	void addProjet(Projet& proj){
-		projects.push_back(*proj);
+		projets.push_back(*proj);
 	}
 
 	//! Permet d'eliminer un projet du ProjetManager
@@ -76,9 +76,9 @@ public:
 	*/
 
 	void removeProject(Projet& proj){
-		for (int i = 0; i < projects.size(); i++){
-			if (&projects[i] == proj){
-				projects.erase(projects.begin()+i);
+		for (int i = 0; i < projets.size(); i++){
+			if (&projets[i] == proj){
+				projets.erase(projets.begin()+i);
 			}
 		}
 	}
@@ -89,9 +89,9 @@ public:
 	*/
 
 	void deleteProject(Projet& proj){
-		for (int i = 0; i < projects.size(); i++){
-			if (&projects[i] == proj){
-				delete projects[i];
+		for (int i = 0; i < projets.size(); i++){
+			if (&projets[i] == proj){
+				delete projets[i];
 			}
 		}
 	}
@@ -108,10 +108,10 @@ public:
 		friend class ProjetManager;
 		 
 	private:
-		std::vector<Project*> projs;
+		std::vector<Projet*> projs;
 		int i;
 
-		Iterator(std::vector<Project*> projects):projs(projects),i(0){}
+		Iterator(std::vector<Projet*> projets):projs(projets),i(0){}
 
 	public:
 		~Iterator();
@@ -137,7 +137,7 @@ public:
 		}
 	};
 
-	Iterator getIterator() const { return Iterator(projects); }
+	Iterator getIterator() const { return Iterator(projets); }
 };
 
 #endif
