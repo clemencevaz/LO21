@@ -1,5 +1,5 @@
-#include "tache.h"
-
+#include "ProjC.h"
+#include "projetManager.h"
 
 
 FenetreChoixTypeTache::FenetreChoixTypeTache(){
@@ -12,20 +12,34 @@ FenetreChoixTypeTache::FenetreChoixTypeTache(){
     valide=new QPushButton("Valider");
     coucheV1->addWidget(valide);
     setLayout(coucheV1);
-    QObject::connect(valide,SIGNAL(clicked()),this,SLOT(fenetreTacheUnitaire()));
-    if(unitaire->isChecked())
-      {
-        QObject::connect(valide,SIGNAL(clicked()),this,SLOT(fenetreTacheUnitaire()));
-      }
-    else if (composite->isChecked())
-      {
-
-      }
-
+   QObject::connect(valide,SIGNAL(clicked()),this,SLOT(fenetreTacheUnitaire()));
 }
+
+FenetreChoixProjet::FenetreChoixProjet(){
+  coucheV1= new QVBoxLayout;
+  listeprojets=new QComboBox (listeprojets);
+  Enregistrer=new QPushButton("Enregistrer");
+  coucheV1->addWidget(Enregistrer);
+
+  setLayout(coucheV1);
+
+  /*ProjetManager& p = ProjetManager::getManager();
+  ProjetManager::Iterator * it;
+  for (it=ProjetManager::getIterator();it!=end();it.next())
+      listeprojets.addItem(*it->titre);*/
+
+  QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(FenetreChoixTypeTache()));
+}
+
 void FenetreChoixTypeTache::fenetreTacheUnitaire(){
-    FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire * fenetre= new FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire;
-    fenetre->show();
+  if(unitaire->isChecked()){
+    FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire * fenetreuni = new FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire;
+    fenetreuni->show();
+   }
+  else if (composite->isChecked()){
+    FenetreCreerTacheComposite::FenetreCreerTacheComposite * fenetrecompo = new FenetreCreerTacheComposite::FenetreCreerTacheComposite;
+    fenetrecompo->show();
+  }
 }
 
 
