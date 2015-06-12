@@ -347,7 +347,7 @@ void agenda::fenetreTache(){
     fenetre->show();
 }
 
-programmation& agenda::ajouterProgrammationTache(const Tache& t, const TIME::Date& d, const TIME::Horaire& h) {
+programmation& agenda::ajouterProgrammationTache(const TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h) {
     programmationTache* newprog=new programmationTache(t,d,h);
     progs.push_back(newprog);
     return *newprog;

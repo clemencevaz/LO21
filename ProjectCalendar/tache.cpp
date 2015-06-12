@@ -32,19 +32,14 @@ FenetreChoixProjet::FenetreChoixProjet(){
 }
 
 void FenetreChoixTypeTache::fenetreTacheUnitaire(){
-<<<<<<< HEAD
   if(unitaire->isChecked()){
-    FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire * fenetreuni = new FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire;
+    FenetreCreerTacheUnitaire * fenetreuni = new FenetreCreerTacheUnitaire;
     fenetreuni->show();
    }
   else if (composite->isChecked()){
-    FenetreCreerTacheComposite::FenetreCreerTacheComposite * fenetrecompo = new FenetreCreerTacheComposite::FenetreCreerTacheComposite;
+    FenetreCreerTacheComposite * fenetrecompo = new FenetreCreerTacheComposite;
     fenetrecompo->show();
   }
-=======
-    FenetreCreerTacheUnitaire * fenetre= new FenetreCreerTacheUnitaire;
-    fenetre->show();
->>>>>>> origin/master
 }
 
 

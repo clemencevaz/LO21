@@ -76,7 +76,7 @@ programmation manager*/
 public:
     static agenda& getInstance();/*!< fonction static getInstance qui renvoie la référence de l'agenda*/
     static void libererInstance();/*!< fonction static libererInstance*/
-    programmation& ajouterProgrammationTache(const Tache& t,const TIME::Date& d, const TIME::Horaire& h);/*!< fonction qui permet d'ajouter une programmation d'une tache*/
+    programmation& ajouterProgrammationTache(const TacheUnitaire& t,const TIME::Date& d, const TIME::Horaire& h);/*!< fonction qui permet d'ajouter une programmation d'une tache*/
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);/*!< fonction qui permet d'ajouter une programmation d'une activité*/
     Date& getJour1();/*!< fonction qui permet de connaître le jour1 de l'affichage*/
     void setJour1(const Date& d);/*!< fonction qui permet de changer le jour1*/
@@ -119,7 +119,7 @@ public:
 class programmationTache: public programmation{
     const TacheUnitaire& tache;/*!< référence de la tache unitaire programmée*/
 public:
-    programmationTache(const Tache& t,const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),tache(t){}/*!< constructeur*/
+    programmationTache(const TacheUnitaire& t,const TIME::Date& d, const TIME::Horaire& h):programmation(d,h),tache(t){}/*!< constructeur*/
     const TacheUnitaire& getTache() const {return tache;}/*!< fonction qui renvoie la référence de la tache unitaire*/
     //void afficher() const;/*!< fonction qui permet d'agrémenter le QVBoxLayout*/
     //TIME::Horaire getHorairefin() const;/*!< fonction qui renvoie l'horaire de fin*/
