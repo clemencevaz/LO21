@@ -16,7 +16,6 @@ public:
     ~projectMain();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_taskProgram_clicked();
 

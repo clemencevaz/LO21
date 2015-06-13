@@ -1,4 +1,7 @@
 #include "calendrier.h"
+#include "newprojectwindow.h"
+#include "ui_newprojectwindow.h"
+
 agenda::AgendaHandler agenda::agendahandler = agenda::AgendaHandler();
 
 agenda& agenda::getInstance() {
@@ -129,7 +132,7 @@ agenda::agenda() {
     QObject::connect(CreerActivite,SIGNAL(clicked()),this,SLOT(fenetreActivite()));
     QObject::connect(CreerTache,SIGNAL(clicked()),this,SLOT(fenetreTache()));
     QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
-
+    QObject::connect(CreerProjet, SIGNAL(clicked()), this, SLOT(fenetreProjet()));
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
 }
 void agenda::setTextsemaine(QString s){
@@ -372,6 +375,10 @@ void agenda::fenetreTache(){
     fenetre->show();
 }
 
+void agenda::fenetreProjet(){
+    NewProjectWindow * fenetre= new NewProjectWindow;
+    fenetre->show();
+}
 programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
     programmationTache* newprog=new programmationTache(t,d,h,dur);
 

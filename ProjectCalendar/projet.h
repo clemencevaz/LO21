@@ -36,8 +36,8 @@ public:
 		qui lui sont associees
 	*/
 	~Projet(){
-        for (Projet::Iterator i = Projet::getIterator() ; i.end(); i.next()){
-            delete i.current();
+        for (Projet::Iterator* i = Projet::getIterator() ; i->end(); i->next()){
+            delete i->current();
         }
     }
 

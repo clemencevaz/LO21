@@ -13,9 +13,9 @@ SOURCES += \
     timing.cpp \
     activite.cpp \
     projetManager.cpp \
-    newproject.cpp \
     programtask.cpp \
-    projectmain.cpp
+    projectmain.cpp \
+    newprojectwindow.cpp
 HEADERS += \
     ProjC.h \
     tache.h \
@@ -25,11 +25,11 @@ HEADERS += \
     tacheediteur.h \
     timing.h \
     projetManager.h \
-    newproject.h \
     programtask.h \
-    projectmain.h
+    projectmain.h \
+    newprojectwindow.h
 
 FORMS += \
-    newProject.ui \
     programtask.ui \
-    projectmain.ui
+    projectmain.ui \
+    newprojectwindow.ui

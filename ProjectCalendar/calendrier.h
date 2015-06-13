@@ -91,6 +91,7 @@ public:
 public slots:
     void fenetreActivite();/*!< Slot qui permet d'ouvrir la fenêter pour créer une activité*/
     void fenetreTache();/*!< Slot qui permet d'ouvrir la fenêter pour créer une tache*/
+    void fenetreProjet(); /*!< Slot qui permetd'ouvrir la fenetre de creation de projet*/
     void afficher() ;/*!< Slot qui permet de mettre à jour l'affichage*/
     void choixj1();/*!< Slot qui permet d'ouvrir le calendrier pour choisir le jour1*/
 };
