@@ -43,11 +43,7 @@ private:
 		eliminer le seul objet qui peut detruire la moitie des evts 
 		dans le cal
 	*/
-	~ProjetManager(){
-		for(unsigned int i = 0; i<projets.size(); i++){
-			delete projets[i];
-		}
-	};
+
 public:
     ProjetManager(const ProjetManager &old); // desactivation de la copie
     //!Destructeur de ProjectManager
@@ -59,8 +55,8 @@ public:
 
     */
     ~ProjetManager(){
-        for(unsigned int i = 0; i<projects.size(); i++){
-            delete projects[i];
+        for(unsigned int i = 0; i<projets.size(); i++){
+            delete projets[i];
         }
     };
 	
@@ -81,8 +77,8 @@ public:
 		\param proj une reference au Projet qui sera ajoute
 	*/
 
-	void addProjet(Projet& proj){
-		projets.push_back(*proj);
+    void addProjet(Projet* proj){
+        projets.push_back(proj);
 	}
 
 	//! Permet d'eliminer un projet du ProjetManager
@@ -93,9 +89,9 @@ public:
 	*/
 
 
-	void removeProject(Projet& proj){
-		for (int i = 0; i < projets.size(); i++){
-			if (&projets[i] == proj){
+    void removeProject(Projet* proj){
+        for (unsigned int i = 0; i < projets.size(); i++){
+            if (projets[i] == proj){
 				projets.erase(projets.begin()+i);
 			}
 		}
@@ -107,9 +103,9 @@ public:
 	*/
 
 
-	void deleteProject(Projet& proj){
-		for (int i = 0; i < projets.size(); i++){
-			if (&projets[i] == proj){
+    void deleteProject(Projet* proj){
+        for (unsigned int i = 0; i < projets.size(); i++){
+            if (projets[i] == proj){
 				delete projets[i];
 			}
 		}
@@ -120,12 +116,12 @@ public:
 		\param i, l'index du projet a obtenir
 	*/
     Projet* getProjet(int i){
-        if ((unsigned int)i > projects.size()){
+        if ((unsigned int)i > projets.size()){
 			///error
             return 0;
 		}
 
-		return projects[i];
+        return projets[i];
 
 	}
 
