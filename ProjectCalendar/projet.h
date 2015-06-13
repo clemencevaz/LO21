@@ -113,7 +113,7 @@ public:
 		}
 
 		void next(){ 
-			if (end()){
+            if (!end()){
 //                throw new CalendarException("next dans iterator fini");
 			}else{
 				i++;
@@ -121,10 +121,10 @@ public:
 		}
 
 		bool end(){
-			if (i >= tac.max_size()){
-				return true;
+            if (i >= tac.size()){
+                return false;
 			}else{
-				return false;
+                return true;
 			}
 		}
 

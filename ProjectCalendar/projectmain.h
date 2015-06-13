@@ -19,6 +19,8 @@ private slots:
 
     void on_taskProgram_clicked();
 
+    void on_projTreeView_activated(const QModelIndex &index);
+
 private:
     Ui::projectMain *ui;
 };

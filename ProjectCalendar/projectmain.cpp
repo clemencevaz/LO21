@@ -8,17 +8,26 @@ projectMain::projectMain(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::projectMain)
 {
-    QTreeWidgetItem *item;
-
     ui->setupUi(this);
+
+    QTreeWidgetItem *item;
+    QTreeWidgetItem *child;
+
     ProjetManager& man = ProjetManager::getManager();
         /*On utilise l'iterator de PM pour avoir tous les Projets et les lister*/
+    for(ProjetManager::Iterator  i = man.getIterator(); i.end(); i.next()){
+        item = new QTreeWidgetItem();
+        item->setText(0, i.current()->getNom());
 
-        for(ProjetManager::Iterator  i = man.getIterator(); i.end(); i.next()){
-            item = new QTreeWidgetItem();
-            item->setText(0, i.current()->getNom());
-            //ui->projTreeView->addTopLevelItem(item);
+        for(Projet::Iterator* j = i.current()->getIterator(); j->end(); j->next()){
+            child = new QTreeWidgetItem();
+            child->setText(0,j->current()->get_titre());
+            item->addChild(child);
         }
+        //ui->projTreeView->addTopLevelItem(item);
+        ui->projTreeView->addTopLevelItem(item);
+    }
+
 }
 
 projectMain::~projectMain()
@@ -29,6 +38,11 @@ projectMain::~projectMain()
 
 
 void projectMain::on_taskProgram_clicked()
+{
+
+}
+
+void projectMain::on_projTreeView_activated(const QModelIndex &index)
 {
 
 }

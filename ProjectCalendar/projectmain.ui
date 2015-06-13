@@ -221,15 +221,20 @@
     </property>
    </widget>
   </widget>
-  <widget class="QTreeView" name="projTreeView">
+  <widget class="QTreeWidget" name="projTreeView">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>221</width>
+     <width>231</width>
      <height>331</height>
     </rect>
    </property>
+   <column>
+    <property name="text">
+     <string notr="true">1</string>
+    </property>
+   </column>
   </widget>
  </widget>
  <resources/>

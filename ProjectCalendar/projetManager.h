@@ -152,7 +152,7 @@ public:
 		}
 
 		void next(){
-			if (end()){
+			if (!end()){
 //				throw CalendarException("next() sur un iterateur fini");
 			}else{
 				i++;
@@ -160,10 +160,10 @@ public:
 		}
 
 		bool end(){
-            if ((unsigned int)i >= projs.max_size()){
-				return true;
-			}else{
+            if ((unsigned int)i >= projs.size()){
 				return false;
+			}else{
+				return true;
 			}
 		}
 	};

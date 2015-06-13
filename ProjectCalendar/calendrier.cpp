@@ -1,5 +1,7 @@
 #include "calendrier.h"
 #include "newprojectwindow.h"
+#include "projectmain.h"
+#include "ui_projectmain.h"
 #include "ui_newprojectwindow.h"
 
 agenda::AgendaHandler agenda::agendahandler = agenda::AgendaHandler();
@@ -31,11 +33,13 @@ agenda::agenda() {
     CreerActivite=new QPushButton("Créer une Activité", this);
     CreerTache=new QPushButton("Créer une Tâche", this);
     Afficher=new QPushButton("Afficher",this);
+    ViewProjects= new QPushButton("Projets", this);
     coucheh1 = new QHBoxLayout;
     coucheh1->addWidget(CreerProjet);
     coucheh1->addWidget(CreerActivite);
     coucheh1->addWidget(CreerTache);
     coucheh1->addWidget(Afficher);
+    coucheh1->addWidget(ViewProjects);
 
     //Affichage de la semaine
     ChoisirJ1= new QPushButton("1er jour");
@@ -134,6 +138,7 @@ agenda::agenda() {
     QObject::connect(Afficher,SIGNAL(clicked()),this,SLOT(afficher()));
     QObject::connect(CreerProjet, SIGNAL(clicked()), this, SLOT(fenetreProjet()));
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
+    QObject::connect(ViewProjects, SIGNAL(clicked()), this, SLOT(fenetreMainProj()));
 }
 void agenda::setTextsemaine(QString s){
     textsemaine->clear();
@@ -379,6 +384,12 @@ void agenda::fenetreProjet(){
     NewProjectWindow * fenetre= new NewProjectWindow;
     fenetre->show();
 }
+
+void agenda::fenetreMainProj(){
+    projectMain* fenetre = new projectMain;
+    fenetre->show();
+}
+
 programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
     programmationTache* newprog=new programmationTache(t,d,h,dur);
 

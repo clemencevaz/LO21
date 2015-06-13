@@ -57,6 +57,7 @@ programmation manager*/
     QPushButton* CreerProjet;/*!< Bouton pour créer un projet*/
     QPushButton* Afficher;/*!< Bouton pour mettre à jour l'affichage*/
     QPushButton* ChoisirJ1;/*!< Bouton pour choisir le premier jour de la semaine*/
+    QPushButton* ViewProjects; /*!< Bouton pour montrer tous les projets*/
 
     Date* jour1=new Date(1,6,2015);/*!< Premier jour de la semaine*/
 
@@ -89,6 +90,7 @@ public:
 
 
 public slots:
+    void fenetreMainProj();/*!< Slot qui permet d'ouvrir la fenetre pour montrer la liste de projets*/
     void fenetreActivite();/*!< Slot qui permet d'ouvrir la fenêter pour créer une activité*/
     void fenetreTache();/*!< Slot qui permet d'ouvrir la fenêter pour créer une tache*/
     void fenetreProjet(); /*!< Slot qui permetd'ouvrir la fenetre de creation de projet*/
