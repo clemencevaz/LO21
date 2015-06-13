@@ -79,7 +79,7 @@ public:
 
     void addProjet(Projet* proj){
         projets.push_back(proj);
-	}
+    }
 
 	//! Permet d'eliminer un projet du ProjetManager
 	/*!

@@ -42,6 +42,20 @@ void projectMain::on_taskProgram_clicked()
 
 }
 
+
+void projectMain::on_projTreeView_itemActivated(QTreeWidgetItem *item, int column)
+{
+    QString projNom = item->text(0);
+    ProjetManager& man = ProjetManager::getManager();
+    for(ProjetManager::Iterator i = man.getIterator(); i.end(); i.next()){
+        if (i.current()->getNom() == projNom){
+            ui->projNameLabel->setText(projNom);
+            ui->projTasksNbLabel->setText(QVariant(i.current()->getNbTasks()).toString());
+            break;
+        }
+    }
+}
+
 void projectMain::on_projTreeView_activated(const QModelIndex &index)
 {
 

@@ -1,6 +1,6 @@
 #ifndef PROJECTMAIN_H
 #define PROJECTMAIN_H
-
+#include "QTreeWidgetItem"
 #include <QDialog>
 
 namespace Ui {
@@ -20,6 +20,8 @@ private slots:
     void on_taskProgram_clicked();
 
     void on_projTreeView_activated(const QModelIndex &index);
+
+    void on_projTreeView_itemActivated(QTreeWidgetItem *item, int column);
 
 private:
     Ui::projectMain *ui;

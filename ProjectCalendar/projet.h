@@ -17,7 +17,7 @@ class Tache;
 class Projet{
 	friend class Iterator;
 private:
-	QString nom; /*!< le Nom du projet, en QString*/
+    QString nom; /*!< le Nom du projet, en QString*/
     std::vector<Tache*> taches; /*!< Le vecteur des taches qui sont comprises dans le projet*/
 
 public:
@@ -27,7 +27,7 @@ public:
 		\param n Nom du projet en QString
 	*/
     Projet(const QString& n): nom(n){
-		taches.reserve(20);
+        taches.reserve(20);
 	}
 
 	//!Le destructeur du Projet
@@ -52,6 +52,10 @@ public:
 
     QString getNom(){
     	return nom;
+    }
+
+    int getNbTasks(){
+        return taches.size();
     }
 
 	/**********
