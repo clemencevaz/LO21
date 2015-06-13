@@ -14,7 +14,6 @@ build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Release/Makefile
 *.Release
 *.obj
 build-ProjectCalendar-Desktop_Qt_5_4_1_MSVC2013_64bit-Release/release/moc_calendrier.cpp
-*.cpp
 # Pouruqoi le .cpp est ignore?
 ProjectCalendar/ProjectCalendar.pro.user
 *.user
