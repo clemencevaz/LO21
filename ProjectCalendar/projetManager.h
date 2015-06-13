@@ -11,13 +11,12 @@
 	En effet, elle possede un vecteur de projets qui contiendra tous les projets 
 	du calendrier.
 */
+class Projet;
 class ProjetManager{
 
 friend class Iterator;
 private:
-
-
-	std::vector<Project*> projects; /*!< Le vecteur qui contiendra les projets, en pointeur pour la memoire*/
+    std::vector<Projet*> projects; /*!< Le vecteur qui contiendra les projets, en pointeur pour la memoire*/
 
 	//! Le constructeur, prive, du Project Manager
 	/*!
@@ -28,25 +27,23 @@ private:
 		projects.reserve(10);
 	};
 
-	ProjetManager(const ProjetManager &old); // desactivation de la copie
     const ProjetManager &operator=(const ProjetManager &old); // desactivation de "l'assignment"
 	
-	//!Destructeur de ProjectManager
-	/*!
-		Etant donne que le lien entre un projet et le projetManager
-		est une composition, le destructeur de ProjetManager doit
-		aussi detruire toutes les occurrences de projets dans
-		le vecteur qui leur est associe.
-		Le destructeur est prive, parce qu'il est dangereux de pouvoir 
-		eliminer le seul objet qui peut detruire la moitie des evts 
-		dans le cal
-	*/
-	~ProjetManager(){
-		for(unsigned int i = 0; i<projects.size(); i++){
-			delete projects[i];
-		}
-	};
 public:
+    ProjetManager(const ProjetManager &old); // desactivation de la copie
+    //!Destructeur de ProjectManager
+    /*!
+        Etant donne que le lien entre un projet et le projetManager
+        est une composition, le destructeur de ProjetManager doit
+        aussi detruire toutes les occurrences de projets dans
+        le vecteur qui leur est associe.
+
+    */
+    ~ProjetManager(){
+        for(unsigned int i = 0; i<projects.size(); i++){
+            delete projects[i];
+        }
+    };
 	
 	//!getManager, retourne l'instance du singleton ProjetManager
 	/*!
@@ -64,8 +61,8 @@ public:
 	/*!
 		\param proj une reference au Projet qui sera ajoute
 	*/
-	void addProjet(Projet& proj){
-		projects.push_back(*proj);
+    void addProjet(Projet* proj){
+        projects.push_back(proj);
 	}
 
 	//! Permet d'eliminer un projet du ProjetManager
@@ -75,9 +72,9 @@ public:
 		\param proj une reference au projet a eliminer
 	*/
 
-	void removeProject(Projet& proj){
-		for (int i = 0; i < projects.size(); i++){
-			if (&projects[i] == proj){
+    void removeProject(Projet* proj){
+        for (unsigned int i = 0; i < projects.size(); i++){
+            if (projects[i] == proj){
 				projects.erase(projects.begin()+i);
 			}
 		}
@@ -88,12 +85,26 @@ public:
 		\param proj une reference au projet a detruire
 	*/
 
-	void deleteProject(Projet& proj){
-		for (int i = 0; i < projects.size(); i++){
-			if (&projects[i] == proj){
+    void deleteProject(Projet* proj){
+        for (unsigned int i = 0; i < projects.size(); i++){
+            if (projects[i] == proj){
 				delete projects[i];
 			}
 		}
+	}
+
+	//! Permet d'obtenir un projet avec son index
+	/*!
+		\param i, l'index du projet a obtenir
+	*/
+    Projet* getProjet(int i){
+        if ((unsigned int)i > projects.size()){
+			///error
+            return 0;
+		}
+
+		return projects[i];
+
 	}
 
 	//! Iterator de ProjetManager
@@ -108,28 +119,28 @@ public:
 		friend class ProjetManager;
 		 
 	private:
-		std::vector<Project*> projs;
+        std::vector<Projet*> projs;
 		int i;
 
-		Iterator(std::vector<Project*> projects):projs(projects),i(0){}
+        Iterator(std::vector<Projet*> projects):projs(projects),i(0){}
 
 	public:
 		~Iterator();
 
-		Projet& current(){
+        Projet* current(){
 			return projs[i];
 		}
 
 		void next(){
 			if (end()){
-				throw CalendarException("next() sur un iterateur fini");
+//				throw CalendarException("next() sur un iterateur fini");
 			}else{
 				i++;
 			}
 		}
 
 		bool end(){
-			if (i >= projs.max_size()){
+            if ((unsigned int)i >= projs.max_size()){
 				return true;
 			}else{
 				return false;

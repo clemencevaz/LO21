@@ -36,9 +36,9 @@ public:
 		qui lui sont associees
 	*/
 	~Projet(){
-        for (unsigned int i = 0; i < taches.size(); i++){
-			delete taches[i];
-		}
+//        for (Projet::getIterator() i = ; i < taches.size(); i++){
+//			delete taches[i];
+//		}
     }
 
     /*********
@@ -50,6 +50,9 @@ public:
     */
     const std::vector<Tache*> getTaches() const{ return taches; }
 
+    QString getNom(){
+    	return nom;
+    }
 
 	/**********
 	/ Setters
@@ -80,7 +83,13 @@ public:
 		}
 	}
 
-
+    inline bool operator==(Projet* proj){
+        if (proj->nom == this->nom){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	/*! \class Iterator
 		\brief La classe iterator du vecteur de projet
 	

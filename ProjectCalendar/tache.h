@@ -6,7 +6,7 @@ using namespace std;
 using namespace TIME;
 
 class Tache{
-	Projet projet_pere;
+    Projet projet_pere;
     QString titre;
 	Date dateDisponibilite;
 	Date echeance;

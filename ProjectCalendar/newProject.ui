@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>newProject</class>
- <widget class="QWidget" name="newProject">
+ <class>NewProject</class>
+ <widget class="QDialog" name="NewProject">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>363</width>
-    <height>38</height>
+    <width>400</width>
+    <height>66</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Nouveau Projet</string>
+   <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label_2">
+  <widget class="QPushButton" name="saveNewProj">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Nom Projet:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>10</y>
-     <width>151</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>10</y>
-     <width>75</width>
+     <x>284</x>
+     <y>20</y>
+     <width>91</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>Enregistrer</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>6</x>
+     <y>20</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nom du Projet:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="newProjName">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>20</y>
+     <width>181</width>
+     <height>20</height>
+    </rect>
    </property>
   </widget>
  </widget>

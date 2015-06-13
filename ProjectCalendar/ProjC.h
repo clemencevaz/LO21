@@ -4,8 +4,8 @@
 //et tout ce qui manque
 
 
-#include<iostream>
-#include<iomanip>
+#include <iostream>
+#include <iomanip>
 #include <vector>
 #include <algorithm>
 #include <QCalendarWidget>
@@ -26,9 +26,10 @@
 #include <QPushButton>
 #include <QDateEdit>
 #include <QVector>
+#include "projet.h"
 #include "timing.h"
 #include "activite.h"
-#include "projet.h"
+#include "projetManager.h"
 #include "tache.h"
 #include "calendrier.h"
 //#include "tacheediteur.h"
