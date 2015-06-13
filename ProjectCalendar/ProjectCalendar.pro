@@ -12,7 +12,7 @@ SOURCES += \
     tacheediteur.cpp \
     timing.cpp \
     activite.cpp \
-    projetManager.c \
+    projetManager.cpp \
     newproject.cpp \
     programtask.cpp \
     projectmain.cpp

@@ -21,4 +21,5 @@ void NewProject::on_saveNewProj_clicked()
     ProjetManager& man = ProjetManager::getManager();
     man.addProjet(newProj);
 
+
 }
