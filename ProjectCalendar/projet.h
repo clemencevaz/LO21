@@ -36,9 +36,9 @@ public:
 		qui lui sont associees
 	*/
 	~Projet(){
-//        for (Projet::getIterator() i = ; i < taches.size(); i++){
-//			delete taches[i];
-//		}
+        for (Projet::Iterator i = Projet::getIterator() ; i.end(); i.next()){
+            delete i.current();
+        }
     }
 
     /*********

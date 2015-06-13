@@ -144,7 +144,8 @@ public:
 		Iterator(std::vector<Projet*> projets):projs(projets),i(0){}
 
 	public:
-		~Iterator();
+        /*Le destructeur sans definition cree une erreur*/
+//		~Iterator();
 
         Projet* current(){
 			return projs[i];

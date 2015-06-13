@@ -414,7 +414,7 @@ programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::D
     }
     programmation* progtache=0;
     //on vérifie que les précédentes sont programmées avant
-    for(std::vector<Tache*>::const_iterator it=t.get_precedentes().cbegin();it!=t.get_precedentes().cend();it++)
+    for(std::vector<Tache*>::const_iterator it=t.get_precedentes().begin();it!=t.get_precedentes().end();it++)
     {
         progtache=getInstance().trouverProgparTache(*it);
         if(!progtache)
@@ -580,7 +580,7 @@ programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut
     return 0;
 }
 programmation* agenda::trouverProgparTache(Tache* t) const {
-    for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+    for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
         if(t==&(*it)->getTache())
             return (*it);
