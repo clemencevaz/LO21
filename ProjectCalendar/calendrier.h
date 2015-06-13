@@ -2,6 +2,8 @@
 #define PROGRAMMATION
 
 #include "ProjC.h"
+#include"tache.h"
+
 
 using namespace TIME;
 using namespace std;
@@ -10,7 +12,6 @@ class programmation;
 //class TacheUnitaire;
 class programmationActivite;
 class programmationTache;
-
 /*! \class CalendarException
     \brief Permet de récupérer les erreurs
 */
