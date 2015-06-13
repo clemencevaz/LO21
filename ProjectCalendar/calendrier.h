@@ -172,6 +172,37 @@ public:
 public slots:
     void enregistrer();
 };
+/*! \class FenetreProgrammerTache
+    \brief Classe qui permet de créer la fenetre pour programmer une tache unitaire
+
+    Cette classe va créer tous les objets et les slots pour créer cette programmation
+*/
+class FenetreProgrammerTache:public QWidget{
+    Q_OBJECT
+    TacheUnitaire& tache;
+    QLabel* titreLabel;
+    QLabel* nom;
+    QLabel* description;
+    QLabel* duree;
+    QLabel* progDuree;
+    QLabel* date;
+    QLabel* horaire;
+    QDateEdit* ProgDate;
+    QSpinBox* ProgHh;
+    QSpinBox* ProgHm;
+    QSpinBox* Dur;
+    QVBoxLayout* coucheV1;
+    QHBoxLayout* coucheH1;
+    QHBoxLayout* coucheH2;
+    QHBoxLayout* coucheH3;
+
+    QPushButton* Enregistrer;
+
+public:
+    FenetreProgrammerTache(TacheUnitaire& t);
+public slots:
+    void enregistrer();
+};
 
 /*! \class ComparatorByHoraire
     \brief Comparateur qui permet de trier les programmations dans les vecteurs jours pour l'affichage

@@ -39,7 +39,9 @@ projectMain::~projectMain()
 
 void projectMain::on_taskProgram_clicked()
 {
-
+    //il faut donner la tache t
+//    FenetreProgrammerTache* fenetre=new FenetreProgrammerTache(TacheUnitaire& t);
+//    fenetre.show();
 }
 
 void projectMain::on_projTreeView_activated(const QModelIndex &index)
