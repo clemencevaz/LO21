@@ -14,7 +14,7 @@ class NewProjectWindow : public QDialog
 public:
     explicit NewProjectWindow(QWidget *parent = 0);
     ~NewProjectWindow();
-
+//poulet
 private slots:
     void on_saveNewProjButton_clicked();
 
