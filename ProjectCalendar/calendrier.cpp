@@ -36,58 +36,69 @@ agenda::agenda() {
 
     //Affichage de la semaine
     ChoisirJ1= new QPushButton("1er jour");
+    QDate lundi=QDate::currentDate();
+
+    if(lundi.dayOfWeek()>1)
+    {
+        while(lundi.dayOfWeek()>1)
+        {
+            lundi=lundi.addDays(-1);
+        }
+    }
+    jour1=new Date(lundi.day(),lundi.month(),lundi.year());
 
     QString msgsemaine;
     msgsemaine+="Semaine du ";
-    msgsemaine+="25/05/2015";//date du 1er jour de la semaine
-    msgsemaine+=" au ";
-    msgsemaine+="31/05/2015";//date du dernier jour de la semaine
+    msgsemaine+=QVariant((jour1->getJour())).toString();
+    msgsemaine+="/";
+    msgsemaine+=QVariant((jour1->getMois())).toString();
+    msgsemaine+="/";
+    msgsemaine+=QVariant((jour1->getAnnee())).toString();
     textsemaine=new QLabel(msgsemaine);
 
-    jour1=new Date(1,6,2015);
 
     //Affichage des programmations de la semaine
     affprogs=new QGridLayout;
         //jours de la semaine en haut de la grille
     QString j1;
     j1+="Lundi ";
-    j1+=QVariant(jour1->getJour()).toString(); //n° du jour du lundi
+    //j1+=QVariant(jour1->getJour()).toString(); //n° du jour du lundi
     QLabel* Lj1;
     Lj1=new QLabel();
     Lj1->setText(j1);
     QString j2;
     j2+="Mardi ";
-    j2+=QVariant(jour1->demain().getJour()).toString(); //n° du jour du mardi
+    //j2+=QVariant(jour1->demain().getJour()).toString(); //n° du jour du mardi
     QLabel* Lj2;
     Lj2=new QLabel;
     Lj2->setText(j2);
     QString j3;
     j3+="Mercredi ";
-    j3+=QVariant(jour1->demain().demain().getJour()).toString(); //n° du jour du mercredi
+    //j3+=QVariant(jour1->demain().demain().getJour()).toString(); //n° du jour du mercredi
     QLabel* Lj3;
     Lj3=new QLabel;
     Lj3->setText(j3);
     QString j4;
     j4+="Jeudi ";
-    j4+=QVariant(jour1->demain().demain().demain().getJour()).toString(); //n° du jour du jeudi
+    //j4+=QVariant(jour1->demain().demain().demain().getJour()).toString(); //n° du jour du jeudi
     QLabel* Lj4;
     Lj4=new QLabel;
     Lj4->setText(j4);
     QString j5;
     j5+="Vendredi ";
-    j5+=QVariant(jour1->demain().demain().demain().demain().getJour()).toString(); //n° du jour du vendredi
+    //j5+=QVariant(jour1->demain().demain().demain().demain().getJour()).toString(); //n° du jour du vendredi
     QLabel* Lj5;
     Lj5=new QLabel;
     Lj5->setText(j5);
     QString j6;
     j6+="Samedi ";
-    j6+=QVariant(jour1->demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du samedi
+    //j6+=QVariant(jour1->demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du samedi
     QLabel* Lj6;
     Lj6=new QLabel;
     Lj6->setText(j6);
     QString j7;
     j7+="Dimanche ";
-    j7+=QVariant(jour1->demain().demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du dimanche
+    //j7+=QVariant(jour1->demain().demain().demain().demain().demain().demain().getJour()).toString(); //n° du jour du dimanche
     QLabel* Lj7;
     Lj7= new QLabel;
     Lj7->setText(j7);
@@ -121,14 +132,44 @@ agenda::agenda() {
 
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
 }
+void agenda::setTextsemaine(QString s){
+    textsemaine->clear();
+    textsemaine->setText(s);
+}
+
 void agenda::choixj1(){
-    QCalendarWidget* calendar;
-    calendar=new QCalendarWidget();
+    myCalendar* calendar;
+    calendar=new myCalendar();
     calendar->setGridVisible(true);
     calendar->show();
 
-
 }
+void myCalendar::setj1(const QDate& date){
+    if(date.dayOfWeek()==1)
+    {
+        Date* jour1=new Date(date.day(),date.month(),date.year());
+        agenda::getInstance().setJour1(*jour1);
+        QString msg;
+        msg+="Semaine du ";
+        msg+=QVariant((jour1->getJour())).toString();
+        msg+="/";
+        msg+=QVariant((jour1->getMois())).toString();
+        msg+="/";
+        msg+=QVariant((jour1->getAnnee())).toString();
+        agenda::getInstance().setTextsemaine(msg);
+        agenda::getInstance().afficher();
+        this->close();
+    }
+    else
+    {
+        QString msg;
+        msg+="Le jour choisi n'est pas un lundi";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+    }
+}
+
 
 void agenda::afficher(){
 
@@ -143,7 +184,7 @@ void agenda::afficher(){
     tabi[6]=(int)vjour7.size();
 
     //on vide les progs la grille affprogs
-    for(int k1=0;k1<6;k1++)//colonne
+    for(int k1=0;k1<7;k1++)//colonne
     {
         for(int k2=0; k2<tabi[k1];k2++)//ligne
         {
@@ -260,9 +301,29 @@ void agenda::afficher(){
     d=0;
     delete j;
     delete d;
-
 }
+void programmationTache::afficher() const{
+    delete prog->widget();
+    TacheUnitaire tache=this->tache;
+    QLabel* nom;
+    QLabel* projet;
+    QLabel* duree;
+    QLabel* horaire;
+    nom= new QLabel();
+    nom->setText(tache.get_titre());
+    projet=new QLabel();
+    projet->setText("");
+    duree=new QLabel();
+    duree->setText(QVariant(tache.get_duree().getDureeEnMinutes()).toString());
 
+    horaire=new QLabel();
+    horaire->setText(QVariant(this->getHoraire().getHeure()).toString()+":"+QVariant(this->getHoraire().getMinute()).toString());
+
+    prog->addWidget(nom);
+    prog->addWidget(projet);
+    prog->addWidget(horaire);
+    prog->addWidget(duree);
+}
 void programmationActivite::afficher() const {
     delete prog->widget();
     Activite act=this->activite;
@@ -293,8 +354,13 @@ void programmationActivite::afficher() const {
 //    msgBox.exec();
 
 }
+TIME::Horaire programmationTache::getHorairefin() const{
+    Horaire* h1=new Horaire(this->getHoraire()+this->getTache().get_duree());
+    return *h1;
+}
 TIME::Horaire programmationActivite::getHorairefin() const{
-    return Horaire(this->getHoraire()+this->getActivite().getDuree());
+    Horaire* h1=new Horaire(this->getHoraire()+this->getActivite().getDuree());
+    return *h1;
 }
 void agenda::fenetreActivite(){
     FenetreCreerActivite* fenetre= new FenetreCreerActivite;
@@ -302,19 +368,123 @@ void agenda::fenetreActivite(){
 }
 
 void agenda::fenetreTache(){
-    //FenetreCreerTache* fenetre= new FenetreCreerTache;
-    //fenetre->show();
+    FenetreChoixTypeTache * fenetre= new FenetreChoixTypeTache;
+    fenetre->show();
 }
 
+programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
+    programmationTache* newprog=new programmationTache(t,d,h,dur);
 
-programmation& agenda::ajouterProgrammationTache(const TIME::Date& d, const TIME::Horaire& h) {
-    programmationTache* newprog=new programmationTache(d,h);
+    //vérifier si la tache est disponible
+    if(d<t.get_date_disp())
+    {
+        QString msg;
+        msg+="La tache n'est pas disponible";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        return *newprog;
+    }
+
+    //vérifier que la tache n'est pas déjà terminée
+    if(t.get_achevement()==0)
+        return *newprog;
+
+    if(trouverProgrammation(d,h,dur))
+    {
+        QString msg;
+        msg+="Déjà une programmation";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        newprog=0;
+        return *newprog;
+    }
+
+    //vérifier que l'on programme la tache qu'en une fois si elle n'est pas préemptive
+    if(!t.get_preemptive()&& dur.getDureeEnMinutes()<t.get_duree().getDureeEnMinutes())
+    {
+        QString msg;
+        msg+="la durée n'est pas la bonne";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        newprog=0;
+        return *newprog;
+    }
+    programmation* progtache=0;
+    //on vérifie que les précédentes sont programmées avant
+    for(std::vector<Tache*>::const_iterator it=t.get_precedentes().cbegin();it!=t.get_precedentes().cend();it++)
+    {
+        progtache=getInstance().trouverProgparTache(*it);
+        if(!progtache)
+        {
+            QString msg;
+            msg+="Il faut d'abord programmer les taches précédentes";
+            QMessageBox msgBox;
+            msgBox.setText(msg);
+            msgBox.exec();
+            newprog=0;
+            return *newprog;
+        }
+        else
+        {
+            if(d<progtache->getDate())
+            {
+                QString msg;
+                msg+="Des taches précédentes sont programmées après";
+                QMessageBox msgBox;
+                msgBox.setText(msg);
+                msgBox.exec();
+                newprog=0;
+                return *newprog;
+            }
+            if(d==progtache->getDate() && progtache->getHoraire()<h)
+            {
+                QString msg;
+                msg+="Des taches précédentes sont programmées après dans le même jour";
+                QMessageBox msgBox;
+                msgBox.setText(msg);
+                msgBox.exec();
+                newprog=0;
+                return *newprog;
+            }
+        }
+    }
+
+    // si elle est préemptive vérifier que l'on ne programme pas plus
+    if(t.get_preemptive())
+    {
+        //on calcule la durée en minute qu'il reste à faire
+        float dureerestante=t.get_achevement()*t.get_duree().getDureeEnMinutes();
+        //on vérifie que la durée de programmation n'est pas supérieure au temps restant
+        if(dur.getDureeEnMinutes()>dureerestante)
+        {
+            newprog=0;
+            return *newprog;
+        }
+        //sinon on modifie l'achevement
+        t.set_achevement(dureerestante-dur.getDureeEnMinutes()/t.get_duree().getDureeEnMinutes());
+        QString msg;
+        msg+="Il vous restera ";
+        msg+=QVariant(t.get_achevement()*t.get_duree().getDureeEnMinutes()).toString();
+        msg+=" minutes";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+    }
+    //si la tache n'est pas préemtive on met 0 à l'achevement (elle sera achevée)
+    if(!t.get_preemptive())
+        t.set_achevement((float)0);
+
     progs.push_back(newprog);
     return *newprog;
 }
-programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
+
+programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h)
+{
     programmationActivite* newprog= new programmationActivite(a,d,h);
-    if(trouverProgrammation(d,h))
+    if(trouverProgrammation(d,h,a.getDuree()))
     {
         QString msg;
         msg+="Déjà une programmation";
@@ -398,15 +568,24 @@ void agenda::deleteChildWidgets(QLayoutItem *item){
     }
     delete item->widget();
 }
-programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut){
+programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut, const Duree& dur){
+    Horaire hfin=Horaire(hdebut+dur);
     for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
-        //on ne prend que les programmations qui ont cette date de début
-        if((*it)->getDate()==d && (*it)->getHoraire()>=hdebut) //&& (*it)->getHorairefin()<hfin)
+        if((*it)->getDate()==d && ((hdebut>=(*it)->getHoraire() && hdebut<=(*it)->getHorairefin()) ||(hfin>=(*it)->getHoraire() && hfin<=(*it)->getHorairefin())))
         {
             return (*it);
         }
     }
     return 0;
 }
+programmation* agenda::trouverProgparTache(Tache* t) const {
+    for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+    {
+        if(t==&(*it)->getTache())
+            return (*it);
+    }
+    return 0;
+}
+
 

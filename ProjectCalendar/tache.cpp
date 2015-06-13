@@ -1,9 +1,51 @@
-#include "tache.h"
+#include "ProjC.h"
+#include "projetManager.h"
 
-/*Tache::addTacheProjet(Projet& pere){
-}*/
 
-FenetreCreerTache::FenetreCreerTache(){
+FenetreChoixTypeTache::FenetreChoixTypeTache(){
+    titreLabel= new QLabel("Créer une tâche");
+    coucheV1= new QVBoxLayout;
+    unitaire=new QRadioButton("Tache unitaire");
+    composite=new QRadioButton("Tache composite");
+    coucheV1->addWidget(unitaire);
+    coucheV1->addWidget(composite);
+    valide=new QPushButton("Valider");
+    coucheV1->addWidget(valide);
+    setLayout(coucheV1);
+   QObject::connect(valide,SIGNAL(clicked()),this,SLOT(fenetreTacheUnitaire()));
+}
+
+FenetreChoixProjet::FenetreChoixProjet(){
+  coucheV1= new QVBoxLayout;
+  listeprojets=new QComboBox (listeprojets);
+  Enregistrer=new QPushButton("Enregistrer");
+  coucheV1->addWidget(Enregistrer);
+
+  setLayout(coucheV1);
+
+  /*ProjetManager& p = ProjetManager::getManager();
+  ProjetManager::Iterator * it;
+  for (it=ProjetManager::getIterator();it!=end();it.next())
+      listeprojets.addItem(*it->titre);*/
+
+  QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(FenetreChoixTypeTache()));
+}
+
+void FenetreChoixTypeTache::fenetreTacheUnitaire(){
+  if(unitaire->isChecked()){
+    FenetreCreerTacheUnitaire * fenetreuni = new FenetreCreerTacheUnitaire;
+    fenetreuni->show();
+   }
+  else if (composite->isChecked()){
+    FenetreCreerTacheComposite * fenetrecompo = new FenetreCreerTacheComposite;
+    fenetrecompo->show();
+  }
+}
+
+
+//TACHE UNITAIRE
+
+FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire(){
     titreLabel= new QLabel("Créer une tâche");
     nom= new QLabel("Nom: ");
     description=new QLabel("Description: ");
@@ -36,14 +78,8 @@ FenetreCreerTache::FenetreCreerTache(){
     QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(sauverTache()));
 }
 
-/*FenetreChoixTypeTache::FenetreChoixTypeTache(){
-    unitaire=new QCheckBox("Tache unitaire");
-    composite=new QCheckBox("Tache composite");
-};*/
-
-
-void FenetreCreerTache::sauverTache(){
-    if(Activite* activite=new Activite(ActNom->text(),ActDesc->toPlainText(),Duree(hActDuree->value(),mActDuree->value())))
+void FenetreCreerTacheUnitaire::sauverTache(){
+   /* if(Activite* activite=new Activite(ActNom->text(),ActDesc->toPlainText(),Duree(hActDuree->value(),mActDuree->value())))
     {
         QMessageBox msgBox;
         msgBox.setText("L'Activité a été crée");
@@ -51,6 +87,35 @@ void FenetreCreerTache::sauverTache(){
         FenetreProgrammerActivite* programactivite= new FenetreProgrammerActivite(*activite);
         programactivite->show();
         this->close();
-    }
+    }*/
 }
 
+
+//TACHE COMPOSITE
+FenetreCreerTacheComposite::FenetreCreerTacheComposite(){
+  titreLabel= new QLabel("Créer une tâche composite");
+  nom= new QLabel("Nom: ");
+  ActNom=new QLineEdit();
+  ActDesc =new QTextEdit();
+
+  coucheV1= new QVBoxLayout;
+  coucheh1 = new QHBoxLayout;
+
+  coucheV1->addWidget(titreLabel);
+  coucheV1->addWidget(nom);
+  coucheV1->addWidget(ActNom);
+  coucheV1->addWidget(ActDesc);
+
+  coucheV1->addLayout(coucheh1);
+
+  Enregistrer=new QPushButton("Enregistrer");
+  coucheV1->addWidget(Enregistrer);
+
+  setLayout(coucheV1);
+
+  QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(sauverTacheC()));
+}
+
+void FenetreCreerTacheComposite::sauverTacheC(){
+
+}

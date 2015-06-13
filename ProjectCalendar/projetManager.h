@@ -16,7 +16,10 @@ class ProjetManager{
 
 friend class Iterator;
 private:
-    std::vector<Projet*> projects; /*!< Le vecteur qui contiendra les projets, en pointeur pour la memoire*/
+
+
+	std::vector<Projet*> projets; /*!< Le vecteur qui contiendra les projets, en pointeur pour la memoire*/
+
 
 	//! Le constructeur, prive, du Project Manager
 	/*!
@@ -24,11 +27,27 @@ private:
 		10 projets dans le vecteur.
 	*/
 	ProjetManager(){
-		projects.reserve(10);
+		projets.reserve(10);
 	};
 
     const ProjetManager &operator=(const ProjetManager &old); // desactivation de "l'assignment"
 	
+
+	//!Destructeur de ProjectManager
+	/*!
+		Etant donne que le lien entre un projet et le projetManager
+		est une composition, le destructeur de ProjetManager doit
+		aussi detruire toutes les occurrences de projets dans
+		le vecteur qui leur est associe.
+		Le destructeur est prive, parce qu'il est dangereux de pouvoir 
+		eliminer le seul objet qui peut detruire la moitie des evts 
+		dans le cal
+	*/
+	~ProjetManager(){
+		for(unsigned int i = 0; i<projets.size(); i++){
+			delete projets[i];
+		}
+	};
 public:
     ProjetManager(const ProjetManager &old); // desactivation de la copie
     //!Destructeur de ProjectManager
@@ -61,8 +80,9 @@ public:
 	/*!
 		\param proj une reference au Projet qui sera ajoute
 	*/
-    void addProjet(Projet* proj){
-        projects.push_back(proj);
+
+	void addProjet(Projet& proj){
+		projets.push_back(*proj);
 	}
 
 	//! Permet d'eliminer un projet du ProjetManager
@@ -72,10 +92,11 @@ public:
 		\param proj une reference au projet a eliminer
 	*/
 
-    void removeProject(Projet* proj){
-        for (unsigned int i = 0; i < projects.size(); i++){
-            if (projects[i] == proj){
-				projects.erase(projects.begin()+i);
+
+	void removeProject(Projet& proj){
+		for (int i = 0; i < projets.size(); i++){
+			if (&projets[i] == proj){
+				projets.erase(projets.begin()+i);
 			}
 		}
 	}
@@ -85,10 +106,11 @@ public:
 		\param proj une reference au projet a detruire
 	*/
 
-    void deleteProject(Projet* proj){
-        for (unsigned int i = 0; i < projects.size(); i++){
-            if (projects[i] == proj){
-				delete projects[i];
+
+	void deleteProject(Projet& proj){
+		for (int i = 0; i < projets.size(); i++){
+			if (&projets[i] == proj){
+				delete projets[i];
 			}
 		}
 	}
@@ -119,10 +141,11 @@ public:
 		friend class ProjetManager;
 		 
 	private:
-        std::vector<Projet*> projs;
+
+		std::vector<Projet*> projs;
 		int i;
 
-        Iterator(std::vector<Projet*> projects):projs(projects),i(0){}
+		Iterator(std::vector<Projet*> projets):projs(projets),i(0){}
 
 	public:
 		~Iterator();
@@ -148,7 +171,7 @@ public:
 		}
 	};
 
-	Iterator getIterator() const { return Iterator(projects); }
+	Iterator getIterator() const { return Iterator(projets); }
 };
 
 #endif
