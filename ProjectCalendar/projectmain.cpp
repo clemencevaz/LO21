@@ -62,3 +62,8 @@ void projectMain::on_projTreeView_activated(const QModelIndex &index)
 {
 
 }
+
+void projectMain::on_taskProgram_2_clicked()
+{
+
+}
