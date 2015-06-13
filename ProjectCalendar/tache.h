@@ -18,7 +18,9 @@ class Tache{
     const Date& get_date_disp() const {return dateDisponibilite;}
     const Date& get_echeance() const {return echeance;}
     float get_achevement() const {return achevement;}
+    void set_achevement(float temps){achevement=temps;}
     void addPrecedence(Tache * const t){precedentes.push_back(t);}
+    const vector<Tache*> get_precedentes() const {return precedentes;}
 };
 
 class TacheUnitaire : public Tache{
@@ -32,6 +34,8 @@ class TacheUnitaire : public Tache{
             if (pre==1 || dureelimite>12)
                 std::cout<<"La tâche ne peut pas être preemptive";
         }
+    const Duree& get_duree() const {return duree;}
+    const bool get_preemptive() const {return preemptive;}
         ~TacheUnitaire();
 };
 

@@ -302,7 +302,28 @@ void agenda::afficher(){
     delete j;
     delete d;
 }
+void programmationTache::afficher() const{
+    delete prog->widget();
+    TacheUnitaire tache=this->tache;
+    QLabel* nom;
+    QLabel* projet;
+    QLabel* duree;
+    QLabel* horaire;
+    nom= new QLabel();
+    nom->setText(tache.get_titre());
+    projet=new QLabel();
+    projet->setText("");
+    duree=new QLabel();
+    duree->setText(QVariant(tache.get_duree().getDureeEnMinutes()).toString());
 
+    horaire=new QLabel();
+    horaire->setText(QVariant(this->getHoraire().getHeure()).toString()+":"+QVariant(this->getHoraire().getMinute()).toString());
+
+    prog->addWidget(nom);
+    prog->addWidget(projet);
+    prog->addWidget(horaire);
+    prog->addWidget(duree);
+}
 void programmationActivite::afficher() const {
     delete prog->widget();
     Activite act=this->activite;
@@ -333,6 +354,10 @@ void programmationActivite::afficher() const {
 //    msgBox.exec();
 
 }
+TIME::Horaire programmationTache::getHorairefin() const{
+    Horaire* h1=new Horaire(this->getHoraire()+this->getTache().get_duree());
+    return *h1;
+}
 TIME::Horaire programmationActivite::getHorairefin() const{
     Horaire* h1=new Horaire(this->getHoraire()+this->getActivite().getDuree());
     return *h1;
@@ -347,12 +372,117 @@ void agenda::fenetreTache(){
     fenetre->show();
 }
 
-programmation& agenda::ajouterProgrammationTache(const TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h) {
-    programmationTache* newprog=new programmationTache(t,d,h);
+programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
+    programmationTache* newprog=new programmationTache(t,d,h,dur);
+
+    //vérifier si la tache est disponible
+    if(d<t.get_date_disp())
+    {
+        QString msg;
+        msg+="La tache n'est pas disponible";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        return *newprog;
+    }
+
+    //vérifier que la tache n'est pas déjà terminée
+    if(t.get_achevement()==0)
+        return *newprog;
+
+    if(trouverProgrammation(d,h,dur))
+    {
+        QString msg;
+        msg+="Déjà une programmation";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        newprog=0;
+        return *newprog;
+    }
+
+    //vérifier que l'on programme la tache qu'en une fois si elle n'est pas préemptive
+    if(!t.get_preemptive()&& dur.getDureeEnMinutes()<t.get_duree().getDureeEnMinutes())
+    {
+        QString msg;
+        msg+="la durée n'est pas la bonne";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        newprog=0;
+        return *newprog;
+    }
+    programmation* progtache=0;
+    //on vérifie que les précédentes sont programmées avant
+    for(std::vector<Tache*>::const_iterator it=t.get_precedentes().cbegin();it!=t.get_precedentes().cend();it++)
+    {
+        progtache=getInstance().trouverProgparTache(*it);
+        if(!progtache)
+        {
+            QString msg;
+            msg+="Il faut d'abord programmer les taches précédentes";
+            QMessageBox msgBox;
+            msgBox.setText(msg);
+            msgBox.exec();
+            newprog=0;
+            return *newprog;
+        }
+        else
+        {
+            if(d<progtache->getDate())
+            {
+                QString msg;
+                msg+="Des taches précédentes sont programmées après";
+                QMessageBox msgBox;
+                msgBox.setText(msg);
+                msgBox.exec();
+                newprog=0;
+                return *newprog;
+            }
+            if(d==progtache->getDate() && progtache->getHoraire()<h)
+            {
+                QString msg;
+                msg+="Des taches précédentes sont programmées après dans le même jour";
+                QMessageBox msgBox;
+                msgBox.setText(msg);
+                msgBox.exec();
+                newprog=0;
+                return *newprog;
+            }
+        }
+    }
+
+    // si elle est préemptive vérifier que l'on ne programme pas plus
+    if(t.get_preemptive())
+    {
+        //on calcule la durée en minute qu'il reste à faire
+        float dureerestante=t.get_achevement()*t.get_duree().getDureeEnMinutes();
+        //on vérifie que la durée de programmation n'est pas supérieure au temps restant
+        if(dur.getDureeEnMinutes()>dureerestante)
+        {
+            newprog=0;
+            return *newprog;
+        }
+        //sinon on modifie l'achevement
+        t.set_achevement(dureerestante-dur.getDureeEnMinutes()/t.get_duree().getDureeEnMinutes());
+        QString msg;
+        msg+="Il vous restera ";
+        msg+=QVariant(t.get_achevement()*t.get_duree().getDureeEnMinutes()).toString();
+        msg+=" minutes";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+    }
+    //si la tache n'est pas préemtive on met 0 à l'achevement (elle sera achevée)
+    if(!t.get_preemptive())
+        t.set_achevement((float)0);
+
     progs.push_back(newprog);
     return *newprog;
 }
-programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h) {
+
+programmation& agenda::ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h)
+{
     programmationActivite* newprog= new programmationActivite(a,d,h);
     if(trouverProgrammation(d,h,a.getDuree()))
     {
@@ -449,4 +579,13 @@ programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut
     }
     return 0;
 }
+programmation* agenda::trouverProgparTache(Tache* t) const {
+    for(std::vector<programmation*>::const_iterator it=progs.cbegin();it!=progs.cend();it++)
+    {
+        if(t==&(*it)->getTache())
+            return (*it);
+    }
+    return 0;
+}
+
 
