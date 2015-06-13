@@ -13,10 +13,10 @@ projectMain::projectMain(QWidget *parent) :
     ui->setupUi(this);
     ProjetManager& man = ProjetManager::getManager();
         /*On utilise l'iterator de PM pour avoir tous les Projets et les lister*/
-        for(ProjetManager::Iterator  i = man.getIterator();  i.end();i.next()){
+        for(ProjetManager::Iterator  i = man.getIterator(); i.next(); i.end()){
             item = new QTreeWidgetItem();
             item->setText(0, i.current()->getNom());
-            //ui->projTreeView->addTopLevelItem(item);
+            ui->projTreeView->addTopLevelItem(item);
         }
 }
 

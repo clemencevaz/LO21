@@ -3,7 +3,7 @@
 
 //et tout ce qui manque
 
-#include "timing.h"
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -28,10 +28,11 @@
 #include <QDate>
 #include <QDateEdit>
 #include <QVector>
-#include "tache.h"
 #include "projet.h"
+#include "timing.h"
 #include "activite.h"
 #include "projetManager.h"
+#include "tache.h"
 #include "calendrier.h"
 //#include "tacheediteur.h"
 using namespace std;
