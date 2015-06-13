@@ -558,7 +558,67 @@ FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
     QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(enregistrer()));
 
 }
+FenetreProgrammerTache::FenetreProgrammerTache(TacheUnitaire& t): tache(t){
+    titreLabel = new QLabel("Programmer une tache");
+    nom = new QLabel(this);
+    nom->setText(QVariant(t.get_titre()).toString());
+    duree=new QLabel();
+    duree->setText(QVariant(t.get_duree().getDureeEnMinutes()).toString());
+    date= new QLabel("Date: ");
+    horaire= new QLabel("Horaire: (h-m)");
+    ProgDate= new QDateEdit();
+    ProgDate->setDate(QDate::currentDate());
+    ProgHh= new QSpinBox();
+    ProgHm = new QSpinBox();
+    progDuree= new QLabel();
+    progDuree->setText("Durée de la programmation (minutes: ");
+    Dur=new QSpinBox();
+    Dur->setValue(t.get_duree().getDureeEnMinutes());
 
+    coucheV1= new QVBoxLayout();
+    coucheV1->addWidget(titreLabel);
+    coucheV1->addWidget(nom);
+    coucheV1->addWidget(duree);
+
+    coucheH1= new QHBoxLayout();
+    coucheH1->addWidget(date);
+    coucheH1->addWidget(ProgDate);
+
+    coucheH2= new QHBoxLayout();
+    coucheH2->addWidget(horaire);
+    coucheH2->addWidget(ProgHh);
+    coucheH2->addWidget(ProgHm);
+
+    coucheH3=new QHBoxLayout();
+    coucheH3->addWidget(progDuree);
+    coucheH3->addWidget(Dur);
+
+    Enregistrer=new  QPushButton("Enregistrer");
+    coucheV1->addLayout(coucheH1);
+    coucheV1->addLayout(coucheH2);
+    coucheV1->addLayout(coucheH3);
+    coucheV1->addWidget(Enregistrer);
+
+    setLayout(coucheV1);
+    QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(enregistrer()));
+
+}
+void FenetreProgrammerTache::enregistrer(){
+    programmation& progtache=agenda::getInstance().ajouterProgrammationTache(tache,Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(),ProgHm->value()),Duree(Dur->value()));
+    if(&progtache!=0){
+        QMessageBox msgBox;
+        msgBox.setText("L'Activité a été programmée");
+        msgBox.exec();
+        this->close();
+    }
+    else
+    {
+        delete &progtache;
+        QMessageBox msgBox;
+        msgBox.setText("L'Activité n'a pas été programmée");
+        msgBox.exec();
+    }
+}
 void FenetreProgrammerActivite::enregistrer(){
     programmation& progact = agenda::getInstance().ajouterProgrammationActivite(activite, Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(), ProgHm->value()));
     if(&progact!=0){
