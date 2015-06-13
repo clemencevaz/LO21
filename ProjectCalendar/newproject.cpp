@@ -17,7 +17,7 @@ NewProject::~NewProject()
 void NewProject::on_saveNewProj_clicked()
 {
     QString nom = ui->newProjName->text();
-    Projet newProj = new Projet(nom);
+    Projet* newProj = new Projet(nom);
     ProjetManager& man = ProjetManager::getManager();
     man.addProjet(newProj);
 
