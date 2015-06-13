@@ -7,6 +7,7 @@ using namespace TIME;
 using namespace std;
 class Activite;
 class programmation;
+//class TacheUnitaire;
 class programmationActivite;
 class programmationTache;
 
