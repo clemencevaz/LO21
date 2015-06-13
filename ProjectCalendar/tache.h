@@ -105,6 +105,6 @@ class FenetreChoixProjet : public QWidget{
 public:
   FenetreChoixProjet();
 public slots:
-  void sauverprojet();
+  //void sauverprojet();
 };
 #endif

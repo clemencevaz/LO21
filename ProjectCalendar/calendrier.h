@@ -9,6 +9,7 @@ using namespace TIME;
 using namespace std;
 class Activite;
 class programmation;
+class TacheUnitaire;
 class programmationActivite;
 class programmationTache;
 /*! \class CalendarException
@@ -112,9 +113,9 @@ public:
     const TIME::Date getDate() const { return date; }/*!< fonction qui renvoie la date de la programmation*/
     const TIME::Horaire getHoraire() const { return horaire; }/*!< fonction qui renvoie l'horaire de la programmation*/
     QVBoxLayout* getLayout() const {return prog;}/*!< fonction qui renvoie le QVBoxLayout de la programmation*/
-    virtual void afficher() const {}/*!< fonction qui permet de créer le QVBoxLayout*/
+    virtual void afficher() const =0;/*!< fonction qui permet de créer le QVBoxLayout*/
     virtual TIME::Horaire getHorairefin() const{return Horaire(0,0);}/*!< fonction qui renvoie l'horaire de la programmation*/
-    virtual const TacheUnitaire& getTache() const;
+    virtual const TacheUnitaire& getTache() const=0;
 };
 /*! \class programmationTache
     \brief Classe fille de programmation qui créer une programmation d'une tache unitaire
@@ -137,6 +138,7 @@ public:
     const Activite& getActivite() const { return activite; }/*!< fonction qui renvoie la référence de l''activité*/
     void afficher() const ;/*!< fonction qui permet d'agrémenter le QVBoxLayout*/
     TIME::Horaire getHorairefin() const;/*!< fonction qui renvoie l'horaire de fin*/
+    const TacheUnitaire& getTache() const;
 
 
 };

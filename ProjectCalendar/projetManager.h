@@ -28,7 +28,7 @@ private:
 	*/
 	ProjetManager(){
 		projets.reserve(10);
-	};
+    }
 
     const ProjetManager &operator=(const ProjetManager &old); // desactivation de "l'assignment"
 	
