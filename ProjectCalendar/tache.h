@@ -14,7 +14,7 @@ class Tache{
   float achevement;
   public:
     Tache(const QString& t, const Date& d_disp, const Date& ech, float ach) : titre(t),dateDisponibilite(d_disp),echeance(ech),achevement(ach){}
-   ~Tache(); //pour supprimer la tache du projet
+   //~Tache(); //pour supprimer la tache du projet
    const QString& get_titre() const { return titre;}
     const Date& get_date_disp() const {return dateDisponibilite;}
     const Date& get_echeance() const {return echeance;}
@@ -28,8 +28,8 @@ class TacheUnitaire : public Tache{
   Duree duree;
   bool preemptive;
 	public:
-	TacheUnitaire(const QString& t, const Date& d_disp, const Date& ech, float ach, const Duree& d, bool pre):
-	Tache(t, d_disp, ech, ach), duree(d), preemptive(pre){
+    TacheUnitaire(const QString& t, const Date& d_disp, const Date& ech, float ach, const Duree& d, bool pre):
+    Tache(t, d_disp, ech, ach), duree(d), preemptive(pre){
             unsigned int dureelimite;
             dureelimite=d.getDureeEnHeures();
             if (pre==1 || dureelimite>12)
@@ -37,15 +37,14 @@ class TacheUnitaire : public Tache{
         }
     const Duree& get_duree() const {return duree;}
     const bool get_preemptive() const {return preemptive;}
-        ~TacheUnitaire();
+       // ~TacheUnitaire();
 };
 
 class TacheComposite : public Tache{
     vector<Tache*> sous_taches;
 	public:
-	TacheComposite(const QString& t, const Date& d_disp, const Date& ech, float ach, Tache* const composite):
-    Tache(t, d_disp, ech, ach){sous_taches.push_back(composite);}
-        ~TacheComposite();
+    TacheComposite(const QString& t, const Date& d_disp, const Date& ech, float ach):Tache(t, d_disp, ech, ach){}
+    //~TacheComposite();
 };
 
 class FenetreChoixTypeTache : public QWidget{
@@ -66,14 +65,22 @@ class FenetreCreerTacheUnitaire: public QWidget{
     Q_OBJECT
     QLabel* titreLabel;
     QLabel* nom;
-    QLabel* description;
+    QLabel* textprojet;
     QLabel* duree;
-    QLineEdit* ActNom;
+    QLabel* textdatedispo;
+    QLabel* textedateeche;
+    QLabel* textpreemptive;
+    QLineEdit* titre;
     QTextEdit* ActDesc;
+    QDateEdit* datedispo;
+    QDateEdit* dateeche;
     QSpinBox* hActDuree;
     QSpinBox* mActDuree;
+    QCheckBox* preemptive;
     QHBoxLayout* coucheh1;
+    QHBoxLayout* coucheh2;
     QVBoxLayout* coucheV1;
+    QComboBox* projet;
     QPushButton* Enregistrer;
 public:
     FenetreCreerTacheUnitaire();
@@ -85,11 +92,15 @@ class FenetreCreerTacheComposite: public QWidget{
     Q_OBJECT
     QLabel* titreLabel;
     QLabel* nom;
-    QLabel* precedentes;
-    QLineEdit* ActNom;
-    QTextEdit* ActDesc;
+    QLabel* textprojet;
+    QLabel* textdatedispo;
+    QLabel* textedateeche;
+    QLineEdit* titre;
+    QDateEdit* datedispo;
+    QDateEdit* dateeche;
     QHBoxLayout* coucheh1;
     QVBoxLayout* coucheV1;
+    QComboBox* projet;
     QPushButton* Enregistrer;
 public:
     FenetreCreerTacheComposite();
@@ -97,14 +108,4 @@ public slots:
     void sauverTacheC();
 };
 
-class FenetreChoixProjet : public QWidget{
-  Q_OBJECT
-  QVBoxLayout* coucheV1;
-  QComboBox * listeprojets;
-  QPushButton* Enregistrer;
-public:
-  FenetreChoixProjet();
-public slots:
-  //void sauverprojet();
-};
 #endif

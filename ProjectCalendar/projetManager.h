@@ -141,7 +141,7 @@ public:
 		std::vector<Projet*> projs;
 		int i;
 
-		Iterator(std::vector<Projet*> projets):projs(projets),i(0){}
+        Iterator(std::vector<Projet*> projets):projs(projets),i(0){}
 
 	public:
         /*Le destructeur sans definition cree une erreur*/
@@ -154,7 +154,7 @@ public:
 		void next(){
 			if (!end()){
 //				throw CalendarException("next() sur un iterateur fini");
-			}else{
+            }else{
 				i++;
 			}
 		}
@@ -164,11 +164,12 @@ public:
 				return false;
 			}else{
 				return true;
+
 			}
 		}
 	};
 
-	Iterator getIterator() const { return Iterator(projets); }
+    Iterator getIterator() const { return Iterator(projets); }
 };
 
 #endif

@@ -15,21 +15,7 @@ FenetreChoixTypeTache::FenetreChoixTypeTache(){
    QObject::connect(valide,SIGNAL(clicked()),this,SLOT(fenetreTacheUnitaire()));
 }
 
-FenetreChoixProjet::FenetreChoixProjet(){
-  coucheV1= new QVBoxLayout;
-  listeprojets=new QComboBox (listeprojets);
-  Enregistrer=new QPushButton("Enregistrer");
-  coucheV1->addWidget(Enregistrer);
 
-  setLayout(coucheV1);
-
-  /*ProjetManager& p = ProjetManager::getManager();
-  ProjetManager::Iterator * it;
-  for (it=ProjetManager::getIterator();it!=end();it.next())
-      listeprojets.addItem(*it->titre);*/
-
-  QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(FenetreChoixTypeTache()));
-}
 
 void FenetreChoixTypeTache::fenetreTacheUnitaire(){
   if(unitaire->isChecked()){
@@ -47,22 +33,45 @@ void FenetreChoixTypeTache::fenetreTacheUnitaire(){
 
 FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire(){
     titreLabel= new QLabel("Créer une tâche");
-    nom= new QLabel("Nom: ");
-    description=new QLabel("Description: ");
+    nom= new QLabel("Titre: ");
+    textprojet=new QLabel("Projet: ");
+    textdatedispo=new QLabel("Date de disponibilité: ");
+    textedateeche= new QLabel("Date d'échéance");
+    textpreemptive=new QLabel("Preemptive");
     duree=new QLabel("Durée (h-m): ");
-    ActNom=new QLineEdit();
-    ActDesc =new QTextEdit();
+    titre=new QLineEdit();
+    datedispo= new QDateEdit();
+    dateeche=new QDateEdit();
     hActDuree=new  QSpinBox();
     mActDuree=new  QSpinBox();
+    preemptive=new QCheckBox();
+    projet=new QComboBox();
+
+    for(ProjetManager::Iterator i =ProjetManager::getManager().getIterator(); i.end(); i.next()){
+        projet->addItem(i.current()->getNom());
+    }
+
 
     coucheV1= new QVBoxLayout;
     coucheh1 = new QHBoxLayout;
+    coucheh2 = new QHBoxLayout;
+
+    datedispo->setDate(QDate::currentDate());
+    dateeche->setDate(QDate::currentDate());
 
     coucheV1->addWidget(titreLabel);
     coucheV1->addWidget(nom);
-    coucheV1->addWidget(ActNom);
-    coucheV1->addWidget(description);
-    coucheV1->addWidget(ActDesc);
+    coucheV1->addWidget(titre);
+    coucheV1->addWidget(textprojet);
+    coucheV1->addWidget(projet);
+    coucheV1->addWidget(textpreemptive);
+    coucheV1->addWidget(preemptive);
+
+    coucheh2->addWidget(textdatedispo);
+    coucheh2->addWidget(datedispo);
+    coucheh2->addWidget(textedateeche);
+    coucheh2->addWidget(dateeche);
+    coucheV1->addLayout(coucheh2);
 
     coucheh1->addWidget(duree);
     coucheh1->addWidget(hActDuree);
@@ -79,43 +88,74 @@ FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire(){
 }
 
 void FenetreCreerTacheUnitaire::sauverTache(){
-   /* if(Activite* activite=new Activite(ActNom->text(),ActDesc->toPlainText(),Duree(hActDuree->value(),mActDuree->value())))
+    if(TacheUnitaire* newtach=new TacheUnitaire(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
+                                               Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),1,Duree(hActDuree->value(),mActDuree->value()),preemptive->checkState()))
     {
         QMessageBox msgBox;
-        msgBox.setText("L'Activité a été crée");
+        msgBox.setText("La Tache a été ajoutée");
         msgBox.exec();
-        FenetreProgrammerActivite* programactivite= new FenetreProgrammerActivite(*activite);
-        programactivite->show();
+        Projet* p=ProjetManager::getManager().getProjet(projet->currentIndex());
+        (*p).addTache(newtach);
         this->close();
-    }*/
+    }
 }
 
 
 //TACHE COMPOSITE
 FenetreCreerTacheComposite::FenetreCreerTacheComposite(){
-  titreLabel= new QLabel("Créer une tâche composite");
-  nom= new QLabel("Nom: ");
-  ActNom=new QLineEdit();
-  ActDesc =new QTextEdit();
+    titreLabel= new QLabel("Créer une tâche composite");
+    nom= new QLabel("Titre: ");
+    textprojet=new QLabel("Projet: ");
+    textdatedispo=new QLabel("Date de disponibilité: ");
+    textedateeche= new QLabel("Date d'échéance");
+    titre=new QLineEdit();
+    datedispo= new QDateEdit();
+    dateeche=new QDateEdit();
+    projet=new QComboBox();
 
-  coucheV1= new QVBoxLayout;
-  coucheh1 = new QHBoxLayout;
+    for(ProjetManager::Iterator i =ProjetManager::getManager().getIterator(); i.end(); i.next()){
+        projet->addItem(i.current()->getNom());
+    }
 
-  coucheV1->addWidget(titreLabel);
-  coucheV1->addWidget(nom);
-  coucheV1->addWidget(ActNom);
-  coucheV1->addWidget(ActDesc);
 
-  coucheV1->addLayout(coucheh1);
+    coucheV1= new QVBoxLayout;
+    coucheh1 = new QHBoxLayout;
 
-  Enregistrer=new QPushButton("Enregistrer");
-  coucheV1->addWidget(Enregistrer);
+    datedispo->setDate(QDate::currentDate());
+    dateeche->setDate(QDate::currentDate());
 
-  setLayout(coucheV1);
+    coucheV1->addWidget(titreLabel);
+    coucheV1->addWidget(nom);
+    coucheV1->addWidget(titre);
+    coucheV1->addWidget(textprojet);
+    coucheV1->addWidget(projet);
 
-  QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(sauverTacheC()));
+    coucheh1->addWidget(textdatedispo);
+    coucheh1->addWidget(datedispo);
+    coucheh1->addWidget(textedateeche);
+    coucheh1->addWidget(dateeche);
+
+
+
+    coucheV1->addLayout(coucheh1);
+
+    Enregistrer=new QPushButton("Enregistrer");
+    coucheV1->addWidget(Enregistrer);
+
+    setLayout(coucheV1);
+
+    QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(sauverTacheC()));
 }
 
 void FenetreCreerTacheComposite::sauverTacheC(){
-
+    if(TacheComposite* newtach=new TacheComposite(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
+                                                  Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),1))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("La Tache a été ajoutée");
+        msgBox.exec();
+        Projet* p=ProjetManager::getManager().getProjet(projet->currentIndex());
+        (*p).addTache(newtach);
+        this->close();
+    }
 }
