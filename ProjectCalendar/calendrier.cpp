@@ -57,7 +57,7 @@ agenda::agenda() {
     textsemaine=new QLabel(msgsemaine);
 
 
-    //Affichage des programmations de la semaine
+    //chage des programmations de la semaine
     affprogs=new QGridLayout;
         //jours de la semaine en haut de la grille
     QString j1;
@@ -304,7 +304,7 @@ void agenda::afficher(){
 }
 void programmationTache::afficher() const{
     delete prog->widget();
-    TacheUnitaire tache=this->tache;
+
     QLabel* nom;
     QLabel* projet;
     QLabel* duree;
@@ -588,4 +588,8 @@ programmation* agenda::trouverProgparTache(Tache* t) const {
     return 0;
 }
 
+const TacheUnitaire& programmationActivite::getTache() const {
+    TacheUnitaire* A=0;
+    return *A;
+}
 
