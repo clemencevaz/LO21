@@ -52,6 +52,8 @@ namespace TIME {
             date += QVariant(jour).toString() + "/";
             date += QVariant(mois).toString() + "/";
             date += QVariant(annee).toString();
+
+            return date;
         }
 
     private:
