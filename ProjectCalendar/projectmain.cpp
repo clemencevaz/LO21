@@ -43,8 +43,9 @@ projectMain::~projectMain()
 
 void projectMain::on_taskProgram_clicked()
 {
-    FenetreProgrammerTache* fenetre=new FenetreProgrammerTache(*selectedTask);
-    fenetre->show();
+    //il faut donner la tache t
+//    FenetreProgrammerTache* fenetre=new FenetreProgrammerTache(TacheUnitaire& t);
+//    fenetre.show();
 }
 
 

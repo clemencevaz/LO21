@@ -79,7 +79,7 @@ programmation manager*/
 public:
     static agenda& getInstance();/*!< fonction static getInstance qui renvoie la référence de l'agenda*/
     static void libererInstance();/*!< fonction static libererInstance*/
-    programmation& ajouterProgrammationTache(Tache& t,const TIME::Date& d, const TIME::Horaire& h,const TIME::Duree& dur);/*!< fonction qui permet d'ajouter une programmation d'une tache*/
+    programmation& ajouterProgrammationTache(TacheUnitaire& t,const TIME::Date& d, const TIME::Horaire& h,const TIME::Duree& dur);/*!< fonction qui permet d'ajouter une programmation d'une tache*/
     programmation& ajouterProgrammationActivite(const Activite& a, const TIME::Date& d, const TIME::Horaire& h);/*!< fonction qui permet d'ajouter une programmation d'une activité*/
     Date& getJour1();/*!< fonction qui permet de connaître le jour1 de l'affichage*/
     void setJour1(const Date& d);/*!< fonction qui permet de changer le jour1*/
@@ -124,11 +124,11 @@ public:
     \brief Classe fille de programmation qui créer une programmation d'une tache unitaire
 */
 class programmationTache: public programmation{
-    const Tache& tache;/*!< référence de la tache unitaire programmée*/
+    const TacheUnitaire& tache;/*!< référence de la tache unitaire programmée*/
     TIME::Duree duree;
 public:
     programmationTache(const TacheUnitaire& t,const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur):programmation(d,h),tache(t),duree(dur){}/*!< constructeur*/
-    const Tache& getTache() const {return tache;}/*!< fonction qui renvoie la référence de la tache unitaire*/
+    const TacheUnitaire& getTache() const {return tache;}/*!< fonction qui renvoie la référence de la tache unitaire*/
     void afficher() const;/*!< fonction qui permet d'agrémenter le QVBoxLayout*/
     TIME::Horaire getHorairefin() const;/*!< fonction qui renvoie l'horaire de fin*/
 
@@ -179,7 +179,7 @@ public slots:
 */
 class FenetreProgrammerTache:public QWidget{
     Q_OBJECT
-    Tache& tache;
+    TacheUnitaire& tache;
     QLabel* titreLabel;
     QLabel* nom;
     QLabel* description;
@@ -199,7 +199,7 @@ class FenetreProgrammerTache:public QWidget{
     QPushButton* Enregistrer;
 
 public:
-    FenetreProgrammerTache(Tache& t);
+    FenetreProgrammerTache(TacheUnitaire& t);
 public slots:
     void enregistrer();
 };

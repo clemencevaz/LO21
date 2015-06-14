@@ -23,10 +23,6 @@ class Tache{
     void addPrecedence(Tache * const t){precedentes.push_back(t);}
     const vector<Tache*> get_precedentes() const {return precedentes;}
     virtual void addComposite(Tache* t){}
-    virtual const Duree& get_duree() const {return Duree(0,0);}
-    virtual const bool get_preemptive() const {return false;}
-
-
 };
 
 class TacheUnitaire : public Tache{
@@ -52,9 +48,6 @@ class TacheComposite : public Tache{
 	public:
     TacheComposite(const QString& t, const Date& d_disp, const Date& ech, float ach):Tache(t, d_disp, ech, ach){}
     void addComposite(Tache* t);
-    virtual const Duree& get_duree() const {return Duree(0,0);}
-    virtual const bool get_preemptive() const {return false;}
-
     //~TacheComposite();
 };
 
