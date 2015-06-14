@@ -99,6 +99,10 @@ public:
 		}
 	}
 
+	//! On utilise l'operateur == pour verifier si un projet est identique a un autre
+	/*!
+		On verifie l'egalite d'un projet que par son nom
+	*/
     inline bool operator==(Projet* proj){
         if (proj->nom == this->nom){
 			return true;
