@@ -7,12 +7,9 @@ QT += xml
 SOURCES += \
     main.cpp \
     tache.cpp \
-    projet.cpp \
     calendrier.cpp \
-    tacheediteur.cpp \
     timing.cpp \
     activite.cpp \
-    projetManager.cpp \
     programtask.cpp \
     projectmain.cpp \
     newprojectwindow.cpp

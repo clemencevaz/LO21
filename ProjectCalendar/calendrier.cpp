@@ -414,6 +414,16 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
         return *newprog;
     }
 
+    if(t.get_echeance()<d)
+    {
+        QString msg;
+        msg+="La date choisie dépasse l'échéance";
+        QMessageBox msgBox;
+        msgBox.setText(msg);
+        msgBox.exec();
+        newprog=0;
+        return *newprog;
+    }
     //vérifier que la tache n'est pas déjà terminée
     if(t.get_achevement().getDureeEnMinutes()==0)
         return *newprog;
