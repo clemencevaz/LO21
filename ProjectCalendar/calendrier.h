@@ -97,7 +97,7 @@ public slots:
     void fenetreProjet(); /*!< Slot qui permetd'ouvrir la fenetre de creation de projet*/
     void afficher() ;/*!< Slot qui permet de mettre à jour l'affichage*/
     void choixj1();/*!< Slot qui permet d'ouvrir le calendrier pour choisir le jour1*/
-    void Sauvegarder();/*!< Slot qui permet d'ouvrir le calendrier pour choisir le jour1*/
+    void SauvegarderCalendrier();/*!< Slot qui permet d'ouvrir le calendrier pour choisir le jour1*/
 
 };
 /*! \class programmation

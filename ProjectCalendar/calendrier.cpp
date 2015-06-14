@@ -3,6 +3,9 @@
 #include "projectmain.h"
 #include "ui_projectmain.h"
 #include "ui_newprojectwindow.h"
+#include "qjsonobject.h"
+#include "qjsonarray.h"
+#include "qjsondocument.h"
 
 agenda::AgendaHandler agenda::agendahandler = agenda::AgendaHandler();
 
@@ -678,6 +681,60 @@ const Tache& programmationActivite::getTacheP() const {
     Tache* A=0;
     return *A;
 }
-void agenda::Sauvegarder(){
+
+void agenda::SauvegarderCalendrier(){
+    QJsonDocument doc;
+    QJsonObject mainArray;
+
+    QJsonArray projs;
+    QJsonArray projectTasks;
+    QJsonArray tasksPrec;
+
+
+
+    ProjetManager& man = ProjetManager::getManager();
+
+    for(ProjetManager::Iterator i = man.getIterator(); i.end(); i.next()){
+        QJsonObject project;
+
+        project["name"] = i.current()->getNom();
+        for(Projet::Iterator* j = i.current()->getIterator(); j->end(); j->next()){
+            QJsonObject task;
+
+            task["nom"] = j->current()->get_titre();
+            task["deadline"] = j->current()->get_echeance().toString();
+            task["end_date"] = j->current()->get_achevement();
+            task["availability"] = j->current()->get_date_disp().toString();
+            task["length"] = (int)j->current()->get_duree().getDureeEnMinutes();
+            task["preemptive"] = j->current()->get_preemptive();
+
+            vector<Tache*> prec = j->current()->get_precedentes();
+            for(unsigned int p = 0; p < prec.size(); p++){
+                QJsonObject task2;
+                task2["nom"] = j->current()->get_titre();
+                task2["deadline"] = j->current()->get_echeance().toString();
+                task2["end_date"] = j->current()->get_achevement();
+                task2["availability"] = j->current()->get_date_disp().toString();
+                task2["length"] = (int)j->current()->get_duree().getDureeEnMinutes();
+                task2["preemptive"] = j->current()->get_preemptive();
+
+                tasksPrec.append(task2);
+            }
+
+            task["precedences"] = tasksPrec;
+
+            projectTasks.append(task);
+        }
+    }
+
+    QJsonArray progs;
+    QJsonObject prog;
+    QJsonObject progTask;
+
+
+
+    mainArray["projects"] = projs;
+//    mainArray["programmations"] = progs;
+    doc.setObject(mainArray);
 
 }

@@ -3,6 +3,8 @@
 
 #include<iostream>
 #include<iomanip>
+#include "QString"
+#include "QVariant"
 
 namespace TIME {
     /*! \class TimeException
@@ -32,6 +34,7 @@ namespace TIME {
         Date(unsigned int short j=1, unsigned int short m=1, unsigned int a=0):jour(1),mois(1),annee(0){ setDate(j,m,a); }
         Date(const Date& d):jour(d.getJour()),mois(d.getMois()),annee(d.getAnnee()){}
         // méthodes
+
         unsigned short int  getJour() const { return jour; } //<! Retourne le jour de la date
         unsigned short int  getMois() const { return mois; } //<! Retourne le mois de la date
         unsigned int getAnnee() const { return annee; } //<! Retourne l'année de la date
@@ -43,6 +46,14 @@ namespace TIME {
         Date demain() const; //<! Retourne la date du lendemain
         Date operator+(unsigned int nb) const; //<!Retourne la date de dans nb jours
         void setDateAujourdhui();//<! met la date d'aujourdhui
+
+        QString toString() const{
+            QString date = "";
+            date += QVariant(jour).toString() + "/";
+            date += QVariant(mois).toString() + "/";
+            date += QVariant(annee).toString();
+        }
+
     private:
         // attributs
         unsigned short int jour; // jour entre 1 et 31
