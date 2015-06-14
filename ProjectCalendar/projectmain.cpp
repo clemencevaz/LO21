@@ -104,10 +104,14 @@ void projectMain::on_projTreeView_activated(const QModelIndex &index)
 
 void projectMain::on_taskProgram_2_clicked()
 {
-
+    //il faut donner la tache t et le projet
+//    FenetreAjouterPrecedence* fenetre=new FenetreAjouterPrecedence(Projet& p, TacheUnitaire& t);
+//    fenetre.show();
 }
+
 
 void projectMain::on_composeButton_clicked()
 {
 
 }
+

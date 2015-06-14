@@ -27,7 +27,36 @@ void FenetreChoixTypeTache::fenetreTacheUnitaire(){
     fenetrecompo->show();
   }
 }
+void TacheComposite::addComposite(TacheUnitaire& t){
+    sous_taches.push_back(&t);
+    QMessageBox msgBox;
+    msgBox.setText("La Tache a été ajoutée dans la tache composite");
+    msgBox.exec();
+}
 
+FenetreAjouterTachedansComposite::FenetreAjouterTachedansComposite(Projet& p, TacheComposite& t):projet(p),tachecomposite(t){
+    couchev1=new QVBoxLayout();
+    ajouter=new QPushButton("Ajouter");
+    taches=new QComboBox();
+
+    for(Projet::Iterator* i=projet.getIterator();i->end();i->next())
+    {
+        taches->addItem(i->current()->get_titre());
+    }
+
+    couchev1->addWidget(couchev1);
+    setLayout(couchev1);
+    QObject::connect(ajouter,SIGNAL(clicked()),this,SLOT(addComposite()));
+
+}
+void FenetreAjouterTachedansComposite::addComposite(){
+    if(tachecomposite.addComposite(projet.getTache()))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("La Tache a été ajoutée dans la tache composite");
+        msgBox.exec();
+    }
+}
 
 //TACHE UNITAIRE
 
@@ -158,4 +187,27 @@ void FenetreCreerTacheComposite::sauverTacheC(){
         (*p).addTache(newtach);
         this->close();
     }
+}
+FenetreAjouterPrecedence::FenetreAjouterPrecedence(Projet& p,Tache& t):tache(t),projet(p){
+    taches= new QComboBox();
+    valider=new QPushButton("Valier");
+    for(Projet::Iterator* i=p.getIterator();i->end();i->next())
+    {
+        taches->addItem(i->current()->get_titre());
+    }
+    couchev1=new QVBoxLayout();
+    couchev1->addWidget(taches);
+    couchev1->addWidget(valider);
+
+    QObject::connect(valider,SIGNAL(clicked()),this,SLOT(ajoutPrecedence()));
+
+}
+void FenetreAjouterPrecedence::ajoutPrecedence(){
+    if(tache.addPrecedence(projet.getTache(taches->currentIndex())))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("La Tache a été ajoutée en précédence");
+        msgBox.exec();
+    }
+
 }

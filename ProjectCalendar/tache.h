@@ -4,7 +4,7 @@ using namespace std;
 #include "ProjC.h"
 #include<stdexcept>
 using namespace TIME;
-
+class Projet;
 class Tache{
 
   QString titre;
@@ -44,6 +44,7 @@ class TacheComposite : public Tache{
     vector<Tache*> sous_taches;
 	public:
     TacheComposite(const QString& t, const Date& d_disp, const Date& ech, float ach):Tache(t, d_disp, ech, ach){}
+    void addComposite(TacheUnitaire& t);
     //~TacheComposite();
 };
 
@@ -106,6 +107,34 @@ public:
     FenetreCreerTacheComposite();
 public slots:
     void sauverTacheC();
+};
+class FenetreAjouterPrecedence:public QWidget{
+    Q_OBJECT
+    Tache& tache;
+    Projet& projet;
+    QComboBox* taches;
+    QVBoxLayout* couchev1;
+    QPushButton* valider;
+public:
+    FenetreAjouterPrecedence(Projet& p, Tache& t);
+public slots:
+    void ajoutPrecedence();
+
+};
+class FenetreAjouterTachedansComposite:public QWidget{
+    Q_OBJECT
+    Projet& projet;
+    TacheComposite& tachecomposite;
+
+    QComboBox* taches;
+    QPushButton* ajouter;
+    QVBoxLayout* couchev1;
+public:
+    FenetreAjouterTachedansComposite(Projet& p, TacheComposite& t);
+public slots:
+    void addComposite();
+
+
 };
 
 #endif
