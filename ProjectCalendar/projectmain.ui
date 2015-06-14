@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Visionneur de Projets</string>
   </property>
   <widget class="QGroupBox" name="taskEndLabel">
    <property name="geometry">
