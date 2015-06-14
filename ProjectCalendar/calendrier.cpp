@@ -363,7 +363,7 @@ void programmationActivite::afficher() const {
 
 }
 TIME::Horaire programmationTache::getHorairefin() const{
-    Horaire* h1=new Horaire(this->getHoraire()+this->getTache().get_duree());
+    Horaire* h1=new Horaire(this->getHoraire()+this->getTacheP().get_duree());
     return *h1;
 }
 TIME::Horaire programmationActivite::getHorairefin() const{
@@ -390,9 +390,8 @@ void agenda::fenetreMainProj(){
     fenetre->show();
 }
 
-programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
+programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
     programmationTache* newprog=new programmationTache(t,d,h,dur);
-
     //vérifier si la tache est disponible
     if(d<t.get_date_disp())
     {
@@ -432,40 +431,43 @@ programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::D
     }
     programmation* progtache=0;
     //on vérifie que les précédentes sont programmées avant
-    for(std::vector<Tache*>::const_iterator it=t.get_precedentes().begin();it!=t.get_precedentes().end();it++)
+    if(t.get_precedentes().size()!=0)
     {
-        progtache=getInstance().trouverProgparTache(*it);
-        if(!progtache)
+        for(std::vector<Tache*>::const_iterator it=t.get_precedentes().begin();it!=t.get_precedentes().end();it++)
         {
-            QString msg;
-            msg+="Il faut d'abord programmer les taches précédentes";
-            QMessageBox msgBox;
-            msgBox.setText(msg);
-            msgBox.exec();
-            newprog=0;
-            return *newprog;
-        }
-        else
-        {
-            if(d<progtache->getDate())
+            progtache=getInstance().trouverProgparTache(*it);
+            if(!progtache)
             {
                 QString msg;
-                msg+="Des taches précédentes sont programmées après";
+                msg+="Il faut d'abord programmer les taches précédentes";
                 QMessageBox msgBox;
                 msgBox.setText(msg);
                 msgBox.exec();
                 newprog=0;
                 return *newprog;
             }
-            if(d==progtache->getDate() && progtache->getHoraire()<h)
+            else
             {
-                QString msg;
-                msg+="Des taches précédentes sont programmées après dans le même jour";
-                QMessageBox msgBox;
-                msgBox.setText(msg);
-                msgBox.exec();
-                newprog=0;
-                return *newprog;
+                if(d<progtache->getDate())
+                {
+                    QString msg;
+                    msg+="Des taches précédentes sont programmées après";
+                    QMessageBox msgBox;
+                    msgBox.setText(msg);
+                    msgBox.exec();
+                    newprog=0;
+                    return *newprog;
+                }
+                if(d==progtache->getDate() && progtache->getHoraire()<h)
+                {
+                    QString msg;
+                    msg+="Des taches précédentes sont programmées après dans le même jour";
+                    QMessageBox msgBox;
+                    msgBox.setText(msg);
+                    msgBox.exec();
+                    newprog=0;
+                    return *newprog;
+                }
             }
         }
     }
@@ -558,7 +560,7 @@ FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
     QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(enregistrer()));
 
 }
-FenetreProgrammerTache::FenetreProgrammerTache(TacheUnitaire& t): tache(t){
+FenetreProgrammerTache::FenetreProgrammerTache(Tache& t): tache(t){
     titreLabel = new QLabel("Programmer une tache");
     nom = new QLabel(this);
     nom->setText(QVariant(t.get_titre()).toString());
@@ -660,14 +662,14 @@ programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut
 programmation* agenda::trouverProgparTache(Tache* t) const {
     for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
-        if(t==&(*it)->getTache())
+        if(t==&(*it)->getTacheP())
             return (*it);
     }
     return 0;
 }
 
-const TacheUnitaire& programmationActivite::getTache() const {
-    TacheUnitaire* A=0;
+const Tache& programmationActivite::getTacheP() const {
+    Tache* A=0;
     return *A;
 }
 

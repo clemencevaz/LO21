@@ -43,7 +43,8 @@ FenetreAjouterTachedansComposite::FenetreAjouterTachedansComposite(Projet& p, Ta
     {
         taches->addItem(i->current()->get_titre());
     }
-
+    couchev1->addWidget(taches);
+    couchev1->addWidget(ajouter);
     couchev1->addLayout(couchev1);
     setLayout(couchev1);
     QObject::connect(ajouter,SIGNAL(clicked()),this,SLOT(addComposite()));
@@ -51,9 +52,6 @@ FenetreAjouterTachedansComposite::FenetreAjouterTachedansComposite(Projet& p, Ta
 }
 void FenetreAjouterTachedansComposite::addComposite(){
     tachecomposite.addComposite(projet.getTache(taches->currentIndex()));
-    QMessageBox msgBox;
-    msgBox.setText("La Tache a été ajoutée dans la tache composite");
-    msgBox.exec();
 }
 
 //TACHE UNITAIRE

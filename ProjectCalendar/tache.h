@@ -22,7 +22,11 @@ class Tache{
     void set_achevement(float temps){achevement=temps;}
     void addPrecedence(Tache * const t){precedentes.push_back(t);}
     const vector<Tache*> get_precedentes() const {return precedentes;}
-    virtual void addComposite(Tache* t){}
+    virtual void addComposite(Tache* t)=0;
+    virtual const Duree& get_duree() const {return Duree(0,0);}
+    virtual const bool get_preemptive() const {return false;}
+
+
 };
 
 class TacheUnitaire : public Tache{
@@ -37,7 +41,7 @@ class TacheUnitaire : public Tache{
                 std::cout<<"La tâche ne peut pas être preemptive";
         }
     const Duree& get_duree() const {return duree;}
-    const bool get_preemptive() const {return preemptive;}
+    const bool get_preemptive() const override {return preemptive;}
     void addComposite(Tache* t){}
 
        // ~TacheUnitaire();
