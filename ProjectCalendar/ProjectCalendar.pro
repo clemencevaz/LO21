@@ -22,7 +22,6 @@ HEADERS += \
     projet.h \
     activite.h \
     calendrier.h \
-    tacheediteur.h \
     timing.h \
     projetManager.h \
     programtask.h \

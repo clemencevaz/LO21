@@ -52,15 +52,15 @@ public:
 
     QString getNom(){
     	return nom;
-    }
+    }/*!< Fonction qui renvoie le nom du projet*/
 
     int getNbTasks(){
         return taches.size();
-    }
+    }/*!< Fonction qui renvoie le nombre de taches dans le projet*/
 
     Tache* getTache(int n){
         return taches[n];
-    }
+    }/*!< Fonction qui permet d'obtenir la tache à la place n dans le vecteur*/
 
 	/**********
 	/ Setters

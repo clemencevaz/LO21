@@ -133,6 +133,7 @@ public:
     programmationTache(const Tache& t,const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur):programmation(d,h),tache(t),duree(dur){}/*!< constructeur*/
     const Tache& getTacheP() const {return tache;}/*!< fonction qui renvoie la référence de la tache unitaire*/
     void afficher() const;/*!< fonction qui permet d'agrémenter le QVBoxLayout*/
+    Duree getDuree() const {return duree;}/*!< fonction qui renvoie la durée de la programmation, qui peut être différente de la durée de la tache*/
     TIME::Horaire getHorairefin() const;/*!< fonction qui renvoie l'horaire de fin*/
 
 };
