@@ -123,6 +123,7 @@ public:
     virtual TIME::Horaire getHorairefin() const{return Horaire(0,0);}/*!< fonction qui renvoie l'horaire de la programmation*/
     virtual const Tache& getTacheP() const=0;
     virtual const Activite& getActivite() const=0;
+    virtual int is()const =0;
 };
 /*! \class programmationTache
     \brief Classe fille de programmation qui créer une programmation d'une tache unitaire
@@ -139,6 +140,9 @@ public:
     const Activite& getActivite() const {
         Activite* act=0;
         return *act;}
+    int is() const {
+        return 1;
+    }
 
 
 };
@@ -151,7 +155,9 @@ public:
     void afficher() const ;/*!< fonction qui permet d'agrémenter le QVBoxLayout*/
     TIME::Horaire getHorairefin() const;/*!< fonction qui renvoie l'horaire de fin*/
     const Tache& getTacheP() const;
-
+    int is() const {
+        return 0;
+    }
 
 };
 /*! \class FenetreProgrammerActivite

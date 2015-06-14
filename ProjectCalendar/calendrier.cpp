@@ -744,25 +744,26 @@ void agenda::SauvegarderCalendrier(){
     for (unsigned int p=0; p < progs.size(); p++){
         QJsonObject progTask;
         prog["date"] = progs[p]->getDate().toString();
-//        prog["horaire"] = progs[i].getHoraire().getHeures();
-        if (typeid(progs[p]) == typeid(programmationActivite)){
-            progTask["name"] = progs[p]->getActivite().getNom();
-            progTask["duree"] = progs[p]->getActivite().getDuree().getDureeEnMinutes();
-            progTask["desc"] = progs[p]->getActivite().getDescription();
+        prog["horaire"] = QVariant((*progs[p]).getHoraire().getHeure()).toString()+":"+QVariant((*progs[p]).getHoraire().getMinute()).toString();
+        qDebug() << (*progs[p]).is() << endl;
+        if (((*progs[p]).is() == 0)){
+            progTask["nameA"] = (*progs[p]).getActivite().getNom();
+            progTask["dureeA"] = (int)(*progs[p]).getActivite().getDuree().getDureeEnMinutes();
+            progTask["descA"] = (*progs[p]).getActivite().getDescription();
 
-            prog["activite"] = progTask;
-        }else if (typeid(progs[p]) == typeid(programmationTache)){
-            progTask["name"] = progs[p]->getTache().get_titre();
-            progTask["availability"] = progs[p]->getTache().get_duree().getDureeEnMinutes();
-            progTask["deadline"] = progs[p]->getTache().get_echeance().toString();
-            progTask["length"] =(int) progs[p]->getTache().getDuree().getDureeEnMinutes();
-            progTask["preemptive"] = progs[p]->getTache().get_preemptive();
-            progTask["end_date"] = (int)progs[p]->getTache().get_achevement().getDureeEnMinutes();
 
-            prog["task"] = progTask;
+        }else if ((*progs[p]).is() == 1){
+            progTask["name"] = (*progs[p]).getTacheP().get_titre();
+            progTask["availability"] = (*progs[p]).getTacheP().get_date_disp().toString();
+            progTask["deadline"] = (*progs[p]).getTacheP().get_echeance().toString();
+            progTask["length"] =(int) (*progs[p]).getTacheP().get_duree().getDureeEnMinutes();
+            progTask["preemptive"] = (*progs[p]).getTacheP().get_preemptive();
+            progTask["end_date"] = (int)(*progs[p]).getTacheP().get_achevement().getDureeEnMinutes();
+
         }else{
             qDebug() << "Programmation != tache ou activite" << endl;
         }
+        prog["item"] = progTask;
 
         progsJson.append(prog);
     }
@@ -779,7 +780,7 @@ void agenda::SauvegarderCalendrier(){
 //        stream << "poulet" << endl;
     }else{
         //error
-        qDebug() << "Fuck la nuit Blanche";
+        qDebug() << "Probleme avec l'enregistrement";
     }
 
     saveFile.close();
