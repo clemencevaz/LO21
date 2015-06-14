@@ -25,6 +25,9 @@ private slots:
 
     void on_taskProgram_2_clicked();
 
+
+    void on_composeButton_clicked();
+
 private:
     Ui::projectMain *ui;
 };

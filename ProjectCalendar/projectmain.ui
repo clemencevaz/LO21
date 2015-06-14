@@ -116,7 +116,7 @@
      <string>Date Fin:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_11">
+   <widget class="QLabel" name="taskEndLabel_2">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -132,9 +132,9 @@
    <widget class="QPushButton" name="taskProgram">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>210</y>
-      <width>121</width>
+      <x>50</x>
+      <y>180</y>
+      <width>201</width>
       <height>23</height>
      </rect>
     </property>
@@ -153,6 +153,19 @@
     </property>
     <property name="text">
      <string>Ajouter Precedence</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="composeButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>210</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Composer Tache</string>
     </property>
    </widget>
   </widget>
