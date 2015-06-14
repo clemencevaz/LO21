@@ -27,14 +27,14 @@ void FenetreChoixTypeTache::fenetreTacheUnitaire(){
     fenetrecompo->show();
   }
 }
-void TacheComposite::addComposite(TacheUnitaire& t){
-    sous_taches.push_back(&t);
+void TacheComposite::addComposite(Tache* t){
+    sous_taches.push_back(t);
     QMessageBox msgBox;
     msgBox.setText("La Tache a été ajoutée dans la tache composite");
     msgBox.exec();
 }
 
-FenetreAjouterTachedansComposite::FenetreAjouterTachedansComposite(Projet& p, TacheComposite& t):projet(p),tachecomposite(t){
+FenetreAjouterTachedansComposite::FenetreAjouterTachedansComposite(Projet& p, Tache& t):projet(p),tachecomposite(t){
     couchev1=new QVBoxLayout();
     ajouter=new QPushButton("Ajouter");
     taches=new QComboBox();
@@ -44,18 +44,16 @@ FenetreAjouterTachedansComposite::FenetreAjouterTachedansComposite(Projet& p, Ta
         taches->addItem(i->current()->get_titre());
     }
 
-    couchev1->addWidget(couchev1);
+    couchev1->addLayout(couchev1);
     setLayout(couchev1);
     QObject::connect(ajouter,SIGNAL(clicked()),this,SLOT(addComposite()));
 
 }
 void FenetreAjouterTachedansComposite::addComposite(){
-    if(tachecomposite.addComposite(projet.getTache()))
-    {
-        QMessageBox msgBox;
-        msgBox.setText("La Tache a été ajoutée dans la tache composite");
-        msgBox.exec();
-    }
+    tachecomposite.addComposite(projet.getTache(taches->currentIndex()));
+    QMessageBox msgBox;
+    msgBox.setText("La Tache a été ajoutée dans la tache composite");
+    msgBox.exec();
 }
 
 //TACHE UNITAIRE
@@ -199,15 +197,17 @@ FenetreAjouterPrecedence::FenetreAjouterPrecedence(Projet& p,Tache& t):tache(t),
     couchev1->addWidget(taches);
     couchev1->addWidget(valider);
 
+    setLayout(couchev1);
+
     QObject::connect(valider,SIGNAL(clicked()),this,SLOT(ajoutPrecedence()));
 
 }
 void FenetreAjouterPrecedence::ajoutPrecedence(){
-    if(tache.addPrecedence(projet.getTache(taches->currentIndex())))
-    {
-        QMessageBox msgBox;
-        msgBox.setText("La Tache a été ajoutée en précédence");
-        msgBox.exec();
-    }
+    tache.addPrecedence(projet.getTache(taches->currentIndex()));
+
+    QMessageBox msgBox;
+    msgBox.setText("La Tache a été ajoutée en précédence");
+    msgBox.exec();
+
 
 }

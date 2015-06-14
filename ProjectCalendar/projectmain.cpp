@@ -121,3 +121,25 @@ void projectMain::on_projTreeView_itemClicked(QTreeWidgetItem *item, int column)
         }
     }
 }
+
+void projectMain::on_projTreeView_activated(const QModelIndex &index)
+{
+
+}
+
+void projectMain::on_taskProgram_2_clicked()
+{
+    FenetreAjouterPrecedence* fenetreprec=new FenetreAjouterPrecedence(*selectedProject, *selectedTask);
+    fenetreprec->show();
+
+}
+
+
+void projectMain::on_composeButton_clicked()
+{
+
+        FenetreAjouterTachedansComposite* fenetre=new FenetreAjouterTachedansComposite(*selectedProject, *selectedTask);
+        fenetre->show();
+
+}
+
