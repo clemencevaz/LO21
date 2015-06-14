@@ -122,6 +122,7 @@ public:
     virtual void afficher() const =0;/*!< fonction qui permet de créer le QVBoxLayout*/
     virtual TIME::Horaire getHorairefin() const{return Horaire(0,0);}/*!< fonction qui renvoie l'horaire de la programmation*/
     virtual const Tache& getTacheP() const=0;
+    virtual const Activite& getActivite() const=0;
 };
 /*! \class programmationTache
     \brief Classe fille de programmation qui créer une programmation d'une tache unitaire
@@ -135,6 +136,10 @@ public:
     void afficher() const;/*!< fonction qui permet d'agrémenter le QVBoxLayout*/
     Duree getDuree() const {return duree;}/*!< fonction qui renvoie la durée de la programmation, qui peut être différente de la durée de la tache*/
     TIME::Horaire getHorairefin() const;/*!< fonction qui renvoie l'horaire de fin*/
+    const Activite& getActivite() const {
+        Activite* act=0;
+        return *act;}
+
 
 };
 
