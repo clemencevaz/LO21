@@ -22,6 +22,7 @@ class Tache{
     void set_achevement(float temps){achevement=temps;}
     void addPrecedence(Tache * const t){precedentes.push_back(t);}
     const vector<Tache*> get_precedentes() const {return precedentes;}
+    virtual void addComposite(Tache* t){}
 };
 
 class TacheUnitaire : public Tache{
@@ -37,6 +38,8 @@ class TacheUnitaire : public Tache{
         }
     const Duree& get_duree() const {return duree;}
     const bool get_preemptive() const {return preemptive;}
+    void addComposite(Tache* t){}
+
        // ~TacheUnitaire();
 };
 
@@ -44,7 +47,7 @@ class TacheComposite : public Tache{
     vector<Tache*> sous_taches;
 	public:
     TacheComposite(const QString& t, const Date& d_disp, const Date& ech, float ach):Tache(t, d_disp, ech, ach){}
-    void addComposite(TacheUnitaire& t);
+    void addComposite(Tache* t);
     //~TacheComposite();
 };
 
@@ -124,13 +127,13 @@ public slots:
 class FenetreAjouterTachedansComposite:public QWidget{
     Q_OBJECT
     Projet& projet;
-    TacheComposite& tachecomposite;
+    Tache& tachecomposite;
 
     QComboBox* taches;
     QPushButton* ajouter;
     QVBoxLayout* couchev1;
 public:
-    FenetreAjouterTachedansComposite(Projet& p, TacheComposite& t);
+    FenetreAjouterTachedansComposite(Projet& p, Tache& t);
 public slots:
     void addComposite();
 
