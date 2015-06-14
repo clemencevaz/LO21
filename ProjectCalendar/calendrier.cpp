@@ -9,6 +9,7 @@
 #include "qfile.h"
 #include "QTextStream"
 #include "qdebug.h"
+#include "projetManager.h"
 #include<typeinfo>
 agenda::AgendaHandler agenda::agendahandler = agenda::AgendaHandler();
 
@@ -409,6 +410,7 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
         QMessageBox msgBox;
         msgBox.setText(msg);
         msgBox.exec();
+        newprog=0;
         return *newprog;
     }
 

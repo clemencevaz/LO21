@@ -113,7 +113,12 @@ FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire(){
 }
 
 void FenetreCreerTacheUnitaire::sauverTache(){
-    if(TacheUnitaire* newtach=new TacheUnitaire(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
+    if(datedispo<dateeche){
+        QMessageBox msgBox;
+        msgBox.setText("Choisissez une date de disponibilité antérieure à la date d'échéance");
+        msgBox.exec();
+    }
+    else if(TacheUnitaire* newtach=new TacheUnitaire(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
                                                Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),Duree(hActDuree->value(),mActDuree->value()).getDureeEnMinutes(),Duree(hActDuree->value(),mActDuree->value()),preemptive->checkState()))
     {
         QMessageBox msgBox;

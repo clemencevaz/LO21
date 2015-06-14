@@ -55,10 +55,15 @@ SOURCES       = ../ProjectCalendar/main.cpp \
 		../ProjectCalendar/tacheediteur.cpp \
 		../ProjectCalendar/timing.cpp \
 		../ProjectCalendar/activite.cpp \
-		../ProjectCalendar/projetManager.c moc_tache.cpp \
+		../ProjectCalendar/projetManager.cpp \
+		../ProjectCalendar/programtask.cpp \
+		../ProjectCalendar/projectmain.cpp \
+		../ProjectCalendar/newprojectwindow.cpp moc_tache.cpp \
 		moc_activite.cpp \
 		moc_calendrier.cpp \
-		moc_tacheediteur.cpp
+		moc_programtask.cpp \
+		moc_projectmain.cpp \
+		moc_newprojectwindow.cpp
 OBJECTS       = main.o \
 		tache.o \
 		projet.o \
@@ -67,10 +72,15 @@ OBJECTS       = main.o \
 		timing.o \
 		activite.o \
 		projetManager.o \
+		programtask.o \
+		projectmain.o \
+		newprojectwindow.o \
 		moc_tache.o \
 		moc_activite.o \
 		moc_calendrier.o \
-		moc_tacheediteur.o
+		moc_programtask.o \
+		moc_projectmain.o \
+		moc_newprojectwindow.o
 DIST          = /Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -204,16 +214,21 @@ DIST          = /Users/PClem/Applications/QT/5.4/clang_64/mkspecs/features/spec_
 		../ProjectCalendar/projet.h \
 		../ProjectCalendar/activite.h \
 		../ProjectCalendar/calendrier.h \
-		../ProjectCalendar/tacheediteur.h \
 		../ProjectCalendar/timing.h \
-		../ProjectCalendar/projetManager.h ../ProjectCalendar/main.cpp \
+		../ProjectCalendar/projetManager.h \
+		../ProjectCalendar/programtask.h \
+		../ProjectCalendar/projectmain.h \
+		../ProjectCalendar/newprojectwindow.h ../ProjectCalendar/main.cpp \
 		../ProjectCalendar/tache.cpp \
 		../ProjectCalendar/projet.cpp \
 		../ProjectCalendar/calendrier.cpp \
 		../ProjectCalendar/tacheediteur.cpp \
 		../ProjectCalendar/timing.cpp \
 		../ProjectCalendar/activite.cpp \
-		../ProjectCalendar/projetManager.c
+		../ProjectCalendar/projetManager.cpp \
+		../ProjectCalendar/programtask.cpp \
+		../ProjectCalendar/projectmain.cpp \
+		../ProjectCalendar/newprojectwindow.cpp
 QMAKE_TARGET  = ProjectCalendar
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ProjectCalendar.app/Contents/MacOS/ProjectCalendar
@@ -251,7 +266,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_projectViewer.h $(OBJECTS)  
+$(TARGET): ui_programtask.h ui_projectmain.h ui_newprojectwindow.h $(OBJECTS)  
 	@test -d ProjectCalendar.app/Contents/MacOS/ || mkdir -p ProjectCalendar.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -551,9 +566,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../ProjectCalendar/ProjC.h ../ProjectCalendar/tache.h ../ProjectCalendar/projet.h ../ProjectCalendar/activite.h ../ProjectCalendar/calendrier.h ../ProjectCalendar/tacheediteur.h ../ProjectCalendar/timing.h ../ProjectCalendar/projetManager.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../ProjectCalendar/main.cpp ../ProjectCalendar/tache.cpp ../ProjectCalendar/projet.cpp ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/timing.cpp ../ProjectCalendar/activite.cpp ../ProjectCalendar/projetManager.c $(DISTDIR)/
-	$(COPY_FILE) --parents ../ProjectCalendar/projectViewer.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../ProjectCalendar/ProjC.h ../ProjectCalendar/tache.h ../ProjectCalendar/projet.h ../ProjectCalendar/activite.h ../ProjectCalendar/calendrier.h ../ProjectCalendar/timing.h ../ProjectCalendar/projetManager.h ../ProjectCalendar/programtask.h ../ProjectCalendar/projectmain.h ../ProjectCalendar/newprojectwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../ProjectCalendar/main.cpp ../ProjectCalendar/tache.cpp ../ProjectCalendar/projet.cpp ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/timing.cpp ../ProjectCalendar/activite.cpp ../ProjectCalendar/projetManager.cpp ../ProjectCalendar/programtask.cpp ../ProjectCalendar/projectmain.cpp ../ProjectCalendar/newprojectwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../ProjectCalendar/programtask.ui ../ProjectCalendar/projectmain.ui ../ProjectCalendar/newprojectwindow.ui $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -579,14 +594,17 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_tache.cpp moc_activite.cpp moc_calendrier.cpp moc_tacheediteur.cpp
+compiler_moc_header_make_all: moc_tache.cpp moc_activite.cpp moc_calendrier.cpp moc_programtask.cpp moc_projectmain.cpp moc_newprojectwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_tache.cpp moc_activite.cpp moc_calendrier.cpp moc_tacheediteur.cpp
+	-$(DEL_FILE) moc_tache.cpp moc_activite.cpp moc_calendrier.cpp moc_programtask.cpp moc_projectmain.cpp moc_newprojectwindow.cpp
 moc_tache.cpp: ../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -609,25 +627,32 @@ moc_tache.cpp: ../ProjectCalendar/ProjC.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
-		../ProjectCalendar/projet.h \
 		../ProjectCalendar/tache.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
 		../ProjectCalendar/calendrier.h \
 		../ProjectCalendar/tache.h
 	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/tache.h -o moc_tache.cpp
 
 moc_activite.cpp: ../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -650,25 +675,32 @@ moc_activite.cpp: ../ProjectCalendar/ProjC.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
-		../ProjectCalendar/projet.h \
 		../ProjectCalendar/tache.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
 		../ProjectCalendar/calendrier.h \
 		../ProjectCalendar/activite.h
 	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/activite.h -o moc_activite.cpp
 
 moc_calendrier.cpp: ../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -691,68 +723,54 @@ moc_calendrier.cpp: ../ProjectCalendar/ProjC.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
-		../ProjectCalendar/projet.h \
 		../ProjectCalendar/tache.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
 		../ProjectCalendar/calendrier.h \
 		../ProjectCalendar/calendrier.h
 	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/calendrier.h -o moc_calendrier.cpp
 
-moc_tacheediteur.cpp: ../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcheckbox.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QBoxLayout \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGridLayout \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgridlayout.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
-		../ProjectCalendar/projet.h \
-		../ProjectCalendar/tache.h \
-		../ProjectCalendar/calendrier.h \
-		../ProjectCalendar/tacheediteur.h
-	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/tacheediteur.h -o moc_tacheediteur.cpp
+moc_programtask.cpp: /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../ProjectCalendar/programtask.h
+	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/programtask.h -o moc_programtask.cpp
+
+moc_projectmain.cpp: /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidgetItem \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../ProjectCalendar/projectmain.h
+	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/projectmain.h -o moc_projectmain.cpp
+
+moc_newprojectwindow.cpp: /Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../ProjectCalendar/newprojectwindow.h
+	/Users/PClem/Applications/QT/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/PClem/Applications/QT/5.4/clang_64/mkspecs/macx-clang -I/Users/PClem/Documents/COURS/LO21/LO21/ProjectCalendar -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/PClem/Applications/QT/5.4/clang_64/lib ../ProjectCalendar/newprojectwindow.h -o moc_newprojectwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_projectViewer.h
+compiler_uic_make_all: ui_programtask.h ui_projectmain.h ui_newprojectwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_projectViewer.h
-ui_projectViewer.h: ../ProjectCalendar/projectViewer.ui
-	/Users/PClem/Applications/QT/5.4/clang_64/bin/uic ../ProjectCalendar/projectViewer.ui -o ui_projectViewer.h
+	-$(DEL_FILE) ui_programtask.h ui_projectmain.h ui_newprojectwindow.h
+ui_programtask.h: ../ProjectCalendar/programtask.ui
+	/Users/PClem/Applications/QT/5.4/clang_64/bin/uic ../ProjectCalendar/programtask.ui -o ui_programtask.h
+
+ui_projectmain.h: ../ProjectCalendar/projectmain.ui
+	/Users/PClem/Applications/QT/5.4/clang_64/bin/uic ../ProjectCalendar/projectmain.ui -o ui_projectmain.h
+
+ui_newprojectwindow.h: ../ProjectCalendar/newprojectwindow.ui
+	/Users/PClem/Applications/QT/5.4/clang_64/bin/uic ../ProjectCalendar/newprojectwindow.ui -o ui_newprojectwindow.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -771,10 +789,13 @@ main.o: ../ProjectCalendar/main.cpp /Users/PClem/Applications/QT/5.4/clang_64/li
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QWindow \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindow.h \
 		../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -797,25 +818,31 @@ main.o: ../ProjectCalendar/main.cpp /Users/PClem/Applications/QT/5.4/clang_64/li
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
-		../ProjectCalendar/projet.h \
 		../ProjectCalendar/tache.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
 		../ProjectCalendar/calendrier.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ProjectCalendar/main.cpp
 
-tache.o: ../ProjectCalendar/tache.cpp ../ProjectCalendar/tache.h \
-		../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+tache.o: ../ProjectCalendar/tache.cpp ../ProjectCalendar/ProjC.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -838,15 +865,20 @@ tache.o: ../ProjectCalendar/tache.cpp ../ProjectCalendar/tache.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
+		../ProjectCalendar/tache.h \
 		../ProjectCalendar/projet.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
 		../ProjectCalendar/calendrier.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tache.o ../ProjectCalendar/tache.cpp
 
@@ -855,10 +887,13 @@ projet.o: ../ProjectCalendar/projet.cpp
 
 calendrier.o: ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/calendrier.h \
 		../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -881,24 +916,46 @@ calendrier.o: ../ProjectCalendar/calendrier.cpp ../ProjectCalendar/calendrier.h 
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
+		../ProjectCalendar/tache.h \
 		../ProjectCalendar/projet.h \
-		../ProjectCalendar/tache.h
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
+		../ProjectCalendar/newprojectwindow.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../ProjectCalendar/projectmain.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidgetItem \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		ui_projectmain.h \
+		ui_newprojectwindow.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextStream \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtextstream.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calendrier.o ../ProjectCalendar/calendrier.cpp
 
 tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheediteur.h \
 		../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -921,16 +978,20 @@ tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheedit
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/activite.h \
-		../ProjectCalendar/projet.h \
 		../ProjectCalendar/tache.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
 		../ProjectCalendar/calendrier.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
@@ -943,15 +1004,22 @@ tacheediteur.o: ../ProjectCalendar/tacheediteur.cpp ../ProjectCalendar/tacheedit
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers/qtxmlversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tacheediteur.o ../ProjectCalendar/tacheediteur.cpp
 
-timing.o: ../ProjectCalendar/timing.cpp ../ProjectCalendar/timing.h
+timing.o: ../ProjectCalendar/timing.cpp ../ProjectCalendar/timing.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timing.o ../ProjectCalendar/timing.cpp
 
 activite.o: ../ProjectCalendar/activite.cpp ../ProjectCalendar/activite.h \
 		../ProjectCalendar/ProjC.h \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
-		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		../ProjectCalendar/timing.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
@@ -974,20 +1042,134 @@ activite.o: ../ProjectCalendar/activite.cpp ../ProjectCalendar/activite.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../ProjectCalendar/timing.h \
-		../ProjectCalendar/projet.h \
 		../ProjectCalendar/tache.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/projetManager.h \
 		../ProjectCalendar/calendrier.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o activite.o ../ProjectCalendar/activite.cpp
 
-projetManager.o: ../ProjectCalendar/projetManager.c 
-	$(CC) -c $(CFLAGS) $(INCPATH) -o projetManager.o ../ProjectCalendar/projetManager.c
+projetManager.o: ../ProjectCalendar/projetManager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o projetManager.o ../ProjectCalendar/projetManager.cpp
+
+programtask.o: ../ProjectCalendar/programtask.cpp ../ProjectCalendar/programtask.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		ui_programtask.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o programtask.o ../ProjectCalendar/programtask.cpp
+
+projectmain.o: ../ProjectCalendar/projectmain.cpp ../ProjectCalendar/projectmain.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidgetItem \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		ui_projectmain.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/ProjC.h \
+		../ProjectCalendar/timing.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcheckbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGridLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgridlayout.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../ProjectCalendar/tache.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/projetManager.h \
+		../ProjectCalendar/calendrier.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o projectmain.o ../ProjectCalendar/projectmain.cpp
+
+newprojectwindow.o: ../ProjectCalendar/newprojectwindow.cpp ../ProjectCalendar/newprojectwindow.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		ui_newprojectwindow.h \
+		../ProjectCalendar/projetManager.h \
+		../ProjectCalendar/ProjC.h \
+		../ProjectCalendar/timing.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVariant \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCalendarWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcalendarwidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QCheckBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcheckbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGridLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgridlayout.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QRadioButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qradiobutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDate \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDateEdit \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdatetimeedit.h \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		/Users/PClem/Applications/QT/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../ProjectCalendar/tache.h \
+		../ProjectCalendar/projet.h \
+		../ProjectCalendar/activite.h \
+		../ProjectCalendar/calendrier.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o newprojectwindow.o ../ProjectCalendar/newprojectwindow.cpp
 
 moc_tache.o: moc_tache.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tache.o moc_tache.cpp
@@ -998,8 +1180,14 @@ moc_activite.o: moc_activite.cpp
 moc_calendrier.o: moc_calendrier.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_calendrier.o moc_calendrier.cpp
 
-moc_tacheediteur.o: moc_tacheediteur.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tacheediteur.o moc_tacheediteur.cpp
+moc_programtask.o: moc_programtask.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_programtask.o moc_programtask.cpp
+
+moc_projectmain.o: moc_projectmain.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_projectmain.o moc_projectmain.cpp
+
+moc_newprojectwindow.o: moc_newprojectwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_newprojectwindow.o moc_newprojectwindow.cpp
 
 ####### Install
 

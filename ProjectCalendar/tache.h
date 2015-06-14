@@ -19,8 +19,8 @@ class Tache{
   Duree achevement;/*!< Attribut pour savoir la durée qu'il reste, utile pour les taches preemptives*/
   public:
     Tache(const QString& t, const Date& d_disp, const Date& ech, float ach) : titre(t),dateDisponibilite(d_disp),echeance(ech),achevement(ach){}/*!< Constructeur de tache*/
-   //~Tache(); //pour supprimer la tache du projet
-   const QString& get_titre() const { return titre;}/*!< Renvoie le titre de la tache*/
+
+    const QString& get_titre() const { return titre;}/*!< Renvoie le titre de la tache*/
     const Date& get_date_disp() const {return dateDisponibilite;}/*!< Renvoie la date de disponibilité*/
     const Date& get_echeance() const {return echeance;}/*!< Renvoie la date d'échéance*/
     Duree get_achevement() const {return achevement;}/*!< Renvoie la durée d'achevement*/

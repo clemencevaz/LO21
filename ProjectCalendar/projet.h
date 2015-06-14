@@ -50,7 +50,7 @@ public:
     */
     const std::vector<Tache*> getTaches() const{ return taches; }
 
-    QString getNom(){
+    const QString& getNom(){
     	return nom;
     }/*!< Fonction qui renvoie le nom du projet*/
 
