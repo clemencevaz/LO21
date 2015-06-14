@@ -483,7 +483,7 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
     if(t.get_preemptive())
     {
         //on récupère la durée en minute du travail qu'il reste à faire
-        Duree& dureerestante=t.get_achevement();
+        Duree dureerestante=t.get_achevement();
         //on vérifie que la durée de programmation n'est pas supérieure au temps restant
         if(dureerestante.getDureeEnMinutes()<dur.getDureeEnMinutes())
         {
