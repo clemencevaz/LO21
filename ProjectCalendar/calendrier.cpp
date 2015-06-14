@@ -390,7 +390,7 @@ void agenda::fenetreMainProj(){
     fenetre->show();
 }
 
-programmation& agenda::ajouterProgrammationTache(TacheUnitaire& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
+programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, const TIME::Horaire& h, const TIME::Duree& dur) {
     programmationTache* newprog=new programmationTache(t,d,h,dur);
 
     //vérifier si la tache est disponible
@@ -558,7 +558,7 @@ FenetreProgrammerActivite::FenetreProgrammerActivite(Activite& a): activite(a){
     QObject::connect(Enregistrer,SIGNAL(clicked()),this,SLOT(enregistrer()));
 
 }
-FenetreProgrammerTache::FenetreProgrammerTache(TacheUnitaire& t): tache(t){
+FenetreProgrammerTache::FenetreProgrammerTache(Tache& t): tache(t){
     titreLabel = new QLabel("Programmer une tache");
     nom = new QLabel(this);
     nom->setText(QVariant(t.get_titre()).toString());
