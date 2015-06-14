@@ -4,6 +4,9 @@
 #include "projetManager.h"
 #include <QTreeWidgetItem>
 
+Projet* selectedProject = 0;
+Tache* selectedTask = 0;
+
 projectMain::projectMain(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::projectMain)
@@ -53,6 +56,7 @@ void projectMain::on_projTreeView_itemActivated(QTreeWidgetItem *item, int colum
         QString projNom = item->text(0);
         for(ProjetManager::Iterator i = man.getIterator(); i.end(); i.next()){
             if (i.current()->getNom() == projNom){
+                selectedProject = i.current();
                 ui->projNameLabel->setText(projNom);
                 ui->projTasksNbLabel->setText(QVariant(i.current()->getNbTasks()).toString());
                 break;
@@ -71,6 +75,7 @@ void projectMain::on_projTreeView_itemActivated(QTreeWidgetItem *item, int colum
 
         for (Projet::Iterator* it = projParent->getIterator();  it->end(); it->next()){
             if(it->current()->get_titre() == item->text(0)){
+                selectedTask = it->current();
                 ui->taskNameLabel->setText(it->current()->get_titre());
                 ui->taskDescriptionLabel->setText("Description de La Tache s'il y en avait");
                 QString date = "";
