@@ -199,6 +199,8 @@ FenetreAjouterPrecedence::FenetreAjouterPrecedence(Projet& p,Tache& t):tache(t),
     couchev1->addWidget(taches);
     couchev1->addWidget(valider);
 
+    setLayout(couchev1);
+
     QObject::connect(valider,SIGNAL(clicked()),this,SLOT(ajoutPrecedence()));
 
 }
