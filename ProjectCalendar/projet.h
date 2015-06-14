@@ -58,6 +58,10 @@ public:
         return taches.size();
     }
 
+    Tache* getTache(int n){
+        return taches[n];
+    }
+
 	/**********
 	/ Setters
     *********/
@@ -74,6 +78,14 @@ public:
 			taches.push_back(addTaches[i]);
 		}
 	}*/
+
+    Projet* operator=(Projet* proj){
+        Projet* newP = new Projet(proj->getNom());
+        for(Projet::Iterator* it = proj->getIterator(); it->end(); it->end()){
+            newP->addTache(it->current());
+        }
+        return newP;
+    }
 
 	//! Permet de detruire une tache du vecteur
 	/*!
