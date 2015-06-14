@@ -410,7 +410,6 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
         QMessageBox msgBox;
         msgBox.setText(msg);
         msgBox.exec();
-        newprog=0;
         return *newprog;
     }
 
