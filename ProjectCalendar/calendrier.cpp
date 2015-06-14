@@ -142,7 +142,7 @@ agenda::agenda() {
     QObject::connect(CreerProjet, SIGNAL(clicked()), this, SLOT(fenetreProjet()));
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
     QObject::connect(ViewProjects, SIGNAL(clicked()), this, SLOT(fenetreMainProj()));
-    QObject::connect(Sauvegarder, SIGNAL(clicked()), this, SLOT(Sauvegarder()));
+    QObject::connect(Sauvegarder, SIGNAL(clicked()), this, SLOT(SauvegarderCalendrier()));
 
 }
 void agenda::setTextsemaine(QString s){
@@ -321,22 +321,19 @@ void programmationTache::afficher() const{
 
     QLabel* nom;
     QLabel* projet;
-    QLabel* duree;
+    QLabel* tduree;
     QLabel* horaire;
     nom= new QLabel();
     nom->setText(tache.get_titre());
-    projet=new QLabel();
-    projet->setText("");
-    duree=new QLabel();
-    duree->setText(QVariant(tache.get_duree().getDureeEnMinutes()).toString());
+    tduree=new QLabel();
+    tduree->setText(QVariant(duree.getDureeEnMinutes()).toString());
 
     horaire=new QLabel();
     horaire->setText(QVariant(this->getHoraire().getHeure()).toString()+":"+QVariant(this->getHoraire().getMinute()).toString());
 
     prog->addWidget(nom);
-    prog->addWidget(projet);
     prog->addWidget(horaire);
-    prog->addWidget(duree);
+    prog->addWidget(tduree);
 }
 void programmationActivite::afficher() const {
     delete prog->widget();
@@ -369,7 +366,7 @@ void programmationActivite::afficher() const {
 
 }
 TIME::Horaire programmationTache::getHorairefin() const{
-    Horaire* h1=new Horaire(this->getHoraire()+this->getTacheP().get_duree());
+    Horaire* h1=new Horaire(this->getHoraire()+this->getDuree());
     return *h1;
 }
 TIME::Horaire programmationActivite::getHorairefin() const{
@@ -410,7 +407,7 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
     }
 
     //vérifier que la tache n'est pas déjà terminée
-    if(t.get_achevement()==0)
+    if(t.get_achevement().getDureeEnMinutes()==0)
         return *newprog;
 
     if(trouverProgrammation(d,h,dur))
@@ -481,19 +478,24 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
     // si elle est préemptive vérifier que l'on ne programme pas plus
     if(t.get_preemptive())
     {
-        //on calcule la durée en minute qu'il reste à faire
-        float dureerestante=t.get_achevement();
+        //on récupère la durée en minute du travail qu'il reste à faire
+        Duree& dureerestante=t.get_achevement();
         //on vérifie que la durée de programmation n'est pas supérieure au temps restant
-        if(dur.getDureeEnMinutes()>dureerestante)
+        if(dureerestante.getDureeEnMinutes()<dur.getDureeEnMinutes())
         {
+            QString msg;
+            msg+="Durée trop elevée";
+            QMessageBox msgBox;
+            msgBox.setText(msg);
+            msgBox.exec();
             newprog=0;
             return *newprog;
         }
         //sinon on modifie l'achevement
-        t.set_achevement(dureerestante-dur.getDureeEnMinutes());
+        t.set_achevement(Duree(dureerestante.getDureeEnMinutes()-dur.getDureeEnMinutes()));
         QString msg;
         msg+="Il vous restera ";
-        msg+=QVariant(t.get_achevement()*t.get_duree().getDureeEnMinutes()).toString();
+        msg+=QVariant(t.get_achevement().getDureeEnMinutes()).toString();
         msg+=" minutes";
         QMessageBox msgBox;
         msgBox.setText(msg);
@@ -501,7 +503,7 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
     }
     //si la tache n'est pas préemtive on met 0 à l'achevement (elle sera achevée)
     if(!t.get_preemptive())
-        t.set_achevement((float)0);
+        t.set_achevement(Duree(0));
 
     progs.push_back(newprog);
     return *newprog;
@@ -658,7 +660,7 @@ programmation* agenda::trouverProgrammation(const Date& d, const Horaire& hdebut
     Horaire hfin=Horaire(hdebut+dur);
     for(std::vector<programmation*>::const_iterator it=progs.begin();it!=progs.end();it++)
     {
-        if((*it)->getDate()==d && ((hdebut>=(*it)->getHoraire() && hdebut<=(*it)->getHorairefin()) ||(hfin>=(*it)->getHoraire() && hfin<=(*it)->getHorairefin())))
+        if((*it)->getDate()==d && ((hdebut>=(*it)->getHoraire() && hdebut<(*it)->getHorairefin()) ||((*it)->getHoraire()<hfin && hfin<(*it)->getHorairefin())))
         {
             return (*it);
         }
@@ -678,6 +680,6 @@ const Tache& programmationActivite::getTacheP() const {
     Tache* A=0;
     return *A;
 }
-void agenda::Sauvegarder(){
+void agenda::SauvegarderCalendrier(){
 
 }
