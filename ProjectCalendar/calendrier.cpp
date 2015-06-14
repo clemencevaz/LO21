@@ -8,6 +8,8 @@
 #include "qjsondocument.h"
 #include "qfile.h"
 #include "QTextStream"
+#include "qdebug.h"
+#include<typeinfo>
 agenda::AgendaHandler agenda::agendahandler = agenda::AgendaHandler();
 
 agenda& agenda::getInstance() {
@@ -699,12 +701,14 @@ void agenda::SauvegarderCalendrier(){
 
     for(ProjetManager::Iterator i = man.getIterator(); i.end(); i.next()){
         QJsonObject project;
+        QJsonArray projectTasks;
 
         project["name"] = i.current()->getNom();
         for(Projet::Iterator* j = i.current()->getIterator(); j->end(); j->next()){
             QJsonObject task;
+            QJsonArray tasksPrec;
 
-            task["nom"] = j->current()->get_titre();
+            task["name"] = j->current()->get_titre();
             task["deadline"] = j->current()->get_echeance().toString();
             task["end_date"] = (int)j->current()->get_achevement().getDureeEnMinutes();
             task["availability"] = j->current()->get_date_disp().toString();
@@ -714,7 +718,7 @@ void agenda::SauvegarderCalendrier(){
             vector<Tache*> prec = j->current()->get_precedentes();
             for(unsigned int p = 0; p < prec.size(); p++){
                 QJsonObject task2;
-                task2["nom"] = j->current()->get_titre();
+                task2["name"] = j->current()->get_titre();
                 task2["deadline"] = j->current()->get_echeance().toString();
                 task2["end_date"] = (int)j->current()->get_achevement().getDureeEnMinutes();
                 task2["availability"] = j->current()->get_date_disp().toString();
@@ -728,25 +732,56 @@ void agenda::SauvegarderCalendrier(){
 
             projectTasks.append(task);
         }
+        project["tasks"] = projectTasks;
+        projs.append(project);
     }
 
-    QJsonArray progs;
+
+    QJsonArray progsJson;
     QJsonObject prog;
     QJsonObject progTask;
 
+    for (unsigned int p=0; p < progs.size(); p++){
+        QJsonObject progTask;
+        prog["date"] = progs[p]->getDate().toString();
+//        prog["horaire"] = progs[i].getHoraire().getHeures();
+        if (typeid(progs[p]) == typeid(programmationActivite)){
+            progTask["name"] = progs[p]->getActivite().getNom();
+            progTask["duree"] = progs[p]->getActivite().getDuree().getDureeEnMinutes();
+            progTask["desc"] = progs[p]->getActivite().getDescription();
 
+            prog["activite"] = progTask;
+        }else if (typeid(progs[p]) == typeid(programmationTache)){
+            progTask["name"] = progs[p]->getTache().get_titre();
+            progTask["availability"] = progs[p]->getTache().get_duree().getDureeEnMinutes();
+            progTask["deadline"] = progs[p]->getTache().get_echeance().toString();
+            progTask["length"] =(int) progs[p]->getTache().getDuree().getDureeEnMinutes();
+            progTask["preemptive"] = progs[p]->getTache().get_preemptive();
+            progTask["end_date"] = (int)progs[p]->getTache().get_achevement().getDureeEnMinutes();
+
+            prog["task"] = progTask;
+        }else{
+            qDebug() << "Programmation != tache ou activite" << endl;
+        }
+
+        progsJson.append(prog);
+    }
 
     mainArray["projects"] = projs;
-//    mainArray["programmations"] = progs;
+    mainArray["programmations"] = progsJson;
     doc.setObject(mainArray);
 
-    QFile saveFile("C:\cal.json");
+    QFile saveFile("C:/Qt/cal.json");
 
-    if (!saveFile.open(QIODevice::ReadWrite)) {
+    if (saveFile.open(QIODevice::ReadWrite)) {
         QTextStream stream(&saveFile);
         stream << doc.toJson() << endl;
+//        stream << "poulet" << endl;
     }else{
         //error
+        qDebug() << "Fuck la nuit Blanche";
     }
+
+    saveFile.close();
 
 }
