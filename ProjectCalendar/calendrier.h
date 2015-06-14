@@ -58,6 +58,7 @@ programmation manager*/
     QPushButton* Afficher;/*!< Bouton pour mettre à jour l'affichage*/
     QPushButton* ChoisirJ1;/*!< Bouton pour choisir le premier jour de la semaine*/
     QPushButton* ViewProjects; /*!< Bouton pour montrer tous les projets*/
+    QPushButton* Sauvegarder;
 
     Date* jour1=new Date(1,6,2015);/*!< Premier jour de la semaine*/
 
@@ -96,6 +97,8 @@ public slots:
     void fenetreProjet(); /*!< Slot qui permetd'ouvrir la fenetre de creation de projet*/
     void afficher() ;/*!< Slot qui permet de mettre à jour l'affichage*/
     void choixj1();/*!< Slot qui permet d'ouvrir le calendrier pour choisir le jour1*/
+    void Sauvegarder();/*!< Slot qui permet d'ouvrir le calendrier pour choisir le jour1*/
+
 };
 /*! \class programmation
     \brief Classe mère abstraite des programmations d'activités et de taches unitaires
@@ -190,7 +193,8 @@ class FenetreProgrammerTache:public QWidget{
     QDateEdit* ProgDate;
     QSpinBox* ProgHh;
     QSpinBox* ProgHm;
-    QSpinBox* Dur;
+    QSpinBox* Durh;
+    QSpinBox* Durm;
     QVBoxLayout* coucheV1;
     QHBoxLayout* coucheH1;
     QHBoxLayout* coucheH2;

@@ -34,12 +34,15 @@ agenda::agenda() {
     CreerTache=new QPushButton("Créer une Tâche", this);
     Afficher=new QPushButton("Afficher",this);
     ViewProjects= new QPushButton("Projets", this);
+    Sauvegarder=new QPushButton("Sauvegarder",this),
     coucheh1 = new QHBoxLayout;
     coucheh1->addWidget(CreerProjet);
     coucheh1->addWidget(CreerActivite);
     coucheh1->addWidget(CreerTache);
     coucheh1->addWidget(Afficher);
     coucheh1->addWidget(ViewProjects);
+    coucheh1->addWidget(Sauvegarder);
+
 
     //Affichage de la semaine
     ChoisirJ1= new QPushButton("1er jour");
@@ -139,11 +142,14 @@ agenda::agenda() {
     QObject::connect(CreerProjet, SIGNAL(clicked()), this, SLOT(fenetreProjet()));
     QObject::connect(ChoisirJ1,SIGNAL(clicked()),this,SLOT(choixj1()));
     QObject::connect(ViewProjects, SIGNAL(clicked()), this, SLOT(fenetreMainProj()));
+    QObject::connect(Sauvegarder, SIGNAL(clicked()), this, SLOT(Sauvegarder()));
+
 }
 void agenda::setTextsemaine(QString s){
     textsemaine->clear();
     textsemaine->setText(s);
 }
+
 
 void agenda::choixj1(){
     myCalendar* calendar;
@@ -476,7 +482,7 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
     if(t.get_preemptive())
     {
         //on calcule la durée en minute qu'il reste à faire
-        float dureerestante=t.get_achevement()*t.get_duree().getDureeEnMinutes();
+        float dureerestante=t.get_achevement();
         //on vérifie que la durée de programmation n'est pas supérieure au temps restant
         if(dur.getDureeEnMinutes()>dureerestante)
         {
@@ -484,7 +490,7 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
             return *newprog;
         }
         //sinon on modifie l'achevement
-        t.set_achevement(dureerestante-dur.getDureeEnMinutes()/t.get_duree().getDureeEnMinutes());
+        t.set_achevement(dureerestante-dur.getDureeEnMinutes());
         QString msg;
         msg+="Il vous restera ";
         msg+=QVariant(t.get_achevement()*t.get_duree().getDureeEnMinutes()).toString();
@@ -573,10 +579,9 @@ FenetreProgrammerTache::FenetreProgrammerTache(Tache& t): tache(t){
     ProgHh= new QSpinBox();
     ProgHm = new QSpinBox();
     progDuree= new QLabel();
-    progDuree->setText("Durée de la programmation (minutes: ");
-    Dur=new QSpinBox();
-    Dur->setValue(t.get_duree().getDureeEnMinutes());
-
+    progDuree->setText("Durée de la programmation h/m: ");
+    Durh=new QSpinBox();
+    Durm=new QSpinBox();
     coucheV1= new QVBoxLayout();
     coucheV1->addWidget(titreLabel);
     coucheV1->addWidget(nom);
@@ -593,7 +598,8 @@ FenetreProgrammerTache::FenetreProgrammerTache(Tache& t): tache(t){
 
     coucheH3=new QHBoxLayout();
     coucheH3->addWidget(progDuree);
-    coucheH3->addWidget(Dur);
+    coucheH3->addWidget(Durh);
+    coucheH3->addWidget(Durm);
 
     Enregistrer=new  QPushButton("Enregistrer");
     coucheV1->addLayout(coucheH1);
@@ -606,7 +612,7 @@ FenetreProgrammerTache::FenetreProgrammerTache(Tache& t): tache(t){
 
 }
 void FenetreProgrammerTache::enregistrer(){
-    programmation& progtache=agenda::getInstance().ajouterProgrammationTache(tache,Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(),ProgHm->value()),Duree(Dur->value()));
+    programmation& progtache=agenda::getInstance().ajouterProgrammationTache(tache,Date(ProgDate->date().day(),ProgDate->date().month(),ProgDate->date().year()),Horaire(ProgHh->value(),ProgHm->value()),Duree(Durh->value(),Durm->value()));
     if(&progtache!=0){
         QMessageBox msgBox;
         msgBox.setText("L'Activité a été programmée");
@@ -672,4 +678,6 @@ const Tache& programmationActivite::getTacheP() const {
     Tache* A=0;
     return *A;
 }
+void agenda::Sauvegarder(){
 
+}

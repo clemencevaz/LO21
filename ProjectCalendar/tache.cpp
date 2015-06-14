@@ -114,7 +114,7 @@ FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire(){
 
 void FenetreCreerTacheUnitaire::sauverTache(){
     if(TacheUnitaire* newtach=new TacheUnitaire(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
-                                               Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),1,Duree(hActDuree->value(),mActDuree->value()),preemptive->checkState()))
+                                               Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),Duree(hActDuree->value(),mActDuree->value()).getDureeEnMinutes(),Duree(hActDuree->value(),mActDuree->value()),preemptive->checkState()))
     {
         QMessageBox msgBox;
         msgBox.setText("La Tache a été ajoutée");
@@ -174,7 +174,7 @@ FenetreCreerTacheComposite::FenetreCreerTacheComposite(){
 
 void FenetreCreerTacheComposite::sauverTacheC(){
     if(TacheComposite* newtach=new TacheComposite(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
-                                                  Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),1))
+                                                  Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),(float)1))
     {
         QMessageBox msgBox;
         msgBox.setText("La Tache a été ajoutée");
