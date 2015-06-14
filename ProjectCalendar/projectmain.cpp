@@ -6,6 +6,7 @@
 
 Projet* selectedProject = 0;
 Tache* selectedTask = 0;
+TacheComposite* selectedTaskComp = 0;
 
 projectMain::projectMain(QWidget *parent) :
     QDialog(parent),
@@ -50,6 +51,30 @@ void projectMain::on_taskProgram_clicked()
 
 
 void projectMain::on_projTreeView_itemActivated(QTreeWidgetItem *item, int column)
+{
+
+}
+
+void projectMain::on_projTreeView_activated(const QModelIndex &index)
+{
+
+}
+
+void projectMain::on_taskProgram_2_clicked()
+{
+    //il faut donner la tache t et le projet
+//    FenetreAjouterPrecedence* fenetre=new FenetreAjouterPrecedence(Projet& p, TacheUnitaire& t);
+//    fenetre.show();
+}
+
+
+void projectMain::on_composeButton_clicked()
+{
+
+}
+
+
+void projectMain::on_projTreeView_itemClicked(QTreeWidgetItem *item, int column)
 {
     ProjetManager& man = ProjetManager::getManager();
     if (item->text(1) == "proj"){
@@ -96,22 +121,3 @@ void projectMain::on_projTreeView_itemActivated(QTreeWidgetItem *item, int colum
         }
     }
 }
-
-void projectMain::on_projTreeView_activated(const QModelIndex &index)
-{
-
-}
-
-void projectMain::on_taskProgram_2_clicked()
-{
-    //il faut donner la tache t et le projet
-//    FenetreAjouterPrecedence* fenetre=new FenetreAjouterPrecedence(Projet& p, TacheUnitaire& t);
-//    fenetre.show();
-}
-
-
-void projectMain::on_composeButton_clicked()
-{
-
-}
-

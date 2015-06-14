@@ -28,6 +28,8 @@ private slots:
 
     void on_composeButton_clicked();
 
+    void on_projTreeView_itemClicked(QTreeWidgetItem *item, int column);
+
 private:
     Ui::projectMain *ui;
 };
