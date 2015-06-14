@@ -24,7 +24,7 @@ class Tache{
     const Date& get_date_disp() const {return dateDisponibilite;}/*!< Renvoie la date de disponibilité*/
     const Date& get_echeance() const {return echeance;}/*!< Renvoie la date d'échéance*/
     Duree get_achevement() const {return achevement;}/*!< Renvoie la durée d'achevement*/
-    void set_achevement(Duree& temps){achevement=temps;}/*!< Permet de cahnger l'achèvement*/
+    void set_achevement(Duree temps){achevement=temps;}/*!< Permet de cahnger l'achèvement*/
     void addPrecedence(Tache * const t){precedentes.push_back(t);}/*!< Rajoute une tache dans le vecteur précédences*/
     const vector<Tache*> get_precedentes() const {return precedentes;}/*!< Renvoie le vecteur précédences*/
     virtual void addComposite(Tache* t)=0;/*!< fonction virtuelle pure*/
