@@ -113,13 +113,7 @@ FenetreCreerTacheUnitaire::FenetreCreerTacheUnitaire(){
 }
 
 void FenetreCreerTacheUnitaire::sauverTache(){
-    if(datedispo<dateeche){
-        QMessageBox msgBox;
-        msgBox.setText("La date d'échéance est antérieure à la date de disponibilité...");
-        msgBox.exec();
-        this->close();
-    }
-    else if(TacheUnitaire* newtach=new TacheUnitaire(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
+    if(TacheUnitaire* newtach=new TacheUnitaire(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
                                                Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),Duree(hActDuree->value(),mActDuree->value()).getDureeEnMinutes(),Duree(hActDuree->value(),mActDuree->value()),preemptive->checkState()))
     {
         QMessageBox msgBox;
@@ -179,12 +173,7 @@ FenetreCreerTacheComposite::FenetreCreerTacheComposite(){
 }
 
 void FenetreCreerTacheComposite::sauverTacheC(){
-    if (datedispo<dateeche){
-        QMessageBox msgBox;
-        msgBox.setText("La date d'échéance est antérieure à la date de disponibilité...");
-        msgBox.exec();
-    }
-    else if(TacheComposite* newtach=new TacheComposite(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
+    if(TacheComposite* newtach=new TacheComposite(titre->text(),Date(datedispo->date().day(),datedispo->date().month(),datedispo->date().year()),
                                                   Date(dateeche->date().day(),dateeche->date().month(),dateeche->date().year()),(float)1))
     {
         QMessageBox msgBox;

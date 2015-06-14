@@ -410,6 +410,7 @@ programmation& agenda::ajouterProgrammationTache(Tache& t, const TIME::Date& d, 
         QMessageBox msgBox;
         msgBox.setText(msg);
         msgBox.exec();
+        newprog=0;
         return *newprog;
     }
 
@@ -773,12 +774,11 @@ void agenda::SauvegarderCalendrier(){
     mainArray["programmations"] = progsJson;
     doc.setObject(mainArray);
 
-    QFile saveFile("C:/Qt/cal.json");
+    QFile saveFile("/Users/PClem/Documents/COURS/LO21/cal.json");
 
     if (saveFile.open(QIODevice::ReadWrite)) {
         QTextStream stream(&saveFile);
         stream << doc.toJson() << endl;
-//        stream << "poulet" << endl;
     }else{
         //error
         qDebug() << "Probleme avec l'enregistrement";
