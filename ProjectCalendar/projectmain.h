@@ -23,6 +23,8 @@ private slots:
 
     void on_projTreeView_itemActivated(QTreeWidgetItem *item, int column);
 
+    void on_taskProgram_2_clicked();
+
 private:
     Ui::projectMain *ui;
 };
